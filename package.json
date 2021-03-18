@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "next start",
     "export": "yarn build && next export -o _static",
     "cacheDirectories": ".next/cache"
   },
