@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="422" height="211" viewBox="0 0 422 211">
+    <defs>
+        <filter id="background" width="144" height="103.817" x="139" y="34.467" filterUnits="userSpaceOnUse">
+            <feOffset dy="8"/>
+            <feGaussianBlur result="blur" stdDeviation="8"/>
+            <feFlood flood-opacity=".059"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-1{fill:#4d79f6;opacity:.149}
+        </style>
+    </defs>
+    <g id="Group_3453" transform="translate(-417 -1089.831)">
+        <rect id="bar" width="50" height="120" class="cls-1" rx="12" transform="translate(417 1180.831)"/>
+        <rect id="bar-2" width="50" height="66" class="cls-1" rx="12" transform="translate(479 1234.831)"/>
+        <rect id="bar-3" width="50" height="183" class="cls-1" rx="12" transform="translate(541 1117.831)"/>
+        <rect id="bar-4" width="50" height="102" fill="#4d79f6" rx="12" transform="translate(603 1198.831)"/>
+        <rect id="bar-5" width="50" height="53" class="cls-1" rx="12" transform="translate(665 1247.831)"/>
+        <rect id="bar-6" width="50" height="211" class="cls-1" rx="12" transform="translate(727 1089.831)"/>
+        <rect id="bar-7" width="50" height="83" class="cls-1" rx="12" transform="translate(789 1217.831)"/>
+        <g filter="url(#background)" transform="translate(417 1089.83)">
+            <path id="background-2" fill="#464255" d="M591 981.222c0-3.989 4.477-7.222 10-7.222h76c5.523 0 10 3.234 10 7.222v34.667c0 3.989-4.477 7.222-10 7.222h-26.932l-9.284 6.705-9.284-6.705H601c-5.523 0-10-3.233-10-7.222z" transform="translate(-428 -923.53)"/>
+        </g>
+        <text id="_40_000" fill="#fff" font-family="GoogleSans-Medium, Google Sans" font-size="16px" font-weight="500" transform="translate(628 1170.68)">
+            <tspan x="-28.208" y="0">40,000</tspan>
+        </text>
+    </g>
+</svg>
