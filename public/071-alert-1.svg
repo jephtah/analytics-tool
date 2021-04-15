@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25.668" height="25.666" viewBox="0 0 25.668 25.666">
+    <defs>
+        <style>
+            .cls-1{fill:#464255}
+        </style>
+    </defs>
+    <g id="_071-alert-1" transform="translate(-747.165 -194.167)">
+        <path id="Vector" d="M760 219.833a12.836 12.836 0 1 1 4.911-.977 12.867 12.867 0 0 1-4.911.977zm0-23.333a10.5 10.5 0 1 0 4.019.8 10.528 10.528 0 0 0-4.019-.8z" class="cls-1"/>
+        <path id="Vector-2" d="M760 200a1.166 1.166 0 0 0-1.166 1.167v8.167a1.167 1.167 0 0 0 2.333 0v-8.167A1.167 1.167 0 0 0 760 200z" class="cls-1"/>
+        <circle id="Vector-3" cx="1.17" cy="1.17" r="1.17" class="cls-1" transform="translate(758.83 211.66)"/>
+    </g>
+</svg>

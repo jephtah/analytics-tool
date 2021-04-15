@@ -19,3 +19,22 @@ a {
   box-sizing: border-box;
 }
 
+.sidebar-spotify::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f4f9;
+}
+
+.sidebar-spotify::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.content-spotify::-webkit-scrollbar {
+  border-radius: 8px;
+  background-color: #f5f4f9;
+}
+
+.content-spotify::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #fff;
+}

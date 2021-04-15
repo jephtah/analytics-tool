@@ -1,3 +1,4 @@
+import React from 'react'
 import Wrapper from "../../components/wrapper";
 import styles from "./home.module.css";
 
@@ -14,7 +15,6 @@ const index = () => {
                         </div>
                         <div className="flex py-4 text-xs justify-start items-center">
                             <span className="text-green-600 font-medium">+2.5%</span>
-                            
                         </div>
                     </div>
                     <div className="w-72 h-40 px-10 py-6 text-lg rounded-lg bg-white-300-mobicure text-gray-900 ml-6">
@@ -57,11 +57,11 @@ const index = () => {
                     </div>
                     <div className=" text-blue-800 text-2xl pt-2 w-82 h-full">
                         <img src="/graph.svg" />
-                    
+
                     </div>
 
                 </div>
-                <div className="mt-12 w-10/12 h-96 rounded-lg text-gray-900 flex justify-between">    
+                <div className="mt-12 w-10/12 h-96 rounded-lg text-gray-900 flex justify-between">
                    <div className="bg-white-300-mobicure rounded-2xl w-2/4 h-full p-6">
                     <div className="flex justify-between">
                         <div className="text-lg">
@@ -80,7 +80,7 @@ const index = () => {
                     </div>
                     <div className=" text-blue-800 text-2xl pt-2 w-82 h-full">
                         <img src="/chart.svg" />
-                    
+
                     </div>
                    </div>
                    <div className="w-2/4 h-full ml-8">
@@ -111,11 +111,11 @@ const index = () => {
                             </div>
                         </div>
                     </div>
-                        
+
                     </div>
 
                    </div>
-                    
+
                 </div>
                 <div className="mt-12 w-10/12 h-full px-12 py-8 rounded-2xl bg-white-300-mobicure text-gray-900 ">
                     <div className="flex justify-between max-w-full">
@@ -131,55 +131,55 @@ const index = () => {
                                 <img src="/order.svg" className="w-10 h-10"></img>
                             </div>
                             <div className="text-lg flex flex-col">
-                                <span className="text-lg">Black Rider</span>  
-                                <span className="text-xs text-gray-500">November 20th 2015 by 2:00pm</span>  
+                                <span className="text-lg">Black Rider</span>
+                                <span className="text-xs text-gray-500">November 20th 2015 by 2:00pm</span>
                             </div>
                             <div className="text-sm font-medium">Benin</div>
-                            <div className="text-green-500 text-lg font-semibold">N35,000</div> 
+                            <div className="text-green-500 text-lg font-semibold">N35,000</div>
                         </div>
                         <div className="flex justify-between py-4 px-12 items-center">
                             <div>
                                 <img src="/order.svg" className="w-10 h-10"></img>
                             </div>
                             <div className="text-lg flex flex-col">
-                                <span className="text-lg">Big Tipper</span>  
-                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>  
+                                <span className="text-lg">Big Tipper</span>
+                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>
                             </div>
                             <div className="text-sm font-medium">Lagos</div>
-                            <div className="text-green-500 text-lg font-semibold">N35,000</div> 
+                            <div className="text-green-500 text-lg font-semibold">N35,000</div>
                         </div>
                         <div className="flex justify-between py-4 px-12 items-center">
                             <div>
                                 <img src="/order.svg" className="w-10 h-10"></img>
                             </div>
                             <div className="text-lg flex flex-col">
-                                <span className="text-lg">Blue Flame</span>  
-                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>  
+                                <span className="text-lg">Blue Flame</span>
+                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>
                             </div>
                             <div className="text-sm font-medium">Abuja</div>
-                            <div className="text-green-500 text-lg font-semibold">N35,000</div> 
+                            <div className="text-green-500 text-lg font-semibold">N35,000</div>
                         </div>
                         <div className="flex justify-between py-4 px-12 items-center">
                             <div>
                                 <img src="/order.svg" className="w-10 h-10"></img>
                             </div>
                             <div className="text-lg flex flex-col">
-                                <span className="text-lg">Diamond girl</span>  
-                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>  
+                                <span className="text-lg">Diamond girl</span>
+                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>
                             </div>
                             <div className="text-sm font-medium">Abia</div>
-                            <div className="text-green-500 text-lg font-semibold">N35,000</div> 
+                            <div className="text-green-500 text-lg font-semibold">N35,000</div>
                         </div>
                         <div className="flex justify-between py-4 px-12 items-center">
                             <div>
                                 <img src="/order.svg" className="w-10 h-10"></img>
                             </div>
                             <div className="text-lg flex flex-col">
-                                <span className="text-lg">Bank Transfer</span>  
-                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>  
+                                <span className="text-lg">Bank Transfer</span>
+                                <span className="text-xs text-gray-500">September 12th 2020 at 11:56 AM</span>
                             </div>
                             <div className="text-sm font-medium">Lagos</div>
-                            <div className="text-green-500 text-lg font-semibold">N35,000</div> 
+                            <div className="text-green-500 text-lg font-semibold">N35,000</div>
                         </div>
                     </div>
 

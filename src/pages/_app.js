@@ -1,13 +1,8 @@
 import '../../styles/globals.css'
-import Wrapper from "../components/wrapper";
-import Home from './home';
+import React from "react";
 
-function MyApp() {
-  return(
-    <>
-      <Home />
-    </>
-  )
+function MyApp({ Component, pageProps }) {
+    return <Component {...pageProps} />
 }
 
 export default MyApp

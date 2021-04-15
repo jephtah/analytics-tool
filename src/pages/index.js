@@ -1,19 +1,18 @@
 import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
-import App from "./_app";
+import Home from "./home";
+import { Provider } from 'react-redux';
+import { store } from './_helpers/store';
 
-export default function Home() {
+
+export default function index() {
   return (
-    <div className={styles.container}>
+    <Provider>
       <Head>
         <title>MyPaddi Admin</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <App />
-      </main>
-
-    </div>
+      <Home />
+    </Provider>
   )
 }

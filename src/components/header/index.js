@@ -9,7 +9,7 @@ const index = () => {
             </div>
             <div className="flex items-center">
                 <span className="text-sm text-gray-700"> mypaddi_admin</span>
-                <img src="/oval.svg" className="w-6 h-8 ml-2"></img>
+                <img src="/admin.svg" className="w-6 h-8 ml-2"></img>
             </div>
         </div>
     )

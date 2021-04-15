@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25.668" height="25.667" viewBox="0 0 25.668 25.667">
+    <defs>
+        <style>
+            .cls-1{fill:#4d79f6}
+        </style>
+    </defs>
+    <g id="Group_3445" transform="translate(-443.165 -399.166)">
+        <g id="_071-alert-1" transform="translate(0 116)">
+            <path id="Vector" d="M456 308.833a12.839 12.839 0 1 1 4.911-.977 12.869 12.869 0 0 1-4.911.977zm0-23.333a10.5 10.5 0 1 0 4.019.8 10.527 10.527 0 0 0-4.019-.8z" class="cls-1"/>
+            <path id="Vector-2" d="M456 289a1.166 1.166 0 0 0-1.166 1.167v8.166a1.167 1.167 0 0 0 2.333 0v-8.166A1.167 1.167 0 0 0 456 289z" class="cls-1"/>
+            <circle id="Vector-3" cx="1.17" cy="1.17" r="1.17" class="cls-1" transform="translate(454.83 300.66)"/>
+        </g>
+    </g>
+</svg>
