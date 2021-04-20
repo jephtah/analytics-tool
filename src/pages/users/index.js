@@ -1,6 +1,23 @@
+import React, { useEffect } from "react"
 import Wrapper from "../../components/wrapper";
+import { useDispatch, useSelector } from "react-redux"
+
+import { fetchUsers, userSelector } from '../../_reducers/users.reducer'
+
+
 
 const index = _props => {
+
+    const dispatch =  useDispatch()
+    const  users  = useSelector(userSelector)
+
+    useEffect(() => {
+        dispatch(fetchUsers())
+    }, [dispatch])
+
+    console.log(users)
+
+
     return (
         <Wrapper>
             <div className="w-full px-6">
