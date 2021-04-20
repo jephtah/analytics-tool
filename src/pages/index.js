@@ -7,12 +7,12 @@ import store from '../_helpers/store'
 
 export default function index() {
   return (
-    <Provider store={store}>
+    <>
       <Head>
         <title>MyPaddi Admin</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Home />
-    </Provider>
+    </>
   )
 }
