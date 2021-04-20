@@ -2,22 +2,21 @@ import React, { useEffect } from "react"
 import Wrapper from "../../components/wrapper";
 import { useDispatch, useSelector } from "react-redux"
 
-import { fetchUsers, userSelector,  findUsers } from '../../_reducers/users.reducer'
+import { fetchUsers, userSelector } from '../../_reducers/users.reducer'
 
 
 
 const index = _props => {
 
     const dispatch =  useDispatch()
-    //const { users, hasErrors } = useSelector(userSelector)
+    const  users  = useSelector(userSelector)
 
     useEffect(() => {
-        //dispatch(findUsers())
         dispatch(fetchUsers())
-        
     }, [dispatch])
 
-    //if(hasErrors) return <p>Cannot display users</p>
+    console.log(users)
+
 
     return (
         <Wrapper>
