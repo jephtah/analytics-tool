@@ -48,7 +48,7 @@ export function fetchUsers() {
 
 export const { getUsers, getUsersFailure } = usersSlice.actions
 
-export const userSelector = state => state.users
+export const userSelector = state => state
 
 
 

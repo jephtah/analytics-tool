@@ -9,13 +9,15 @@ import { fetchUsers, userSelector } from '../../_reducers/users.reducer'
 const index = _props => {
 
     const dispatch =  useDispatch()
-    const  users  = useSelector(userSelector)
+    const userState = useSelector(state => state.reducer.users.users)
+    const hasError = useSelector(state => state.reducer.hasError)
 
     useEffect(() => {
         dispatch(fetchUsers())
     }, [dispatch])
 
-    console.log(users)
+    console.log(userState)
+    console.log(Array.isArray(userState))
 
 
     return (
