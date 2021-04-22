@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { getUsers } from '../../_reducers/users.reducer'
 import { config } from "../../_config/index"
-import { Token } from "../../_constants/user.constants"
-
-import { fetchData } from "../../_constants/user.constants"
+import { Token, fetchData } from "../../_constants/user.constants"
 
 const { testUrl } = config
 let url = `${testUrl}/admin/manage-users/`

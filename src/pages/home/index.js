@@ -1,8 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Wrapper from "../../components/wrapper";
 import styles from "./home.module.css";
+import { useDispatch, useSelector } from "react-redux"
+import { getHomeData } from "../../_reducers/home.reducer"
+import { config } from "../../_config/index"
+import { Token, fetchData } from "../../_constants/user.constants"
+
+const { testUrl } = config
+let url  = `${testUrl}/admin/home/`
 
 const index = () => {
+
+    const dispatch = useDispatch()
+    const commentState = useSelector(state => state.reducer.home.comments)
+    const signUpState = useSelector(state => state.reducer.home.signups)
+    console.log(Object.keys(signUpState))
+    const topicState = useSelector(state => state.reducer.home.topics)
+    
+    let { comments_today, total_comments, total_comments_monthAgo, total_comments_weekAgo, total_comments_yearAgo } = commentState
+    let { total_users, users_online, total_signups_today, total_signups_weekAgo, total_signups_monthAgo, total_signups_yearAgo} = signUpState
+    let { total_topics, topics_today, total_topics_weekAgo, total_topics_monthAgo, total_topics_yearAgo} = topicState
+
+    useEffect(() => {
+        dispatch(fetchData("GET", url, Token, getHomeData ))
+    }, [dispatch])
+
+    
     return (
         <Wrapper>
             <div className="flex flex-col items-center w-full justify-center">
@@ -10,7 +33,7 @@ const index = () => {
                     <div className="w-72 h-40 px-10 py-6 text-lg rounded-lg bg-white-300-mobicure text-gray-900">
                         <div className="text-base">Total Users</div>
                         <div className="flex justify-between items-center pt-2">
-                            <span className="text-3xl ">81,459</span>
+                            <span className="text-3xl ">{total_users}</span>
                             <img src="/total-users.svg" className="w-12 h-11" alt="total-users"/>
                         </div>
                         <div className="flex py-4 text-xs justify-start items-center">
@@ -20,7 +43,7 @@ const index = () => {
                     <div className="w-72 h-40 px-10 py-6 text-lg rounded-lg bg-white-300-mobicure text-gray-900 ml-6">
                         <div className="text-base">Zone Topics</div>
                         <div className="flex justify-between items-center pt-2">
-                            <span className="text-3xl ">15,943</span>
+                            <span className="text-3xl ">{total_topics}</span>
                             <img src="/zone-topics.svg" className="w-12 h-11" alt="total-users"/>
                         </div>
                         <div className="flex py-4 text-xs justify-start items-center">
@@ -34,7 +57,7 @@ const index = () => {
                     <div className="w-72 h-40 px-10 py-6 text-lg rounded-lg bg-white-300-mobicure text-gray-900 ml-6">
                         <div className="text-base">Sign ups</div>
                         <div className="flex justify-between items-center pt-2">
-                            <span className="text-3xl ">23,646</span>
+                            <span className="text-3xl ">{total_signups_yearAgo}</span>
                             <img src="/sign-ups.svg" className="w-12 h-11" alt="total-users"/>
                         </div>
                         <div className="flex py-4 text-xs justify-start items-center">
@@ -105,9 +128,9 @@ const index = () => {
                             User Online
                         </div>
                         <div className="flex text-xs items-center">
-                            <span className="text-gray-400">421 </span>
+                            <span className="text-gray-400">{users_online} </span>
                             <div className="flex">
-                                <span className="text-green-500 ml-5">of 81,589</span>
+                                <span className="text-green-500 ml-5">{`of ${total_users}`}</span>
                             </div>
                         </div>
                     </div>
