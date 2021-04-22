@@ -1,9 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { config } from "../_config/index"
-import { Token } from "../_constants/user.constants"
-const { testUrl } = config
+import { createSlice } from "@reduxjs/toolkit"
 
-let url = `${testUrl}/admin/manage-users/`
+
 
 export const initialState = {
     users: [],
@@ -15,7 +12,7 @@ const usersSlice = createSlice({
     initialState,
     reducers: {
         getUsers: (state, { payload }) => {
-            state.users = payload
+            state.users = payload.users
             state.hasErrors = false
         },
 
@@ -24,27 +21,6 @@ const usersSlice = createSlice({
         },
     },
 })
-
-export function fetchUsers() {
-    return async dispatch => {
-        
-        try {
-            let h = new Headers()
-            h.append('Authorization', `Bearer ${Token}`)
-            const response = await fetch(`${url}`, {
-                method:"GET",
-                mode: 'cors',
-                headers: h
-            })
-            const data = await response.json()
-            dispatch(getUsers(data.data.users))
-        } catch (error) {
-            console.log(error)
-        }
-    }
-   
-}
-
 
 export const { getUsers, getUsersFailure } = usersSlice.actions
 
