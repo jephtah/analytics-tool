@@ -1,6 +1,24 @@
+import React, {useEffect} from "react"
 import Wrapper from "../../components/wrapper";
+import { useDispatch, useSelector } from "react-redux"
+import { getPosts } from "../../_reducers/posts.reducer"
+import {config } from "../../_config/index"
+import { Token, fetchData } from "../../_constants/user.constants"
+
+const { testUrl }  = config
+let url = `${testUrl}/admin/manage-topics/`
 
 const index = _props => {
+
+    const dispatch = useDispatch()
+    const postState = useSelector(state => state.reducer.posts.posts)
+    console.log(postState)
+    
+    useEffect(() => {
+        dispatch(fetchData("GET", url, Token, getPosts ))
+    }, [dispatch])
+
+
     return (
         <Wrapper>
             <div className="flex px-24 mt-12 w-full">

@@ -14,7 +14,6 @@ const index = () => {
     const dispatch = useDispatch()
     const commentState = useSelector(state => state.reducer.home.comments)
     const signUpState = useSelector(state => state.reducer.home.signups)
-    console.log(Object.keys(signUpState))
     const topicState = useSelector(state => state.reducer.home.topics)
     
     let { comments_today, total_comments, total_comments_monthAgo, total_comments_weekAgo, total_comments_yearAgo } = commentState
