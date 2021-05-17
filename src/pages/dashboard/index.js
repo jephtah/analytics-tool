@@ -182,7 +182,12 @@ const index = () => {
                             <div className="text-green-500 text-lg font-semibold">N35,000</div>
                         </div>
                     </div>
-
+                    <div className={`flex justify-center mt-10 `}>
+                        <div className={`w-40 flex gap-x-6 justify-center rounded-3xl py-3 font-bold text-xl ${styles.button}`}>
+                            <h2>Load More</h2>
+                            <img src="/078-down-chevron.svg" alt="arrow down"/>
+                        </div>                                         
+                    </div>
                 </div>
             </div>
         </Wrapper>
