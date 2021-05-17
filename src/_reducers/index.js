@@ -1,9 +1,15 @@
 //import { registrationReducer } from "./registration.reducer";
-import  usersReducer  from "./users.reducer"
-import { combineReducers } from "@reduxjs/toolkit"
+import { users }  from "./users.reducer";
+import { accounts } from "./accounts.reducer";
+import { sessions } from "./sessions.reducer";
+import { zones } from "./zone.reducer";
+import { combineReducers } from "redux";
 
-export default combineReducers({
-    //auth: authenticationReducer,
-    //errors: registrationReducer,
-    users: usersReducer
+const rootReducer = combineReducers({
+    users,
+    accounts,
+    sessions,
+    zones
 })
+
+export default rootReducer;

@@ -1,6 +1,7 @@
 import Header from '../header';
 import Footer from '../footer';
 import styles from "./wrapper.module.scss";
+import Link from 'next/link'
 import LeftBar from "../Sidebar/leftBar";
 
 const Index = ({ children }) => {
@@ -12,26 +13,46 @@ const Index = ({ children }) => {
                     {/* <div className={styles.background}> */}
                     <ul className="mx-4 mt-20">
                         <li>
-                            <a href="#" className="flex items-center mx-4  group">
-                            <img src="/home.svg" className="w-7 h-5"></img>
-                                <span className="ml-4">Home</span>
-                            </a>
-
+                            <Link href="/dashboard">
+                                <a href="#" className="flex items-center mx-4  group">
+                                    <img src="/home.svg" className="w-7 h-5"></img>
+                                    <span className="ml-4">Dashboard</span>
+                                </a>
+                            </Link>
                         </li>
 
                         <li>
                             <a href="#" className="flex items-center mx-4 mt-4 group">
                             <img src="/manage.svg" className="w-7 h-5"></img>
-                                <span className="ml-4">Manage</span>
+                                <span className="ml-4">Manage</span><span className="mt-1 ml-2">^</span>
                             </a>
 
                         </li>
-                        <li>
-                            <a href="#" className="flex items-center mx-4 mt-4 group">
-                            <img src="/sessions.svg" className="w-7 h-5"></img>
-                                <span className="ml-4">Sessions</span>
-                            </a>
+                        <div className="ml-16 font-light text-xs text-sidebar-color leading-extra-loose text-blue-600">
+                            <ul>
+                                <Link href="/zone">
+                                    <li className="cursor-pointer">The Zone Topics</li>
+                                </Link>
+                                <Link href="/users">
+                                    <li className="cursor-pointer">Users</li>
+                                </Link>
+                                <Link href="/accounts">
+                                    <li className="cursor-pointer text-active-sidebar">Accounts</li>
+                                </Link>
+                                <Link href="/coupons">
+                                    <li className="cursor-pointer">Coupons</li>
+                                </Link>
 
+                            </ul>
+                        </div>
+                        <li>
+                            <Link href="/sessions">
+
+                                <a href="#" className="flex items-center mx-4 mt-4 group">
+                                <img src="/sessions.svg" className="w-7 h-5"></img>
+                                    <span className="ml-4">Sessions</span>
+                                </a>
+                            </Link>
                         </li>
                     </ul>
                     </div>

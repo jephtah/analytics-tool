@@ -1,9 +1,28 @@
+import React, {useEffect} from 'react';
 import Wrapper from "../../components/wrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { zoneActions } from "../../_actions/zone.actions";
 
 const index = _props => {
+
+    const zones  = useSelector(state => state.zones);
+    const dispatch =  useDispatch()
+
+    useEffect(() => {
+        dispatch(zoneActions.getAll())
+    }, [])
+
+    let post_data;
+
+    if(zones.zones) {
+        post_data = zones.zones.posts
+    }
+
+    console.log('Here', post_data)
+
     return (
         <Wrapper>
-            <div className="flex px-24 mt-12 w-full">
+            <div className="flex mt-12 w-full">
                 <div>
                     <div className="flex items-center">
                         <img src="/071-alert-1.svg"/>
@@ -51,7 +70,28 @@ const index = _props => {
                                 <img src="/078-down-chevron.svg"/>
                             </div>
                         </div>
-                        <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4 mt-10">
+                        { post_data ? post_data.map(post => 
+                            <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4 mt-10">
+                            <div>
+                                <span className="text-xs ml-9 "> {post.created_at}</span>
+                            </div>
+                            <div className="flex mt-1">
+                                <img src="/090-uncheck-mark-1.svg"/>
+                                <span className="ml-3 text-sm text-black">{post.title}</span>
+                            </div>
+                        </div>
+                        ):<div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
+                        <div>
+                            <span className="text-xs ml-9"> January 24th, 2021 04:25 PM</span>
+                        </div>
+                        <div className="flex mt-1">
+                            <img src="/090-check-mark-1.svg"/>
+                            <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
+                        </div>
+                    </div> }
+                        
+{/*                         
+                        <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
                             <div>
                                 <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
                             </div>
@@ -60,9 +100,9 @@ const index = _props => {
                                 <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
                             </div>
                         </div>
-                        <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
+                        <div className="flex-1 bg-white rounded-2xl h-20  px-6 mt-4">
                             <div>
-                                <span className="text-xs ml-9"> January 24th, 2021 04:25 PM</span>
+                                <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
                             </div>
                             <div className="flex mt-1">
                                 <img src="/090-check-mark-1.svg"/>
@@ -83,28 +123,10 @@ const index = _props => {
                                 <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
                             </div>
                             <div className="flex mt-1">
-                                <img src="/090-check-mark-1.svg"/>
-                                <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
-                            </div>
-                        </div>
-                        <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
-                            <div>
-                                <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
-                            </div>
-                            <div className="flex mt-1">
                                 <img src="/090-uncheck-mark-1.svg"/>
                                 <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
                             </div>
-                        </div>
-                        <div className="flex-1 bg-white rounded-2xl h-20  px-6 mt-4">
-                            <div>
-                                <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
-                            </div>
-                            <div className="flex mt-1">
-                                <img src="/090-uncheck-mark-1.svg"/>
-                                <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
-                            </div>
-                        </div>
+                        </div> */}
                         <div className="flex justify-between mt-8 items-center">
                             <div className="rounded-xl bg-blue-500 px-12 py-4 text-white">
                                 Save Changes

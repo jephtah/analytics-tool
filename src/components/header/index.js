@@ -2,7 +2,7 @@ import React from 'react'
 
 const index = () => {
     return (
-        <div className="flex justify-between w-10/12">
+        <div className="flex justify-between w-full">
             <div className="flex-1">
                 <span className="text-2xl text-gray-700"> Dashboard</span>
                 <span className="text-sm ml-4">myPaddi Analytical tool</span>

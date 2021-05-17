@@ -1,9 +1,5 @@
 import Head from 'next/head'
-import styles from '../../styles/Home.module.css'
-import Home from "./home";
-import { Provider } from 'react-redux';
-import store from '../_helpers/store'
-
+import {Login} from "./login"
 
 export default function index() {
   return (
@@ -12,7 +8,7 @@ export default function index() {
         <title>MyPaddi Admin</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Home />
+      <Login />
     </>
   )
 }

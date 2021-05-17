@@ -8,7 +8,10 @@ module.exports = {
                 'gray-700-spotify': '#282828',
                 'gray-800-spotify': '#181818',
                 'gray-900-spotify': '#121212',
-                'white-300-mobicure': '#f5f4f9'
+                'white-300-mobicure': '#f5f4f9',
+                'login-blue': '#005',
+                'sidebar-color': '#8894b4',
+                'active-sidebar': '#4d79f6'
             },
             spacing:{
                 '72':'18rem'

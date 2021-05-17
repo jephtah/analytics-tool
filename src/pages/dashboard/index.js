@@ -6,7 +6,7 @@ const index = () => {
     return (
         <Wrapper>
             <div className="flex flex-col items-center w-full justify-center">
-                <div className="flex justify-between w-10/12">
+                <div className="flex justify-between w-full">
                     <div className="w-72 h-40 px-10 py-6 text-lg rounded-lg bg-white-300-mobicure text-gray-900">
                         <div className="text-base">Total Users</div>
                         <div className="flex justify-between items-center pt-2">
@@ -46,7 +46,7 @@ const index = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-12 w-10/12 h-80 p-8 rounded-2xl bg-white-300-mobicure text-gray-900">
+                <div className="mt-12 w-full h-80 p-8 rounded-2xl bg-white-300-mobicure text-gray-900">
                     <div className="flex justify-between max-w-full">
                         <div className="text-lg">Active Users</div>
                         <div className="flex items-center ">
@@ -61,7 +61,7 @@ const index = () => {
                     </div>
 
                 </div>
-                <div className="mt-12 w-10/12 h-96 rounded-lg text-gray-900 flex justify-between">
+                <div className="mt-12 w-full h-96 rounded-lg text-gray-900 flex justify-between">
                    <div className="bg-white-300-mobicure rounded-2xl w-2/4 h-full p-6">
                     <div className="flex justify-between">
                         <div className="text-lg">
@@ -117,7 +117,7 @@ const index = () => {
                    </div>
 
                 </div>
-                <div className="mt-12 w-10/12 h-full px-12 py-8 rounded-2xl bg-white-300-mobicure text-gray-900 ">
+                <div className="mt-12 w-full h-full px-12 py-8 rounded-2xl bg-white-300-mobicure text-gray-900 ">
                     <div className="flex justify-between max-w-full">
                         <div className="text-lg font-semibold text-gray-700">Shop order history</div>
                         <div className="flex items-center ">

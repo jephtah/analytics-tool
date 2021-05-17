@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="43.901" height="25.933" viewBox="0 0 43.901 25.933">
+    <defs>
+        <filter id="i97xf69r7a" width="24.575" height="24.575" x="0" y=".358" filterUnits="userSpaceOnUse">
+            <feOffset/>
+            <feGaussianBlur result="blur" stdDeviation=".5"/>
+            <feFlood flood-opacity=".122"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="jd31fl5qwb" width="24.575" height="24.575" x="0" y="1.358" filterUnits="userSpaceOnUse">
+            <feOffset dy="1"/>
+            <feGaussianBlur result="blur-2" stdDeviation=".5"/>
+            <feFlood flood-opacity=".239"/>
+            <feComposite in2="blur-2" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g>
+        <path fill="none" d="M0 0H42.151V25.29H0z" transform="translate(1.75)"/>
+        <path fill="rgba(34,31,31,0.26)" d="M31.452 19.753H10.376a7.376 7.376 0 1 1 0-14.753h21.076a7.376 7.376 0 1 1 0 14.753z" transform="translate(1.75) translate(.161 .269)"/>
+        <g>
+            <g filter="url(#i97xf69r7a)" transform="translate(1.75) translate(0 2.108) translate(-1.75 -2.11)">
+                <circle cx="10.538" cy="10.538" r="10.538" fill="#f1f1f1" stroke="rgba(255,255,255,0.8)" stroke-width="0.5px" transform="translate(1.75 2.11)"/>
+            </g>
+            <g filter="url(#jd31fl5qwb)" transform="translate(1.75) translate(0 2.108) translate(-1.75 -2.11)">
+                <circle cx="10.538" cy="10.538" r="10.538" fill="#f1f1f1" stroke="rgba(255,255,255,0.12)" stroke-width="0.5px" transform="translate(1.75 2.11)"/>
+            </g>
+        </g>
+    </g>
+</svg>
