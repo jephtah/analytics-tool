@@ -19,7 +19,7 @@ export default function login (props) {
 
     const checkSecret = (secret) => {
         if (secret === '12345678') {
-            return {username: 'vicsoft', password: 'damilola'}
+            return {username: 'test_admin', password: '123456'}
         } else {
             return {username: 'wrong', password: 'wrong'}
         }
@@ -27,7 +27,7 @@ export default function login (props) {
 
     // reset login status
     useEffect(() => {
-        // dispatch(userActions.logout());
+        //dispatch(userActions.logout());
     }, []);
 
     function handleChange(e) {

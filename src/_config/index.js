@@ -1,5 +1,6 @@
 const config = {
-    testUrl: "http://testapi.mypaddiapp.com/api/v1",
+    //testUrl: "http://newapi.mypaddiapp.com/",
+    testUrl: "http://newapi.mypaddiapp.com/api/v1",
     mainUrl: "https://testingNonsense"
 };
 
