@@ -22,7 +22,7 @@ const Modal = props =>
 
     const handleEscape = e => 
     {
-        if (visibleRef.current && e.key ===" Escape")
+        if (visibleRef.current && e.key ==="Escape")
         {
             cancel()
         }
@@ -63,8 +63,7 @@ const Modal = props =>
                 {children}
                 {cancel && 
                 <div onClick={cancel}>
-                    <div className={styles.bar} />
-                    <div className={styles.bar} />
+                    <img alt="close" src="/delete.svg" className={styles.bar}/>
                 </div>
                 }
             </div>
@@ -72,3 +71,5 @@ const Modal = props =>
     )
 }
 
+
+export default Modal
