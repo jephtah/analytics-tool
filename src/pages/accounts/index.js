@@ -73,11 +73,11 @@ function accounts () {
         return (
             <Modal visible={visible} cancel={cancel} className="">
                 <div>
-                    <div onClick={console.log("I clicked the edit button")}>
+                    <div>
                         Edit
                     </div>
                     <hr/>
-                    <div onClick={console.log("i clicked on the delete button")}>
+                    <div>
                         Delete
                     </div>
                 </div>
@@ -88,64 +88,130 @@ function accounts () {
     const CouponsModal = props =>
     {
         const [coinTypes, setCoinTypes] = useState("")
+        const [showWarningModal, setShowWarningModal] = useState(false)
         const {visible, cancel, cancelIcon, coinTypeOptions} = props
+
+        const displayWarningModal = () =>
+        {
+            setShowWarningModal(true)
+        }
+
+        const dismissWarningModal = () =>
+        {
+            setShowWarningModal(false)
+        }
+
+        const WarningModal = props =>
+        {
+            const { visible, cancel } = props
+
+            return (
+                <>
+                    <Modal visible={visible}>
+                        <div>
+                            <h1>Warning!</h1>
+                            <p>Are you sure you want to delete this coupon?</p>
+
+                            <div>
+                                <button onClick={cancel}>Cancel</button>
+                                <button>Delete Coupon</button>
+                            </div>
+                        </div>
+                    </Modal>
+                    
+                    <WarningModal
+                        cancel={dismissWarningModal}
+                        visible={showWarningModal}
+                    />
+                </>               
+            )
+        }
 
 
         return (
             <Modal visible={visible} cancel={cancel} cancelIcon = {cancelIcon}>
-                <div>
+                <div className="mx-8">
                     <div className="mb-8">
-                        <h1 className="text-4xl">Coupons</h1>
+                        <h1 className="text-4xl text-gray-700">Coupons</h1>
                     </div>
-                    
-                    <div></div>
+                    <div className="my-6 w-full bg-gray-100 rounded-lg">
+
+                        <div className="p-4">
+                            <table className="table-auto w-full border-collapse">
+                                <thead className="">
+                                    <tr className="border-b-2 border-solid border-gray-400">
+                                        <th className="text-left text-2xl font-light">coupon name</th>
+                                        <th className="text-left text-2xl font-light">no. of coupon</th>
+                                        <th className="text-left text-2xl font-light">no of coupon used</th>
+                                        <th className=""> </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="mt-4">
+                                    <tr className="">
+                                        <td>MYPADDICARES</td>
+                                        <td>200</td>
+                                        <td>167</td>
+                                        <td className="text-red-700 font-bold" onClick={() => displayWarningModal()}>Delete Coupon</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alex MyPaddi</td>
+                                        <td>50</td>
+                                        <td>67</td>
+                                        <td className="text-red-700 font-bold">Delete Coupon</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
                     <div>
-                        <h1 className="text-4xl"> Create Coupon</h1>
+                        <h1 className="text-4xl text-gray-700"> Create Coupon</h1>
 
                         <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl"> Coin Type</label>
-                            <select name="coin type" className="h-16 border-solid border-2 rounded-sm border-blue-400" >
-                                <option value="select">Select</option>
+                            <label className="mb-5 text-2xl text-gray-700"> Coin Type</label>
+                            <select name="coin type" className="h-16 text-3xl border-solid border-2 rounded-lg border-blue-400 outline-none" >
+                                <option value="select" className="text-2xl text-gray-700 bl-4">Select</option>
                                 {
                                     coinTypeOptions ?
                                     coinTypeOptions.map((coinType, key) => {
-                                        return <option key={key} value={coinType} className="text2xl">{coinType}</option>
+                                        return <option key={key} value={coinType} className="text2xl text-gray-700 pl-4">{coinType}</option>
                                     }) : null 
                                 }
                             </select>
                         </div>
 
                         <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl">Coin Type</label>
-                            <select name="coin type" className="h-16 border-solid border-2 rounded-sm border-blue-400">
-                                <option value="select" disabled>Select</option>
+                            <label className="mb-5 text-2xl text-gray-700">Coin Type</label>
+                            <select name="coin type" className="h-16 border-solid border-2 text-3xl rounded-lg border-blue-400 outline-none">
+                                <option value="select"className="text-2xl text-gray-700 pl-4">Select</option>
                                 {
                                     coinTypeOptions ?
                                     coinTypeOptions.map((coinTypes, key) => {
-                                        return <option key={key} value={coinTypes} className="text2xl">{coinTypes}</option>
+                                        return <option key={key} value={coinTypes} className="text-3xl text-gray-700 pl-4 ">{coinTypes}</option>
                                     }) : null 
                                 }
                             </select>
                         </div>
 
                         <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl">Coupon code (min length 7 - max length 10)</label>
-                            <input type="text" maxLength="10" minLength="7" className="h-16 border-solid border-2 rounded-sm border-blue-400"/>
+                            <label className="mb-5 text-2xl text-gray-700">Coupon code (min length 7 - max length 10)</label>
+                            <input type="text" maxLength="10" minLength="7" className="h-16 text-3xl border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none"/>
                         </div>
 
                         <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl">Expires in (days)</label>
-                            <input type="number" className="h-16 border-solid border-2 rounded-sm border-blue-400"/>
+                            <label className="mb-5 text-2xl text-gray-700">Expires in (days)</label>
+                            <input type="number" className="h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none text-3xl"/>
                         </div>
                         
                         <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl">How many coupons to generate</label>
-                            <input type="number" className="h-16 border-solid border-2 rounded-sm border-blue-400"/>
+                            <label className="mb-5 text-2xl text-gray-700">How many coupons to generate</label>
+                            <input type="number" className=" text-3xl h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none"/>
                         </div>
                     </div>
 
-                    <div>
-                        <button>Save Coupon</button>
+                    <div className=" flex justify-center mt-4">
+                        <button className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4">Save Coupon</button>
                     </div>
                     
                 </div>
@@ -164,11 +230,11 @@ function accounts () {
                 <h1>Edit Account</h1>
                 <div>
                     <div>
-                        <label for="username">Change username</label>
+                        <label htmlFor="username">Change username</label>
                         <input type="text" value={username} onChange={() => setUserName(value)}/>
                     </div>
                     <div>
-                        <label for="Account type">Accont Type</label>
+                        <label htmlFor="Account type">Accont Type</label>
                         <select name="account type">
                             <option value="select" disabled>Select</option>
                             {
@@ -210,7 +276,7 @@ function accounts () {
                                 </div>
                                 <div className="flex flex-col mt-5">
                                     <span className="text-black ">{account.username}</span>
-                                    <span className="text-xs mt-2 text-gray-400">Joined: {account.created_at.split('T')[0]}</span>
+                                    <span className="text-xs mt-2 text-gray-700">Joined: {account.created_at.split('T')[0]}</span>
                                 </div>
                             </div>
                             <div className="text-xs flex mt-5">
