@@ -80,9 +80,9 @@ function accounts () {
         return (
             <Modal visible={visible} cancel={cancel} className="w-12">
                 <div className="flex flex-col">
-                    <button className=" px-6 text-lg text-gray-700" onClick={() => displayEditAccountModal()}>Edit</button>
+                    <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayEditAccountModal()}>Edit</button>
                     <hr className="w-full border-gray-500"/>
-                    <button className=" px-6 text-lg text-gray-700" onClick={() => displayWarningModal()}>Delete</button>
+                    <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayWarningModal()}>Delete</button>
                 </div>
             </Modal>
         )
@@ -94,14 +94,14 @@ function accounts () {
 
             return (
                 <>
-                    <Modal visible={visible}>
-                        <div>
-                            <h1>Warning!</h1>
-                            <p>Are you sure you want to delete this coupon?</p>
+                    <Modal visible={visible} className="w-1/2">
+                        <div className="flex flex-col justify-center content-center">
+                            <h1 className="text-3xl mb-4 text-center font-bold">Warning!</h1>
+                            <p className="text-center text-2xl font-semibold">Are you sure you want to delete this coupon?</p>
 
-                            <div>
-                                <button onClick={cancel}>Cancel</button>
-                                <button>Delete Coupon</button>
+                            <div className="flex w-full justify-center mt-4">
+                                <button onClick={cancel} className="mr-6 p-4 w-48 bg-gray-50 text-blue-700 text-xl border-solid border-2 rounded-lg">Cancel</button>
+                                <button className="mr-4 p-4 w-48 bg-blue-600 text-white text-xl border-solid border-2 rounded-lg">Delete Coupon</button>
                             </div>
                         </div>
                     </Modal>
