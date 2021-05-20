@@ -95,52 +95,57 @@ function accounts () {
             <Modal visible={visible} cancel={cancel} cancelIcon = {cancelIcon}>
                 <div>
                     <div className="mb-8">
-                        <h1 className="text-3xl">Coupons</h1>
+                        <h1 className="text-4xl">Coupons</h1>
                     </div>
                     
                     <div></div>
                     <div>
-                        <h1> Create Coupon</h1>
-                        <div>
-                            <label>Coin Type</label>
-                            <select name="coint type">
-                                <option value="select" disabled>Select</option>
+                        <h1 className="text-4xl"> Create Coupon</h1>
+
+                        <div className="my-6 flex flex-col">
+                            <label className="mb-5 text-2xl"> Coin Type</label>
+                            <select name="coin type" className="h-16 border-solid border-2 rounded-sm border-blue-400" >
+                                <option value="select">Select</option>
                                 {
                                     coinTypeOptions ?
                                     coinTypeOptions.map((coinType, key) => {
-                                        return <option key={key} value={coinType} onSelect={() => setCoinTypes(value)} >{coinType}</option>
+                                        return <option key={key} value={coinType} className="text2xl">{coinType}</option>
                                     }) : null 
                                 }
                             </select>
                         </div>
 
-                        <div>
-                            <label>Coin Type</label>
-                            <select name="coint type">
+                        <div className="my-6 flex flex-col">
+                            <label className="mb-5 text-2xl">Coin Type</label>
+                            <select name="coin type" className="h-16 border-solid border-2 rounded-sm border-blue-400">
                                 <option value="select" disabled>Select</option>
                                 {
                                     coinTypeOptions ?
                                     coinTypeOptions.map((coinTypes, key) => {
-                                        return <option key={key} value={coinTypes}>{coinTypes}</option>
+                                        return <option key={key} value={coinTypes} className="text2xl">{coinTypes}</option>
                                     }) : null 
                                 }
                             </select>
                         </div>
 
-                        <div>
-                            <label>Coupon code (min length 7 - max length 10)</label>
-                            <input type="text" maxLength="10" minLength="7"/>
+                        <div className="my-6 flex flex-col">
+                            <label className="mb-5 text-2xl">Coupon code (min length 7 - max length 10)</label>
+                            <input type="text" maxLength="10" minLength="7" className="h-16 border-solid border-2 rounded-sm border-blue-400"/>
                         </div>
 
-                        <div>
-                            <label>Expires in (days)</label>
-                            <input type="number"/>
+                        <div className="my-6 flex flex-col">
+                            <label className="mb-5 text-2xl">Expires in (days)</label>
+                            <input type="number" className="h-16 border-solid border-2 rounded-sm border-blue-400"/>
                         </div>
                         
-                        <div>
-                            <label>How many coupons to generate</label>
-                            <input type="number" />
+                        <div className="my-6 flex flex-col">
+                            <label className="mb-5 text-2xl">How many coupons to generate</label>
+                            <input type="number" className="h-16 border-solid border-2 rounded-sm border-blue-400"/>
                         </div>
+                    </div>
+
+                    <div>
+                        <button>Save Coupon</button>
                     </div>
                     
                 </div>
