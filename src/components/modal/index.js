@@ -3,7 +3,7 @@ import styles from "./modal.module.scss";
 
 const Modal = props => 
 {
-    const { children, visible, cancel = () => {}, isConfirm } = props
+    const { children, visible, cancel = () => {}, isConfirm, cancelIcon } = props
     const modalRef = useRef(null)
     const visibleRef = useRef(visible)
 
@@ -13,7 +13,7 @@ const Modal = props =>
     const handleClose = e => 
     {
         const modalBody = modalRef.current
-        if(!modalBody || modalBody.contains(e.target))
+        if(!modalBody || !modalBody.contains(e.target))
         {
             if(visibleRef.current)
                 cancel()
@@ -61,10 +61,11 @@ const Modal = props =>
                 ].join(" ")}
             >
                 {children}
-                {cancel && 
+                {cancel ? 
                 <div onClick={cancel}>
-                    <img alt="close" src="/delete.svg" className={styles.bar}/>
-                </div>
+                    <div className={styles.bar}/>
+                    <div className={styles.bar}/>
+                </div> : null
                 }
             </div>
         </div>

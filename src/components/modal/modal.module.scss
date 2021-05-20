@@ -29,13 +29,13 @@
         border-radius: 0.5rem;
         background-color: white;
         padding: 4rem 2rem 2rem;
-        min-width: 50vw;
         display: flex;
         flex-direction: column;
         transform: scale(0.01);
         transition: 0.2s ease-out;
         overflow-x: auto;
         max-height: 97vh;
+        width:50vw;
         &.confirm
         {
             padding: 1.5rem;
