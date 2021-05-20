@@ -11,6 +11,8 @@ function accounts () {
     const [showEditAccountModal, setShowEditAccountModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showCouponsModal, setShowCouponsModal] = useState(false)
+    const [showWarningModal, setShowWarningModal] = useState(false)
+
 
     let  accounts  = useSelector(state => state.accounts);
     const dispatch =  useDispatch()
@@ -23,9 +25,23 @@ function accounts () {
     // console.log("accounts", accounts.accounts)
     accounts = accounts.accounts
 
+        
+
+    const displayWarningModal = () =>
+    {
+        setShowWarningModal(true)
+        setShowEditAccountModal(false)
+    }
+
+    const dismissWarningModal = () =>
+    {
+        setShowWarningModal(false)
+    }
+
     const displayEditAccountModal = () => 
     {
         setShowEditAccountModal(true)
+        setShowModal(false)
     }
 
     const dismissEditAccountModal = () =>
@@ -33,15 +49,6 @@ function accounts () {
         setShowEditAccountModal(false)
     }
 
-    const displayDeleteModal = () => 
-    {
-        setShowDeleteModal(true)
-    }
-
-    const dismissDeleteModal = () =>
-    {
-        setShowDeleteModal(false)
-    }
 
     const displayEditDeleteModal = () => 
     {
@@ -56,6 +63,7 @@ function accounts () {
     const displayCouponsModal = () => 
     {
         setShowCouponsModal(true)
+        setShowModal(false)
     }
 
     const dismissCouponsModal = () => 
@@ -67,41 +75,20 @@ function accounts () {
 
     const EditDeleteModal = props => 
     {
-        const {visible, cancel, routes } = props
-        //const [route1, route2] = routes
+        const {visible, cancel } = props
 
         return (
-            <Modal visible={visible} cancel={cancel} className="">
-                <div>
-                    <div>
-                        Edit
-                    </div>
-                    <hr/>
-                    <div>
-                        Delete
-                    </div>
+            <Modal visible={visible} cancel={cancel} className="w-12">
+                <div className="flex flex-col">
+                    <button className=" px-6 text-lg text-gray-700" onClick={() => displayEditAccountModal()}>Edit</button>
+                    <hr className="w-full border-gray-500"/>
+                    <button className=" px-6 text-lg text-gray-700" onClick={() => displayWarningModal()}>Delete</button>
                 </div>
             </Modal>
         )
     }
 
-    const CouponsModal = props =>
-    {
-        const [coinTypes, setCoinTypes] = useState("")
-        const [showWarningModal, setShowWarningModal] = useState(false)
-        const {visible, cancel, cancelIcon, coinTypeOptions} = props
-
-        const displayWarningModal = () =>
-        {
-            setShowWarningModal(true)
-        }
-
-        const dismissWarningModal = () =>
-        {
-            setShowWarningModal(false)
-        }
-
-        const WarningModal = props =>
+    const WarningModal = props =>
         {
             const { visible, cancel } = props
 
@@ -119,52 +106,54 @@ function accounts () {
                         </div>
                     </Modal>
                     
-                    <WarningModal
-                        cancel={dismissWarningModal}
-                        visible={showWarningModal}
-                    />
                 </>               
             )
         }
 
+    const CouponsModal = props =>
+    {
+        const [coinTypes, setCoinTypes] = useState("")
+        const {visible, cancel, cancelIcon, coinTypeOptions} = props
 
         return (
-            <Modal visible={visible} cancel={cancel} cancelIcon = {cancelIcon}>
-                <div className="mx-8">
-                    <div className="mb-8">
-                        <h1 className="text-4xl text-gray-700">Coupons</h1>
-                    </div>
-                    <div className="my-6 w-full bg-gray-100 rounded-lg">
-
-                        <div className="p-4">
-                            <table className="table-auto w-full border-collapse">
-                                <thead className="">
-                                    <tr className="border-b-2 border-solid border-gray-400">
-                                        <th className="text-left text-2xl font-light">coupon name</th>
-                                        <th className="text-left text-2xl font-light">no. of coupon</th>
-                                        <th className="text-left text-2xl font-light">no of coupon used</th>
-                                        <th className=""> </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="mt-4">
-                                    <tr className="">
-                                        <td>MYPADDICARES</td>
-                                        <td>200</td>
-                                        <td>167</td>
-                                        <td className="text-red-700 font-bold" onClick={() => displayWarningModal()}>Delete Coupon</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alex MyPaddi</td>
-                                        <td>50</td>
-                                        <td>67</td>
-                                        <td className="text-red-700 font-bold">Delete Coupon</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
+            <Modal visible={visible} cancel={cancel} cancelIcon = {cancelIcon} className="w-96">
+                <div className="w-full">
+                    <div className="mx-8">
+                        <div className="mb-8">
+                            <h1 className="text-4xl text-gray-700">Coupons</h1>
                         </div>
-                        
+                        <div className="my-6 w-full bg-gray-100 rounded-lg">
+
+                            <div className="p-4">
+                                <table className="table-auto w-full border-collapse">
+                                    <thead className="">
+                                        <tr className="border-b-2 border-solid border-gray-400">
+                                            <th className="text-left text-2xl font-light">coupon name</th>
+                                            <th className="text-left text-2xl font-light">no. of coupon</th>
+                                            <th className="text-left text-2xl font-light">no of coupon used</th>
+                                            <th className=""> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="mt-4">
+                                        <tr className="">
+                                            <td>MYPADDICARES</td>
+                                            <td>200</td>
+                                            <td>167</td>
+                                            <td className="text-red-700 font-bold" onClick={() => displayWarningModal()}>Delete Coupon</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alex MyPaddi</td>
+                                            <td>50</td>
+                                            <td>67</td>
+                                            <td className="text-red-700 font-bold">Delete Coupon</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>      
+                        </div>
                     </div>
+                
                     <div>
                         <h1 className="text-4xl text-gray-700"> Create Coupon</h1>
 
@@ -206,7 +195,7 @@ function accounts () {
                         
                         <div className="my-6 flex flex-col">
                             <label className="mb-5 text-2xl text-gray-700">How many coupons to generate</label>
-                            <input type="number" className=" text-3xl h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none"/>
+                            <input type="number" className="text-3xl h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none"/>
                         </div>
                     </div>
 
@@ -226,27 +215,38 @@ function accounts () {
  
         const { visible, cancel, options } = props
         return (
-            <Modal visible={visible} cancel={cancel} className="w-30">
-                <h1>Edit Account</h1>
+            <Modal visible={visible} cancel={cancel} className="left-8 flex justify-center w-96">
+                <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Account</h1>
                 <div>
-                    <div>
-                        <label htmlFor="username">Change username</label>
-                        <input type="text" value={username} onChange={() => setUserName(value)}/>
+                    <div className="flex flex-col mb-8">
+                        <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Change username</label>
+                        <input 
+                            type="text" value={username} 
+                            onChange={() => setUserName(value)} 
+                            className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"
+                        />
                     </div>
-                    <div>
-                        <label htmlFor="Account type">Accont Type</label>
-                        <select name="account type">
-                            <option value="select" disabled>Select</option>
+                    <div className="flex flex-col mb-8">
+                        <label htmlFor="Account type" className="text-2xl mb-4 text-gray-500">Accont Type</label>
+                        <select name="account type" className="h-16 border-solid border-2 text-2xl rounded-lg pl-4 border-gray-400 outline-none">
+                            <option value="select" className="text-2xl text-gray-700 pl-4" disabled>Select</option>
                             {
                                 options ?
                                 options.map((option, key) => 
                                 {
-                                    return <option key={key} value={option} onChange={() => setAccountType(value)}>{option}</option>
+                                    return <option key={key} value={option} className="text-2xl text-gray-700 pl-4" onChange={() => setAccountType(value)}>{option}</option>
                                 }) : null
                             }
                         </select>
                     </div>
-                    <button>save</button>
+                    <div className=" flex justify-center mt-4">
+                        <button 
+                            className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
+                            onClick={cancel}
+                        >
+                            Save
+                        </button>
+                    </div>
                 </div>
                 
             </Modal>
@@ -304,7 +304,6 @@ function accounts () {
             <EditDeleteModal
                 visible={showModal}
                 cancel={dismissEditDeleteModal}
-                route={() => displayEditAccountModal()}
             />
             <EditAccountModal
                 visible={showEditAccountModal}
@@ -316,6 +315,10 @@ function accounts () {
                 cancel={dismissCouponsModal}
                 cancelIcon = {"/delete-icon-gray.svg"}
                 coinTypeOptions= {["BTC", "ETH", "KOBO", "CENTS"]}
+            />
+            <WarningModal
+                cancel={dismissWarningModal}
+                visible={showWarningModal}
             />
         </>
     )
