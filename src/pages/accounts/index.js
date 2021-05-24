@@ -116,7 +116,7 @@ function accounts () {
         const {visible, cancel, cancelIcon, coinTypeOptions} = props
 
         return (
-            <Modal visible={visible} cancel={cancel} cancelIcon = {cancelIcon} className="w-96">
+            <Modal visible={visible} cancel={cancel} cancelIcon className="w-96">
                 <div className="w-full">
                     <div className="mx-8">
                         <div className="mb-8">
@@ -213,9 +213,9 @@ function accounts () {
         const [username, setUserName] = useState("")
         const [accountType, setAccountType] = useState([])
  
-        const { visible, cancel, options } = props
+        const { visible, cancel, options, cancelIcon } = props
         return (
-            <Modal visible={visible} cancel={cancel} className="left-8 flex justify-center w-96">
+            <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className="left-8 flex justify-center w-96">
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Account</h1>
                 <div>
                     <div className="flex flex-col mb-8">
@@ -309,11 +309,12 @@ function accounts () {
                 visible={showEditAccountModal}
                 cancel={dismissEditAccountModal}
                 options ={["option1", "option2", "option3"]}
+                cancelIcon
             />
             <CouponsModal
                 visible={showCouponsModal}
                 cancel={dismissCouponsModal}
-                cancelIcon = {"/delete-icon-gray.svg"}
+                cancelIcon
                 coinTypeOptions= {["BTC", "ETH", "KOBO", "CENTS"]}
             />
             <WarningModal
