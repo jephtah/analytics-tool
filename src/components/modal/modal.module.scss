@@ -50,7 +50,7 @@
         {
             position: absolute;
             top: 0.3rem;
-            right: 0.3rem;
+            right: 1rem;
             padding: 1.8rem 1rem;
             cursor: pointer;
             border-radius: 50%;
@@ -58,17 +58,7 @@
             &:hover
             {
                 background-color: rgba(0, 0, 0, 0.05);
-            }
-            .bar
-            {
-                background-color: rgba(0, 0, 0, 0.5);
-                height: 0.1rem;
-                width: 2rem;
-                transform: rotate(45deg);
-                &:nth-child(2)
-                {
-                transform: rotate(-45deg) translate(0.1rem, -0.1rem);
-                }
+                border-radius: 100%;
             }
         }
     }

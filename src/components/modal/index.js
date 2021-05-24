@@ -61,10 +61,9 @@ const Modal = props =>
                 ].join(" ")}
             >
                 {children}
-                {cancel ? 
-                <div onClick={cancel}>
-                    <div className={styles.bar}/>
-                    <div className={styles.bar}/>
+                {cancel && cancelIcon ? 
+                <div onClick={cancel} className={styles["close-icon"]}>
+                    <img src="/close.svg" alt="delete icon"/>
                 </div> : null
                 }
             </div>
