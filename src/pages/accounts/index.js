@@ -139,13 +139,13 @@ function accounts () {
                                             <td>MYPADDICARES</td>
                                             <td>200</td>
                                             <td>167</td>
-                                            <td className="text-red-700 font-bold" onClick={() => displayWarningModal()}>Delete Coupon</td>
+                                            <td className="text-red-700 font-bold cursor-pointer" onClick={() => displayWarningModal()}>Delete Coupon</td>
                                         </tr>
                                         <tr>
                                             <td>Alex MyPaddi</td>
                                             <td>50</td>
                                             <td>67</td>
-                                            <td className="text-red-700 font-bold">Delete Coupon</td>
+                                            <td className="text-red-700 font-bold cursor-pointer" onClick={() => displayWarningModal()}>Delete Coupon</td>
                                         </tr>
 
                                     </tbody>

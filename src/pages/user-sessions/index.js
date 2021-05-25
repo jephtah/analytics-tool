@@ -11,8 +11,9 @@ const user_session = () => {
                     <span className="text-black text-xl">User Sessions</span>
                     <input className="w-72 h-11 rounded-xl bg-gray-300 mx-52 px-6 text-xs " placeholder="Search Sessions" />
                 </div>
-                <div>
-                    <p className="text-sm mt-6">Back</p>
+                <div className="flex mt-6 content-center cursor-pointer">
+                    <img src="/less-than.svg" alt="left arrow"/>
+                    <p className="text-sm pl-2">Back</p>
                 </div>
                 <div className="flex mt-10">
                     <div className="w-56 h-32 bg-white-300-mobicure rounded-md p-4">

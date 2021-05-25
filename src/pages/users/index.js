@@ -1,9 +1,9 @@
 import React, { useEffect } from "react"
+import Link from "next/link"
 import Wrapper from "../../components/wrapper";
 import { useDispatch, useSelector } from "react-redux"
 import { userActions } from '../../_actions';
 import { MdSearch } from "react-icons/md";
-
 
 
 
@@ -32,7 +32,7 @@ function users () {
                     <div className="bg-white w-48 h-80 rounded-2xl mt-10 p-6 mr-4 flex flex-col justify-between">
                         <div>
                             <div className="flex justify-between">
-                                <img src="/placeholder.svg" />
+                                <Link href="/user-sessions"><img src="/placeholder.svg" className="cursor-pointer"/></Link>
                                 <span className="cursor-pointer text-xl">&#10247;</span>
                             </div>
                             <div className="flex flex-col mt-5">
