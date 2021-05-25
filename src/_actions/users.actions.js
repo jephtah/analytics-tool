@@ -11,7 +11,8 @@ import Router from "next/router";
 
 export const userActions = {
     login,
-    getAll
+    getAll,
+    getSearch
 }
 
 
@@ -33,6 +34,24 @@ function getAll () {
     function request() { return { type: userConstants.GETALL_REQUEST } }
     function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
+function getSearch (searchStr) {
+    return async dispatch => {
+        dispatch(request({ searchStr }))
+
+        try {
+            const users = await userService.getSearch({ searchStr })
+            dispatch(success(users))
+        }
+        catch(error){
+            dispatch(failure(error.toString()))
+        }
+    }
+
+    function request(users) { return { type: userConstants.GETSEARCH_REQUEST, users }}
+    function success(users) { return { type: userConstants.GETALL_SUCCESS, users }}
+    function failure(error) { return { type: userConstants.GETALL_FAILURE, error }}
 }
 
 

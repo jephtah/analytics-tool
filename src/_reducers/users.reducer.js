@@ -14,6 +14,19 @@ export function users(state = {}, action ) {
             return {
                 error: action.error
             }
+
+        case userConstants.GETSEARCH_REQUEST:
+            return {
+                loading: true
+            }
+        case userConstants.GETSEARCH_SUCCESS:
+            return {
+                users: action.users
+            }
+        case userConstants.GETSEARCH_FAILURE:
+            return{
+                error: action.error
+            }
         default:
             return state
     }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import Wrapper from "../../components/wrapper";
 import { useDispatch, useSelector } from "react-redux"
@@ -9,21 +9,39 @@ import { MdSearch } from "react-icons/md";
 
 function users () {
 
-  const  users  = useSelector(state => state.users);
+    const [searchStr, setSearchStr] = useState("")
+    const  users  = useSelector(state => state.users);
     const dispatch =  useDispatch()
 
     useEffect(() => {
         dispatch(userActions.getAll())
-    }, [])
+        handleSearch
+    }, [searchStr])
 
+
+    const debounce = ( func, timeout = 1000) =>
+    {
+        let timer;
+        return(...args) => 
+        {
+            clearTimeout(timer)
+            timer = setTimeout(() => { func.apply(this, args);}, timeout)
+        }
+    }
+
+    const dispatchSearch = () => {
+        dispatch(userActions.getSearch(searchStr))
+    }
+
+    const handleSearch = debounce(() => dispatchSearch());
 
     const all_users = users.users
-
+    console.log(searchStr)
 
      return (
         <Wrapper>
             <div className="flex">
-                <input className="w-72 h-14 rounded-2xl bg-gray-300 px-6" placeholder="Search here..." type="text" />
+                <input className="w-72 h-14 rounded-2xl bg-gray-300 px-6" value={searchStr} placeholder="Search here..." type="text" onChange={(e) => setSearchStr(e.currentTarget.value)} />
                 {/* <MdSearch className="absolute" /> */}
             </div>
             <div className="flex flex-wrap justify-between ">

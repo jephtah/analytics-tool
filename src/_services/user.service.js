@@ -4,7 +4,8 @@ import axios from "axios";
 
 export const userService = {
     login,
-    getAll
+    getAll,
+    getSearch
 };
 
 async function login(username, password) {
@@ -42,6 +43,19 @@ async function getAll() {
     const { users } = response.data.data
 
     return users;
+}
+
+async function getSearch(searchStr) {
+    const requestOptions = {
+        method: "GET",
+        headers: { ...authHeader(), "COntent-Type" : "application/json"},
+    }
+
+    const response = await axios(`${config.testUrl}/admin/search`, {searchStr})
+
+    const { users } = response.data
+
+    return users
 }
 
 
