@@ -4,6 +4,8 @@ import { accounts } from "./accounts.reducer";
 import { sessions } from "./sessions.reducer";
 import { zones } from "./zone.reducer";
 import { singleSession } from './single-session.reducer'
+import { dashboardData } from "./dashboard.reducer"
+
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -11,7 +13,8 @@ const rootReducer = combineReducers({
     accounts,
     sessions,
     zones,
-    singleSession : []
+    singleSession : [],
+    dashboardData
 })
 
 export default rootReducer;

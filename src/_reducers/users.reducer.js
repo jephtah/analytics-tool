@@ -16,6 +16,5 @@ export function users(state = {}, action ) {
             }
         default:
             return state
-
     }
 }

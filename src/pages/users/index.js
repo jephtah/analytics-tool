@@ -23,7 +23,7 @@ function users () {
      return (
         <Wrapper>
             <div className="flex">
-                <input className="w-72 h-14 rounded-2xl bg-gray-300 px-6" placeholder="Search here..." />
+                <input className="w-72 h-14 rounded-2xl bg-gray-300 px-6" placeholder="Search here..." type="text" />
                 {/* <MdSearch className="absolute" /> */}
             </div>
             <div className="flex flex-wrap justify-between ">
