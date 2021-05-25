@@ -1,8 +1,17 @@
-import React, { useEffect } from "react"
+import React, {  useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { sessionActions } from "../../_actions"
+import { useRouter } from "next/router" 
 import Wrapper from "../../components/wrapper";
 
 const user_session = () => {
 
+    const router = useRouter()
+
+    let session = useSelector(state => state.sessions);
+    const dispatch = useDispatch()
+
+   
 
     return (
         <Wrapper>
@@ -11,7 +20,7 @@ const user_session = () => {
                     <span className="text-black text-xl">User Sessions</span>
                     <input className="w-72 h-11 rounded-xl bg-gray-300 mx-52 px-6 text-xs " placeholder="Search Sessions" />
                 </div>
-                <div className="flex mt-6 content-center cursor-pointer">
+                <div className="flex mt-6 content-center cursor-pointer" onClick={() =>router.back() }>
                     <img src="/less-than.svg" alt="left arrow"/>
                     <p className="text-sm pl-2">Back</p>
                 </div>

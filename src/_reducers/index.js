@@ -3,13 +3,15 @@ import { users }  from "./users.reducer";
 import { accounts } from "./accounts.reducer";
 import { sessions } from "./sessions.reducer";
 import { zones } from "./zone.reducer";
+import { singleSession } from './single-session.reducer'
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
     users,
     accounts,
     sessions,
-    zones
+    zones,
+    singleSession
 })
 
 export default rootReducer;

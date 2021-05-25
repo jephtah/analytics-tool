@@ -3,7 +3,7 @@ import { config} from '../_config';
 import { authHeader } from '../_helpers';
 
 export const sessionService = {
-    getAll
+    getAll,
 }
 
 
