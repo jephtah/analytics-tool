@@ -7,10 +7,6 @@ import Wrapper from "../../components/wrapper";
 const user_session = () => {
 
     const router = useRouter()
-
-    let session = useSelector(state => state.sessions);
-    const dispatch = useDispatch()
-
    
 
     return (

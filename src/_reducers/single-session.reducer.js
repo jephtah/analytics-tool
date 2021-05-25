@@ -1,18 +1,18 @@
-import { accountActions, singleSessionConstants } from "../_actions"
-import { singleSessionContants } from "../_constants/single-session.constants"
+import { singleSessionActions } from "../_actions"
+import { singleSessionConstants } from "../_constants"
 
-export function singleSession (state ={}, action) 
+export function singleSession (state = {}, action) 
 {
     switch(action.type) {
         case singleSessionConstants.GETSINGLE_REQUEST:
             return {
                 loading: true
             }
-        case singleSessionContants.GETSINGLE_SUCCESS:
+        case singleSessionConstants.GETSINGLE_SUCCESS:
             return {
-                singleSession: accountActions.singleSession
+                singleSession: singleSessionActions.singleSession
             }
-        case singleSessionContants.GETSINGLE_FAILURE:
+        case singleSessionConstants.GETSINGLE_FAILURE:
             return {
                 error: action.error
             }

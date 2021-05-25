@@ -1,5 +1,5 @@
-import { sessionConstants } from "../_constants"
-import { sessionService } from "../_services"
+import {singleSessionConstants} from "../_constants"
+import {singleSessionService} from "../_services"
 
 export const singleSessionActions = {
     getSingleSession
@@ -10,7 +10,7 @@ function getSingleSession() {
       dispatch(request());
   
       try {
-        const singleSession = await sessionService.getSingleSession()
+        const singleSession = await singleSessionService.getSingleSession()
         dispatch(success(singleSession))
       }
       catch (error) {
@@ -18,7 +18,7 @@ function getSingleSession() {
       }
     }
   
-    function request () {return { type: sessionConstants.GETSINGLE_REQUEST}}
-    function success (sessions) { return { type: sessionConstants.GETSINGLE_SUCCESS, sessions}}
-    function failure (error)  { return { stype: sessionActions.GETSINGLE_FAILURE, error}}
+    function request () {return { type: singleSessionConstants.GETSINGLE_REQUEST}}
+    function success (sessions) { return { type: singleSessionConstants.GETSINGLE_SUCCESS, sessions}}
+    function failure (error)  { return { type: singleSessionConstants.GETSINGLE_FAILURE, error}}
   }

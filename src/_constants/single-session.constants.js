@@ -1,4 +1,4 @@
-export const singleSessionContants = 
+export const singleSessionConstants = 
 {
     
     GETSINGLE_REQUEST: 'SESSIONS_GETSINGLE_REQUEST',

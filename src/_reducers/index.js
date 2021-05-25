@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
     accounts,
     sessions,
     zones,
-    singleSession
+    singleSession : []
 })
 
 export default rootReducer;
