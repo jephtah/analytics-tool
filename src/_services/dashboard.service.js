@@ -1,6 +1,6 @@
 import { config } from '../_config'
 import { authHeader } from '../_helpers'
-import axios from 'Axios'
+import axios from 'axios'
 
 export const dashboardService = {
   getAll
