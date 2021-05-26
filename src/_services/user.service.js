@@ -48,10 +48,10 @@ async function getAll() {
 async function getSearch(searchStr) {
     const requestOptions = {
         method: "GET",
-        headers: { ...authHeader(), "COntent-Type" : "application/json"},
+        headers: { ...authHeader(), "Content-Type" : "application/json"},
     }
 
-    const response = await axios(`${config.testUrl}/admin/search`, {searchStr})
+    const response = await axios(`${config.testUrl}/admin/search ${searchStr}`,requestOptions)
 
     const { users } = response.data
 

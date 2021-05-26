@@ -3,7 +3,7 @@ import Wrapper from "../../components/wrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { accountActions } from "../../_actions";
 import Modal from "../../components/modal"
-
+import { debounce } from "../users/index"
 
 function accounts () {
 
@@ -12,6 +12,7 @@ function accounts () {
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showCouponsModal, setShowCouponsModal] = useState(false)
     const [showWarningModal, setShowWarningModal] = useState(false)
+    const [searchStr, setSearchStr] =  useState("")
 
 
     let  accounts  = useSelector(state => state.accounts);
@@ -19,7 +20,8 @@ function accounts () {
 
     useEffect(() => {
         dispatch(accountActions.getAllAccounts())
-    }, [])
+        handleSearch()
+    }, [searchStr])
 
 
     // console.log("accounts", accounts.accounts)
@@ -253,13 +255,19 @@ function accounts () {
         )
     }
 
+    
+    const dispatchSearch = () =>
+    {
+        dispatch(accountActions.getSearch(searchStr))
+    }
 
+    const handleSearch = debounce(dispatchSearch())
     return (
         <>
             <Wrapper>
                 <div className="flex align-baseline items-center just px-5">
                     <span className="text-black text-xl">Accounts</span>
-                    <input className="w-72 h-11 rounded-xl bg-gray-300 mx-52 px-6 text-xs" placeholder="Search Accounts" />
+                    <input className="w-72 h-11 rounded-xl bg-gray-300 mx-52 px-6 text-xs" placeholder="Search Accounts"type="text" value={searchStr} onChange={(e) => setSearchStr(e.currentTarget.value)} />
                 </div>
                 <div className="flex flex-wrap justify-between ">
 

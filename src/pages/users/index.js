@@ -19,7 +19,7 @@ function users () {
     }, [searchStr])
 
 
-    const debounce = ( func, timeout = 1000) =>
+    export const debounce = ( func, timeout = 1000) =>
     {
         let timer;
         return(...args) => 
@@ -33,7 +33,7 @@ function users () {
         dispatch(userActions.getSearch(searchStr))
     }
 
-    const handleSearch = debounce(() => dispatchSearch());
+    const handleSearch = debounce(dispatchSearch());
 
     const all_users = users.users
     console.log(searchStr)
