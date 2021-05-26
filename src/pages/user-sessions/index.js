@@ -1,22 +1,20 @@
-import React, {  useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { sessionActions } from "../../_actions"
-import { useRouter } from "next/router" 
-import Wrapper from "../../components/wrapper";
+import React from 'react'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { sessionActions } from '../../_actions'
+import { useRouter } from 'next/router'
+import Wrapper from '../../components/wrapper'
 
-const user_session = () => {
+const userSession = () => {
+  const router = useRouter()
 
-    const router = useRouter()
-   
-
-    return (
+  return (
         <Wrapper>
             <div className="flex flex-col px-5">
                 <div className="flex align-baseline items-center just ">
                     <span className="text-black text-xl">User Sessions</span>
                     <input className="w-72 h-11 rounded-xl bg-gray-300 mx-52 px-6 text-xs " placeholder="Search Sessions" />
                 </div>
-                <div className="flex mt-6 content-center cursor-pointer" onClick={() =>router.back() }>
+                <div className="flex mt-6 content-center cursor-pointer" onClick={() => router.back() }>
                     <img src="/less-than.svg" alt="left arrow"/>
                     <p className="text-sm pl-2">Back</p>
                 </div>
@@ -72,13 +70,12 @@ const user_session = () => {
                             <span className="text-blue-600 text-sm">Purchase Date</span>
                         </div>
 
-
                     </div>
 
                 </div>
             </div>
         </Wrapper>
-    )
+  )
 }
 
-export default user_session
+export default userSession

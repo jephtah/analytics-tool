@@ -1,11 +1,11 @@
-import Header from '../header';
-import Footer from '../footer';
-import styles from "./wrapper.module.scss";
+/* eslint-disable react/prop-types */
+import React from 'react'
+import Header from '../header'
 import Link from 'next/link'
-import LeftBar from "../Sidebar/leftBar";
+import LeftBar from '../Sidebar/leftBar'
 
 const Index = ({ children }) => {
-    return (
+  return (
         <div className="flex flex-col h-screen">
             <div className="flex-1 flex overflow-y-hidden text-gray-500">
                 <div className="flex bg-white-300-mobicure flex-col py-5 justify-between items-center h-full">
@@ -74,7 +74,7 @@ const Index = ({ children }) => {
             </div>
 
         </div>
-    )
+  )
 }
 
-export default Index;
+export default Index

@@ -1,33 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import Wrapper from "../../components/wrapper";
-import { useDispatch, useSelector } from "react-redux";
-import { zoneActions } from "../../_actions/zone.actions";
+import React, { useEffect, useState } from 'react'
+import Wrapper from '../../components/wrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { zoneActions } from '../../_actions/zone.actions'
 
 const index = _props => {
+  const [searchStr, setSearchStr] = useState('')
+  const zones = useSelector(state => state.zones)
+  const dispatch = useDispatch()
 
-    const [searchStr, setSearchStr] = useState("")
-    const zones  = useSelector(state => state.zones);
-    const dispatch =  useDispatch()
+  let timeRef
 
-    let timeRef;
+  useEffect(() => {
+    clearTimeout(timeRef)
+    timeRef = setTimeout(() => {
+      dispatch(zoneActions.getAll())
+      // dispatch(zoneActions.getSearch(searchStr))
+    }, 1000)
+  }, [searchStr])
 
-    useEffect(() => {
-        clearTimeout(timeRef)
-        timeRef = setTimeout(() => {
-            dispatch(zoneActions.getAll())
-            //dispatch(zoneActions.getSearch(searchStr))
-        }, 1000)     
-    }, [searchStr])
+  let postData
 
-    let post_data;
+  if (zones.zones) {
+    postData = zones.zones.posts
+  }
 
-    if(zones.zones) {
-        post_data = zones.zones.posts
-    }
+  console.log('Here', postData)
 
-    console.log('Here', post_data)
-
-    return (
+  return (
         <Wrapper>
             <div className="flex mt-12 w-full">
                 <div>
@@ -65,7 +64,7 @@ const index = _props => {
                     </div>
                     </div>
                 </div>
-                    {/*start of right*/}
+                    {/* start of right */}
                     <div className="ml-12">
                         <div className="flex justify-between">
                             <div>
@@ -77,8 +76,9 @@ const index = _props => {
                                 <img src="/078-down-chevron.svg"/>
                             </div>
                         </div>
-                        { post_data ? post_data.map(post => 
-                            <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4 mt-10">
+                        { postData
+                          ? postData.map((post, key) =>
+                            <div key={key} className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4 mt-10">
                             <div>
                                 <span className="text-xs ml-9 "> {post.created_at}</span>
                             </div>
@@ -87,7 +87,8 @@ const index = _props => {
                                 <span className="ml-3 text-sm text-black">{post.title}</span>
                             </div>
                         </div>
-                        ):<div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
+                          )
+                          : <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
                         <div>
                             <span className="text-xs ml-9"> January 24th, 2021 04:25 PM</span>
                         </div>
@@ -96,8 +97,8 @@ const index = _props => {
                             <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
                         </div>
                     </div> }
-                        
-{/*                         
+
+{/*
                         <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
                             <div>
                                 <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
@@ -150,8 +151,7 @@ const index = _props => {
                 </div>
 
         </Wrapper>
-    )
-
+  )
 }
 
-export default index;
+export default index

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const index = () => {
-    return (
+  return (
         <div className="flex justify-between w-full">
             <div className="flex-1">
                 <span className="text-2xl text-gray-700"> Dashboard</span>
@@ -12,7 +12,7 @@ const index = () => {
                 <img src="/admin.svg" className="w-6 h-8 ml-2"></img>
             </div>
         </div>
-    )
+  )
 }
 
 export default index

@@ -1,20 +1,19 @@
-//import { registrationReducer } from "./registration.reducer";
-import { users }  from "./users.reducer";
-import { accounts } from "./accounts.reducer";
-import { sessions } from "./sessions.reducer";
-import { zones } from "./zone.reducer";
-import { singleSession } from './single-session.reducer'
-import { dashboardData } from "./dashboard.reducer"
+// import { registrationReducer } from "./registration.reducer";
+import { users } from './users.reducer'
+import { accounts } from './accounts.reducer'
+import { sessions } from './sessions.reducer'
+import { zones } from './zone.reducer'
 
-import { combineReducers } from "redux";
+import { dashboardData } from './dashboard.reducer'
+
+import { combineReducers } from 'redux'
 
 const rootReducer = combineReducers({
-    users,
-    accounts,
-    sessions,
-    zones,
-    singleSession : [],
-    dashboardData
+  users,
+  accounts,
+  sessions,
+  zones,
+  dashboardData
 })
 
-export default rootReducer;
+export default rootReducer

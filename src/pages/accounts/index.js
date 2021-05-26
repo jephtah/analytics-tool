@@ -1,85 +1,67 @@
-import React, { useEffect, useState } from "react"
-import Wrapper from "../../components/wrapper";
-import { useDispatch, useSelector } from "react-redux";
-import { accountActions } from "../../_actions";
-import Modal from "../../components/modal"
-import { debounce } from "../users/index"
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react'
+import Wrapper from '../../components/wrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { accountActions } from '../../_actions'
+import Modal from '../../components/modal'
 
 function accounts () {
+  const [showModal, setShowModal] = useState(false)
+  const [showEditAccountModal, setShowEditAccountModal] = useState(false)
+  const [showCouponsModal, setShowCouponsModal] = useState(false)
+  const [showWarningModal, setShowWarningModal] = useState(false)
+  const [searchStr, setSearchStr] = useState('')
 
-    const [showModal, setShowModal] = useState(false)
-    const [showEditAccountModal, setShowEditAccountModal] = useState(false)
-    const [showDeleteModal, setShowDeleteModal] = useState(false)
-    const [showCouponsModal, setShowCouponsModal] = useState(false)
-    const [showWarningModal, setShowWarningModal] = useState(false)
-    const [searchStr, setSearchStr] =  useState("")
+  let accounts = useSelector(state => state.accounts)
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(accountActions.getAllAccounts())
+    dispatch(accountActions.getSearch(searchStr))
+  }, [searchStr])
 
-    let  accounts  = useSelector(state => state.accounts);
-    const dispatch =  useDispatch()
+  // console.log("accounts", accounts.accounts)
+  accounts = accounts.accounts
 
-    useEffect(() => {
-        dispatch(accountActions.getAllAccounts())
-        dispatch(accountActions.getSearch(searchStr))
-    }, [searchStr])
+  const displayWarningModal = () => {
+    setShowWarningModal(true)
+    setShowEditAccountModal(false)
+  }
 
+  const dismissWarningModal = () => {
+    setShowWarningModal(false)
+  }
 
-    // console.log("accounts", accounts.accounts)
-    accounts = accounts.accounts
+  const displayEditAccountModal = () => {
+    setShowEditAccountModal(true)
+    setShowModal(false)
+  }
 
-        
+  const dismissEditAccountModal = () => {
+    setShowEditAccountModal(false)
+  }
 
-    const displayWarningModal = () =>
-    {
-        setShowWarningModal(true)
-        setShowEditAccountModal(false)
-    }
+  const displayEditDeleteModal = () => {
+    setShowModal(true)
+  }
 
-    const dismissWarningModal = () =>
-    {
-        setShowWarningModal(false)
-    }
+  const dismissEditDeleteModal = () => {
+    setShowModal(false)
+  }
 
-    const displayEditAccountModal = () => 
-    {
-        setShowEditAccountModal(true)
-        setShowModal(false)
-    }
+  const displayCouponsModal = () => {
+    setShowCouponsModal(true)
+    setShowModal(false)
+  }
 
-    const dismissEditAccountModal = () =>
-    {
-        setShowEditAccountModal(false)
-    }
+  const dismissCouponsModal = () => {
+    setShowCouponsModal(false)
+  }
 
+  const EditDeleteModal = props => {
+    const { visible, cancel } = props
 
-    const displayEditDeleteModal = () => 
-    {
-        setShowModal(true)
-    }
-
-    const dismissEditDeleteModal = () =>
-    {
-        setShowModal(false)
-    }
-
-    const displayCouponsModal = () => 
-    {
-        setShowCouponsModal(true)
-        setShowModal(false)
-    }
-
-    const dismissCouponsModal = () => 
-    {
-        setShowCouponsModal(false)
-    }
-
-
-
-    const EditDeleteModal = props => 
-    {
-        const {visible, cancel } = props
-
-        return (
+    return (
             <Modal visible={visible} cancel={cancel} className="w-12">
                 <div className="flex flex-col">
                     <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayEditAccountModal()}>Edit</button>
@@ -87,14 +69,13 @@ function accounts () {
                     <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayWarningModal()}>Delete</button>
                 </div>
             </Modal>
-        )
-    }
+    )
+  }
 
-    const WarningModal = props =>
-        {
-            const { visible, cancel } = props
+  const WarningModal = props => {
+    const { visible, cancel } = props
 
-            return (
+    return (
                 <>
                     <Modal visible={visible} className="w-1/2">
                         <div className="flex flex-col justify-center content-center">
@@ -107,17 +88,15 @@ function accounts () {
                             </div>
                         </div>
                     </Modal>
-                    
-                </>               
-            )
-        }
 
-    const CouponsModal = props =>
-    {
-        const [coinTypes, setCoinTypes] = useState("")
-        const {visible, cancel, cancelIcon, coinTypeOptions} = props
+                </>
+    )
+  }
 
-        return (
+  const CouponsModal = props => {
+    const { visible, cancel, coinTypeOptions } = props
+
+    return (
             <Modal visible={visible} cancel={cancel} cancelIcon className="w-96">
                 <div className="w-full">
                     <div className="mx-8">
@@ -152,10 +131,10 @@ function accounts () {
 
                                     </tbody>
                                 </table>
-                            </div>      
+                            </div>
                         </div>
                     </div>
-                
+
                     <div>
                         <h1 className="text-4xl text-gray-700"> Create Coupon</h1>
 
@@ -164,10 +143,11 @@ function accounts () {
                             <select name="coin type" className="h-16 text-3xl border-solid border-2 rounded-lg border-blue-400 outline-none" >
                                 <option value="select" className="text-2xl text-gray-700 bl-4">Select</option>
                                 {
-                                    coinTypeOptions ?
-                                    coinTypeOptions.map((coinType, key) => {
+                                    coinTypeOptions
+                                      ? coinTypeOptions.map((coinType, key) => {
                                         return <option key={key} value={coinType} className="text2xl text-gray-700 pl-4">{coinType}</option>
-                                    }) : null 
+                                      })
+                                      : null
                                 }
                             </select>
                         </div>
@@ -177,10 +157,11 @@ function accounts () {
                             <select name="coin type" className="h-16 border-solid border-2 text-3xl rounded-lg border-blue-400 outline-none">
                                 <option value="select"className="text-2xl text-gray-700 pl-4">Select</option>
                                 {
-                                    coinTypeOptions ?
-                                    coinTypeOptions.map((coinTypes, key) => {
+                                    coinTypeOptions
+                                      ? coinTypeOptions.map((coinTypes, key) => {
                                         return <option key={key} value={coinTypes} className="text-3xl text-gray-700 pl-4 ">{coinTypes}</option>
-                                    }) : null 
+                                      })
+                                      : null
                                 }
                             </select>
                         </div>
@@ -194,7 +175,7 @@ function accounts () {
                             <label className="mb-5 text-2xl text-gray-700">Expires in (days)</label>
                             <input type="number" className="h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none text-3xl"/>
                         </div>
-                        
+
                         <div className="my-6 flex flex-col">
                             <label className="mb-5 text-2xl text-gray-700">How many coupons to generate</label>
                             <input type="number" className="text-3xl h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none"/>
@@ -204,27 +185,26 @@ function accounts () {
                     <div className=" flex justify-center mt-4">
                         <button className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4">Save Coupon</button>
                     </div>
-                    
+
                 </div>
             </Modal>
-        )
-    }
+    )
+  }
 
-    const EditAccountModal = props => 
-    {
-        const [username, setUserName] = useState("")
-        const [accountType, setAccountType] = useState([])
- 
-        const { visible, cancel, options, cancelIcon } = props
-        return (
+  const EditAccountModal = props => {
+    const [username, setUserName] = useState('')
+    const [accountType, setAccountType] = useState([])
+
+    const { visible, cancel, options, cancelIcon } = props
+    return (
             <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className="left-8 flex justify-center w-96">
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Account</h1>
                 <div>
                     <div className="flex flex-col mb-8">
                         <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Change username</label>
-                        <input 
-                            type="text" value={username} 
-                            onChange={() => setUserName(value)} 
+                        <input
+                            type="text" value={username}
+                            onChange={(e) => setUserName(e.currentTarget.value)}
                             className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"
                         />
                     </div>
@@ -233,16 +213,16 @@ function accounts () {
                         <select name="account type" className="h-16 border-solid border-2 text-2xl rounded-lg pl-4 border-gray-400 outline-none">
                             <option value="select" className="text-2xl text-gray-700 pl-4" disabled>Select</option>
                             {
-                                options ?
-                                options.map((option, key) => 
-                                {
-                                    return <option key={key} value={option} className="text-2xl text-gray-700 pl-4" onChange={() => setAccountType(value)}>{option}</option>
-                                }) : null
+                                options
+                                  ? options.map((option, key) => {
+                                    return <option key={key} value={option} className="text-2xl text-gray-700 pl-4" onChange={(e) => setAccountType(e.currentTarget.value)}>{option}</option>
+                                  })
+                                  : null
                             }
                         </select>
                     </div>
                     <div className=" flex justify-center mt-4">
-                        <button 
+                        <button
                             className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
                             onClick={cancel}
                         >
@@ -250,19 +230,18 @@ function accounts () {
                         </button>
                     </div>
                 </div>
-                
-            </Modal>
-        )
-    }
 
-    
-    /*const dispatchSearch = () =>
+            </Modal>
+    )
+  }
+
+  /* const dispatchSearch = () =>
     {
         dispatch(accountActions.getSearch(searchStr))
     }
 
-    const handleSearch = debounce(dispatchSearch())*/
-    return (
+    const handleSearch = debounce(dispatchSearch()) */
+  return (
         <>
             <Wrapper>
                 <div className="flex align-baseline items-center just px-5">
@@ -271,15 +250,17 @@ function accounts () {
                 </div>
                 <div className="flex flex-wrap justify-between ">
 
-                    { accounts ? accounts.map(account =>
-                        <div 
+                    { accounts
+                      ? accounts.map(account =>
+                        <div
                             key={account.username} className="bg-white w-52 h-88 rounded-2xl mt-10 p-6 mr-4 flex flex-col justify-between"
-                            
+
                         >
                             <div>
                                 <div className="flex justify-between">
-                                {account.profile.profile_picture_url !== null ? <img onClick={() => displayCouponsModal()} src={account.profile.profile_picture_url} width="70" height="50" className="rounded-3xl"/>
-                                    : <img onClick={() => displayCouponsModal()} src="/placeholder.svg" width="70" height="70" />}
+                                {account.profile.profile_picture_url !== null
+                                  ? <img onClick={() => displayCouponsModal()} src={account.profile.profile_picture_url} width="70" height="50" className="rounded-3xl"/>
+                                  : <img onClick={() => displayCouponsModal()} src="/placeholder.svg" width="70" height="70" />}
                                     <span className="cursor-pointer text-xl" onClick={() => displayEditDeleteModal()}>&#10247;</span>
                                 </div>
                                 <div className="flex flex-col mt-5">
@@ -300,7 +281,8 @@ function accounts () {
                                 <span className="ml-3 mb-2">{account.email}</span>
                             </div>
                         </div>
-                    ): (<div> Loading... </div>)}
+                      )
+                      : (<div> Loading... </div>)}
                 </div>
                 <div className="flex items-center py-6 lg:mt-16">
                     <span className="text-xs">Showing 4 of 256 entries</span>
@@ -316,23 +298,21 @@ function accounts () {
             <EditAccountModal
                 visible={showEditAccountModal}
                 cancel={dismissEditAccountModal}
-                options ={["option1", "option2", "option3"]}
+                options ={['option1', 'option2', 'option3']}
                 cancelIcon
             />
             <CouponsModal
                 visible={showCouponsModal}
                 cancel={dismissCouponsModal}
                 cancelIcon
-                coinTypeOptions= {["BTC", "ETH", "KOBO", "CENTS"]}
+                coinTypeOptions= {['BTC', 'ETH', 'KOBO', 'CENTS']}
             />
             <WarningModal
                 cancel={dismissWarningModal}
                 visible={showWarningModal}
             />
         </>
-    )
+  )
 }
 
-export default accounts ;
-
-
+export default accounts

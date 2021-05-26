@@ -1,25 +1,47 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import { dashboardActions } from "../../_actions"
-import Wrapper from "../../components/wrapper";
-import styles from "./home.module.css";
-
+import { useDispatch, useSelector } from 'react-redux'
+import { dashboardActions } from '../../_actions'
+import Wrapper from '../../components/wrapper'
+import styles from './home.module.css'
+// import {LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 const index = () => {
+  const dashboardData = useSelector(state => state.dashboardData)
+  const dispatch = useDispatch()
 
-    const dashboardData = useSelector( state => state.dashboardData);
-    const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(dashboardActions.getAll())
+  }, [])
 
-    useEffect(() => {
-        dispatch(dashboardActions.getAll())
-    }, [])
+  const data = dashboardData.data
+  // console.log(data)
 
-    const data = dashboardData.data
-    
-    return (
+  /* const getDates = (startDate, endDate) => {
+        let dates = []
+        let currentDate;
+        currentDate = startDate;
+        const addDays = function(days) {
+            let date = new Date(days)
+            date.setDate(date.getDate() + days);
+            return date
+        }
+
+        while( currentDate <= endDate){
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 5)
+        }
+        return dates
+    }
+
+    const dates = getDates(new Date(2013,10,22), new Date(2013,11,25))
+    dates.forEach((date) => {
+        console.log(date)
+    }) */
+
+  return (
         <Wrapper>
             {
-                data ?
-                    <div className="flex flex-col items-center w-full justify-center">
+                data
+                  ? <div className="flex flex-col items-center w-full justify-center">
                         <div className="flex justify-between w-full">
                             <div className="w-72 h-40 px-10 py-6 text-lg rounded-lg bg-white-300-mobicure text-gray-900">
                                 <div className="text-base">Total Users</div>
@@ -196,20 +218,19 @@ const index = () => {
                                 <div className="text-green-500 text-lg font-semibold">N35,000</div>
                             </div>
                         </div>
-                        <div className={`flex justify-center mt-10 `}>
+                        <div className={'flex justify-center mt-10 '}>
                             <div className={`w-40 flex gap-x-6 justify-center rounded-3xl py-3 font-bold text-xl ${styles.button}`}>
                                 <h2>Load More</h2>
                                 <img src="/078-down-chevron.svg" alt="arrow down"/>
-                            </div>                                         
+                            </div>
                         </div>
                     </div>
                 </div>
-                : 
-                <div>Loading...</div>
+                  : <div>Loading...</div>
 
-            } 
+            }
         </Wrapper>
-    )
-};
+  )
+}
 
-export default index;
+export default index

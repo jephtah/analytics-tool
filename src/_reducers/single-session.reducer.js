@@ -1,7 +1,7 @@
-import { singleSessionActions } from "../_actions"
+/* import { singleSessionActions } from "../_actions"
 import { singleSessionConstants } from "../_constants"
 
-export function singleSession (state = {}, action) 
+export function singleSession (state = {}, action)
 {
     switch(action.type) {
         case singleSessionConstants.GETSINGLE_REQUEST:
@@ -17,4 +17,4 @@ export function singleSession (state = {}, action)
                 error: action.error
             }
     }
-}
+} */

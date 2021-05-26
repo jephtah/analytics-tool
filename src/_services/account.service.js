@@ -1,37 +1,34 @@
-import axios from 'axios';
-import { config} from '../_config';
-import { authHeader } from '../_helpers';
+import axios from 'axios'
+import { config } from '../_config'
+import { authHeader } from '../_helpers'
 
 export const accountService = {
-    getAll,
-    getSearch
+  getAll,
+  getSearch
 }
 
+async function getAll () {
+  const requestOptions = {
+    method: 'GET',
+    headers: { ...authHeader(), 'Content-Type': 'application/json' }
+  }
 
-async function getAll() {
-    const requestOptions = {
-        method: 'GET',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    }
+  const response = await axios(`${config.testUrl}/admin/manage-docs-couns`, requestOptions)
 
+  const accounts = response.data.data
 
-    const response = await axios(`${config.testUrl}/admin/manage-docs-couns`, requestOptions);
-
-
-    const  accounts  = response.data.data
-
-    return accounts;
+  return accounts
 }
 
-async function getSearch(searchStr) {
-    const requestOptions = {
-        method: "GET",
-        headers : { ...authHeader(), "Content-Type" : 'application/json' },
-    }
+async function getSearch (searchStr) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { ...authHeader(), 'Content-Type': 'application/json' }
+  }
 
-    const response = await axios(`${config.testUrl}/admin/search ${searchStr}`, requestOptions)
+  const response = await axios(`${config.testUrl}/admin/search ${searchStr}`, requestOptions)
 
-    const { accounts } = response.data
+  const accounts = response.data
 
-    return accounts
+  return accounts
 }

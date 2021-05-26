@@ -1,8 +1,8 @@
-import axios from 'axios'
+/* import axios from 'axios'
 import { config } from "../_config"
 import { authHeader } from "../_helpers"
 
-export const singleSessionService = 
+export const singleSessionService =
 {
     getSingleSession
 }
@@ -19,4 +19,4 @@ async function getSingleSession (userId) {
     const singleSession = response.data.data
 
     return singleSession
-}
+} */

@@ -1,7 +1,8 @@
-import styles from "./sidebar.module.scss";
+import React from 'react'
+import styles from './sidebar.module.scss'
 
 const index = () => {
-    return (
+  return (
         <div className="p-2 bg-white-300-mobicure pb-32">
             <div>
                 <input className="w-full h-14 rounded-xl bg-gray-200 px-6" placeholder="Search here..." />
@@ -19,8 +20,7 @@ const index = () => {
                         </div>
                     </div>
                 </div>
-              <div className="flex">
-
+                <div className="flex">
 
                   <div className={styles.content}>
                       <p className={styles.contentHeading}>January 2nd, 04:35 AM</p>
@@ -104,9 +104,9 @@ const index = () => {
                     <img src="/030-right-arrow.svg"/>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
-    )
+  )
 }
 
-export default index;
+export default index

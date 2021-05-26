@@ -1,3 +1,3 @@
-import Login from "./LoginPage";
+import Login from './LoginPage'
 
 export { Login }
