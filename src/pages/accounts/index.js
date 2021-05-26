@@ -20,7 +20,7 @@ function accounts () {
 
     useEffect(() => {
         dispatch(accountActions.getAllAccounts())
-        handleSearch()
+        dispatch(accountActions.getSearch(searchStr))
     }, [searchStr])
 
 
@@ -256,12 +256,12 @@ function accounts () {
     }
 
     
-    const dispatchSearch = () =>
+    /*const dispatchSearch = () =>
     {
         dispatch(accountActions.getSearch(searchStr))
     }
 
-    const handleSearch = debounce(dispatchSearch())
+    const handleSearch = debounce(dispatchSearch())*/
     return (
         <>
             <Wrapper>

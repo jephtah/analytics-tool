@@ -1,16 +1,23 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import Wrapper from "../../components/wrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { zoneActions } from "../../_actions/zone.actions";
 
 const index = _props => {
 
+    const [searchStr, setSearchStr] = useState("")
     const zones  = useSelector(state => state.zones);
     const dispatch =  useDispatch()
 
+    let timeRef;
+
     useEffect(() => {
-        dispatch(zoneActions.getAll())
-    }, [])
+        clearTimeout(timeRef)
+        timeRef = setTimeout(() => {
+            dispatch(zoneActions.getAll())
+            //dispatch(zoneActions.getSearch(searchStr))
+        }, 1000)     
+    }, [searchStr])
 
     let post_data;
 
@@ -62,7 +69,7 @@ const index = _props => {
                     <div className="ml-12">
                         <div className="flex justify-between">
                             <div>
-                                <input className="w-72 h-14 rounded-2xl bg-gray-300 px-6" placeholder="Search here..." />
+                                <input className="w-72 h-14 rounded-2xl bg-gray-300 px-6" placeholder="Search here..." value={searchStr} onChange={(e) => setSearchStr(e.currentTarget.value) } />
                             </div>
 
                             <div className="rounded-2xl bg-gray-300 px-8 py-4 flex justify-between">

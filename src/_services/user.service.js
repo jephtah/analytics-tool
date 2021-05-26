@@ -51,7 +51,7 @@ async function getSearch(searchStr) {
         headers: { ...authHeader(), "Content-Type" : "application/json"},
     }
 
-    const response = await axios(`${config.testUrl}/admin/search ${searchStr}`,requestOptions)
+    const response = await axios(`${config.testUrl}/search?f=users&q=${searchStr}`,requestOptions)
 
     const { users } = response.data
 

@@ -14,6 +14,18 @@ export function zones(state = {}, action ) {
             return {
                 error: action.error
             }
+        case zoneConstants.GETSEARCH_REQUEST:
+            return {
+                loading: true
+            }
+        case zoneConstants.GETSEARCH_SUCCESS:
+            return {
+                zones: action.zones
+            }
+        case zoneConstants.GETSEARCH_FAILURE:
+            return {
+                error : action.error
+            }
         default:
             return state
 

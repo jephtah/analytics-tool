@@ -15,11 +15,10 @@ function users () {
 
     useEffect(() => {
         dispatch(userActions.getAll())
-        handleSearch
+        dispatch(userActions.getSearch(searchStr))
     }, [searchStr])
 
-
-    export const debounce = ( func, timeout = 1000) =>
+    const debounce = ( func, timeout = 1000) =>
     {
         let timer;
         return(...args) => 
@@ -29,11 +28,11 @@ function users () {
         }
     }
 
-    const dispatchSearch = () => {
+    /*const dispatchSearch = () => {
         dispatch(userActions.getSearch(searchStr))
     }
 
-    const handleSearch = debounce(dispatchSearch());
+    const handleSearch = debounce(dispatchSearch()); */
 
     const all_users = users.users
     console.log(searchStr)
