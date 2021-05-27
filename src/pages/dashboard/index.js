@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { dashboardActions } from '../../_actions'
 import Wrapper from '../../components/wrapper'
 import styles from './home.module.css'
-// import {LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
+import { XAxis, Tooltip, Legend, BarChart, CartesianGrid, Bar } from 'recharts'
 const index = () => {
   const dashboardData = useSelector(state => state.dashboardData)
   const dispatch = useDispatch()
@@ -11,6 +11,48 @@ const index = () => {
   useEffect(() => {
     dispatch(dashboardActions.getAll())
   }, [])
+
+  const barData = [
+    {
+      date: 'Sun',
+      value: 45000
+    },
+    {
+      date: 'Mon',
+      value: 30000
+    },
+    {
+      date: 'Tue',
+      value: 80000
+    },
+    {
+      date: 'Wed',
+      value: 40000
+    },
+    {
+      date: 'Thu',
+      value: 10000
+    },
+    {
+      date: 'Fri',
+      value: 20000
+    },
+    {
+      date: 'Sat',
+      value: 25000
+    }
+
+  ]
+
+  const BarGraph = () => {
+    return (
+			<BarChart width={ 600 } height={ 250 } data={ barData }>
+				<XAxis dataKey="date" />
+				<Tooltip />
+				<Bar dataKey="value" fill="#2563eb"/>
+			</BarChart>
+    )
+  }
 
   const data = dashboardData.data
   // console.log(data)
@@ -115,7 +157,7 @@ const index = () => {
                                     98,425K
                             </div>
                             <div className=" text-blue-800 text-2xl pt-2 w-82 h-full">
-                                <img src="/chart.svg" />
+                                <BarGraph/>
 
                             </div>
                         </div>
