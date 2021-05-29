@@ -1,65 +1,82 @@
-.backdrop
+.main
 {
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    width:100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: -6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.3s ease-out;
-    &.active
-    {
-        z-index: 9999;
-        &.confirm-backdrop
+    &.backdrop{
+        background: rgba(0, 0, 0, 0.4);
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: -6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s ease-out;
+
+        &.active
         {
-            z-index: 99999;
+            z-index: 9999;
+            &.confirm-backdrop
+            {
+                z-index: 999;
+            }
+            .modal-wrapper
+            {
+                transform: unset;
+            }
         }
         .modal-wrapper
         {
-            transform: unset;
-        }
-    }
-    .modal-wrapper
-    {
-        position: relative;
-        border-radius: 0.5rem;
-        background-color: white;
-        padding: 2rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        transform: scale(0.01);
-        transition: 0.2s ease-out;
-        overflow-x: auto;
-        max-height: 97vh;
-        width:100%;
-        max-width:50vw;
-        &.confirm
-        {
-            padding: 1.5rem;
-            min-width: 40vw;
+            position: relative;
+            border-radius: 0.5rem;
+            background-color: white;
+            padding: 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.01);
+            transition: 0.2s ease-out;
+            overflow-x: auto;
+            max-height: 97vh;
+            &.default
+            {
+                max-width: 50vw;
+            }
+            &.reduced
+            {
+                max-width: 30vw;
+            }
+            &.confirm
+            {
+                padding: 1.5rem;
+                min-width: 40vw;
+                .close-icon
+                {
+                    display: none;
+                }
+            }
             .close-icon
             {
-                display: none;
+                position: absolute;
+                top: 0.3rem;
+                right: 1rem;
+                padding: 1.8rem 1rem;
+                cursor: pointer;
+                border-radius: 50%;
+                transition: 0.3s ease-out;
+                &:hover
+                {
+                    background-color: rgba(0, 0, 0, 0.05);
+                    border-radius: 100%;
+                }
             }
         }
-        .close-icon
-        {
-            position: absolute;
-            top: 0.3rem;
-            right: 1rem;
-            padding: 1.8rem 1rem;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: 0.3s ease-out;
-            &:hover
-            {
-                background-color: rgba(0, 0, 0, 0.05);
-                border-radius: 100%;
-            }
-        }
+    }
+}
+
+.small
+{
+    &.backdrop
+    {
+        position: inherit;
     }
 }
