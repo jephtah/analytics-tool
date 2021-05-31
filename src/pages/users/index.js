@@ -10,27 +10,21 @@ function users () {
   const users = useSelector(state => state.users)
   const dispatch = useDispatch()
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(userActions.getAll())
-    dispatch(userActions.getSearch(searchStr))
+    if (searchStr) {
+      dispatch(userActions.getSearch(searchStr))
+    }
+  }, [searchStr]) */
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchStr ? dispatch(userActions.getSearch(searchStr)) : dispatch(userActions.getAll())
+    }, 1000)
+    return () => clearTimeout(timer)
   }, [searchStr])
 
-  /* const debounce = (func, timeout = 1000) => {
-    let timer
-    return (...args) => {
-      clearTimeout(timer)
-      timer = setTimeout(() => { func.apply(this, args) }, timeout)
-    }
-  }
-
-  /* const dispatchSearch = () => {
-        dispatch(userActions.getSearch(searchStr))
-    }
-
-    const handleSearch = debounce(dispatchSearch()); */
-
   const allUsers = users.users
-  console.log(searchStr)
 
   return (
         <Wrapper>

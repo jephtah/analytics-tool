@@ -30,20 +30,21 @@ function getAll () {
 }
 
 function getSearch (searchStr) {
+  console.log(searchStr)
   return async dispatch => {
-    dispatch(request({ searchStr }))
+    dispatch(request(searchStr))
 
     try {
-      const users = await userService.getSearch({ searchStr })
-      dispatch(success(users))
+      const users = await userService.getSearch(searchStr)
+      dispatch(success(users.results))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
   function request (searchStr) { return { type: userConstants.GETSEARCH_REQUEST, searchStr } }
-  function success (users) { return { type: userConstants.GETALL_SUCCESS, users } }
-  function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
+  function success (users) { return { type: userConstants.GETSEARCH_SUCCESS, users } }
+  function failure (error) { return { type: userConstants.GETSEARCH_FAILURE, error } }
 }
 
 function login (username, password, history) {

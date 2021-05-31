@@ -16,7 +16,7 @@ async function login (username, password) {
   // };
   //     return fetch(`${config.testUrl}/auth/signin`, requestOptions).then(handleResponse)
 
-  const response = await axios.post(`${config.testUrl}/auth/signin`, { username, password })
+  const response = await axios.post(`${config.testUrl}/auth/admin-signin/`, { username, password })
 
   const { token, user } = response.data.data
 
@@ -48,10 +48,13 @@ async function getSearch (searchStr) {
     method: 'GET',
     headers: { ...authHeader(), 'Content-Type': 'application/json' }
   }
+  const value = `${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=&search_prev=`
+  console.log(value)
+  const response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=&search_prev=`, requestOptions)
+  console.log(response.data.data.results)
 
-  const response = await axios(`${config.testUrl}/search?f=users&q=${searchStr}`, requestOptions)
-
-  const { users } = response.data
+  const users = response.data.data
+  console.log(users)
 
   return users
 }
