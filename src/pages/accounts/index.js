@@ -12,15 +12,28 @@ function accounts () {
   const [showWarningModal, setShowWarningModal] = useState(false)
   const [searchStr, setSearchStr] = useState('')
 
-  let accounts = useSelector(state => state.accounts)
+  const accounts = useSelector(state => state.accounts)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(accountActions.getAllAccounts())
-  }, [])
+    const timer = setTimeout(() => {
+      searchStr ? dispatch(accountActions.getSearch(searchStr)) : dispatch(accountActions.getAllAccounts())
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [searchStr])
 
   // console.log("accounts", accounts.accounts)
-  accounts = accounts.accounts
+  let allAccounts
+  let cursors
+  let totalSearch
+
+  if (accounts.accounts) {
+    allAccounts = accounts.accounts.results ? accounts.accounts.results : accounts.accounts
+    cursors = accounts.accounts.cursor ? accounts.accounts.cursor : null
+    totalSearch = accounts.accounts.totalSearch ? accounts.accounts.totalSearch : null
+  }
+
+  console.log([cursors, totalSearch])
 
   const displayWarningModal = () => {
     setShowWarningModal(true)
@@ -250,8 +263,8 @@ function accounts () {
                 </div>
                 <div className="flex flex-wrap justify-between ">
 
-                    { accounts
-                      ? accounts.map(account =>
+                    { allAccounts
+                      ? allAccounts.map(account =>
                         <div
                             key={account.username} className="bg-white w-52 h-88 rounded-2xl mt-10 p-6 mr-4 flex flex-col justify-between"
 
