@@ -36,7 +36,7 @@ function getSearch (searchStr) {
 
     try {
       const users = await userService.getSearch(searchStr)
-      dispatch(success(users.results))
+      dispatch(success(users))
     } catch (error) {
       dispatch(failure(error.toString()))
     }

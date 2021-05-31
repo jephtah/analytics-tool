@@ -24,7 +24,18 @@ function users () {
     return () => clearTimeout(timer)
   }, [searchStr])
 
-  const allUsers = users.users
+  let allUsers
+  let totalUsers
+  let cursors
+  console.log(users.users)
+
+  if (users.users) {
+    allUsers = users.users.users ? users.users.users : users.users.results
+    totalUsers = users.users.totalUsers ? users.users.totalUsers : users.users.totalSearch
+    cursors = users.users.cursors
+  }
+
+  console.log([totalUsers, cursors])
 
   return (
         <Wrapper>

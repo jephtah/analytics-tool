@@ -8,23 +8,33 @@ const index = _props => {
   const zones = useSelector(state => state.zones)
   const dispatch = useDispatch()
 
-  let timeRef
-
-  useEffect(() => {
+  /* useEffect(() => {
     clearTimeout(timeRef)
     timeRef = setTimeout(() => {
       dispatch(zoneActions.getAll())
       // dispatch(zoneActions.getSearch(searchStr))
     }, 1000)
+  }, [searchStr]) */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchStr ? dispatch(zoneActions.getSearch(searchStr)) : dispatch(zoneActions.getAll())
+    }, 1000)
+    return () => clearTimeout(timer)
   }, [searchStr])
 
   let postData
+  let cursors
+  let totalPosts
 
   if (zones.zones) {
-    postData = zones.zones.posts
+    // postData = zones.zones.posts
+    postData = zones.zones.posts ? zones.zones.posts : zones.zones.results
+    cursors = zones.zones.cursors
+    totalPosts = zones.zones.totalPosts ? zones.zones.totalPosts : zones.zones.totalSearch
   }
 
-  console.log('Here', postData)
+  // console.log([cursors, totalPosts])
+  // console.log(postData)
 
   return (
         <Wrapper>
@@ -140,7 +150,7 @@ const index = _props => {
                                 Save Changes
                             </div>
                             <div className="flex items-center">
-                                <span className="text-xs">Showing 4 of 256 entries</span>
+                                <span className="text-xs">Showing 4 of {totalPosts} entries</span>
                                 <span className="rounded-xl text-blue-500 ml-3 py-2 px-3 bg-blue-200">1</span>
                                 <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">2</span>
                                 <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">3</span>
