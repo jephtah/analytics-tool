@@ -1,9 +1,15 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-tabs */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { dashboardActions } from '../../_actions'
 import Wrapper from '../../components/wrapper'
 import styles from './home.module.css'
-import { XAxis, Tooltip, Legend, BarChart, CartesianGrid, Bar } from 'recharts'
+import { XAxis, Tooltip, BarChart, Bar } from 'recharts'
+import { barData, lineData } from '../../constants'
+import { ResponsiveLine } from '@nivo/line'
+// import { Chart } from 'chart.js'
+
 const index = () => {
   const dashboardData = useSelector(state => state.dashboardData)
   const dispatch = useDispatch()
@@ -12,40 +18,9 @@ const index = () => {
     dispatch(dashboardActions.getAll())
   }, [])
 
-  const barData = [
-    {
-      date: 'Sun',
-      value: 45000
-    },
-    {
-      date: 'Mon',
-      value: 30000
-    },
-    {
-      date: 'Tue',
-      value: 80000
-    },
-    {
-      date: 'Wed',
-      value: 40000
-    },
-    {
-      date: 'Thu',
-      value: 10000
-    },
-    {
-      date: 'Fri',
-      value: 20000
-    },
-    {
-      date: 'Sat',
-      value: 25000
-    }
-
-  ]
-
   const BarGraph = () => {
     return (
+			// eslint-disable-next-line no-tabs
 			<BarChart width={ 600 } height={ 250 } data={ barData }>
 				<XAxis dataKey="date" />
 				<Tooltip />
@@ -53,6 +28,47 @@ const index = () => {
 			</BarChart>
     )
   }
+  const MyResponsiveLine = ({ data }) => (
+    <ResponsiveLine
+        data={data}
+        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        xScale={{ type: 'point' }}
+        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+        yFormat=" >-.2f"
+        curve="natural"
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+          orient: 'bottom',
+          tickSize: 0,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: '',
+          legendOffset: 36,
+          legendPosition: 'middle'
+        }}
+        axisLeft={{
+          orient: 'left',
+          tickSize: 0,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: '',
+          legendOffset: -40,
+          legendPosition: 'middle'
+        }}
+        enableGridX={false}
+        lineWidth={4}
+        enablePoints={false}
+        pointSize={10}
+        pointColor={{ theme: 'background' }}
+        pointBorderWidth={2}
+        pointBorderColor={{ from: 'serieColor' }}
+        pointLabelYOffset={-12}
+        enableCrosshair={false}
+        useMesh={true}
+        legends={[]}
+    />
+  )
 
   const data = dashboardData.data
   // console.log(data)
@@ -134,8 +150,7 @@ const index = () => {
                                 </div>
                             </div>
                             <div className=" text-blue-800 text-2xl pt-2 w-82 h-full">
-                                <img src="/graph.svg" />
-
+								<MyResponsiveLine data={lineData}/>
                             </div>
 
                         </div>
