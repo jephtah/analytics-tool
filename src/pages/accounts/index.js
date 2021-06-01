@@ -4,6 +4,7 @@ import Wrapper from '../../components/wrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountActions } from '../../_actions'
 import Modal from '../../components/modal'
+import Popover from '@material-ui/core/Popover'
 
 function accounts () {
   const [showModal, setShowModal] = useState(false)
@@ -11,6 +12,7 @@ function accounts () {
   const [showCouponsModal, setShowCouponsModal] = useState(false)
   const [showWarningModal, setShowWarningModal] = useState(false)
   const [searchStr, setSearchStr] = useState('')
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const accounts = useSelector(state => state.accounts)
   const dispatch = useDispatch()
@@ -42,7 +44,6 @@ function accounts () {
 
   const dismissWarningModal = () => {
     setShowWarningModal(false)
-    setShowCouponsModal(true)
   }
 
   const displayEditAccountModal = () => {
@@ -54,12 +55,14 @@ function accounts () {
     setShowEditAccountModal(false)
   }
 
-  const displayEditDeleteModal = () => {
+  const displayEditDeleteModal = (event) => {
     setShowModal(true)
+    setAnchorEl(event.currentTarget)
   }
 
   const dismissEditDeleteModal = () => {
     setShowModal(false)
+    setAnchorEl(null)
   }
 
   const displayCouponsModal = () => {
@@ -71,17 +74,28 @@ function accounts () {
     setShowCouponsModal(false)
   }
 
-  const EditDeleteModal = props => {
-    const { visible, cancel, type, size } = props
-
+  const EditDeletePopOver = props => {
+    const { open, onClose } = props
     return (
-            <Modal visible={visible} cancel={cancel} type={type} size={size}>
-                <div className="flex flex-col">
-                    <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayEditAccountModal()}>Edit</button>
-                    <hr className="w-full border-gray-500"/>
-                    <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayWarningModal()}>Delete</button>
-                </div>
-            </Modal>
+        <Popover
+        open={open}
+        onClose={onClose}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center'
+        }}
+        >
+            <div className="flex flex-col">
+                <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayEditAccountModal()}>Edit</button>
+                <hr className="w-full border-gray-500"/>
+                <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayWarningModal()}>Delete</button>
+            </div>
+        </Popover>
     )
   }
 
@@ -274,7 +288,7 @@ function accounts () {
                                 {account.profile.profile_picture_url !== null
                                   ? <img onClick={() => displayCouponsModal()} src={account.profile.profile_picture_url} width="70" height="50" className="rounded-3xl"/>
                                   : <img onClick={() => displayCouponsModal()} src="/placeholder.svg" width="70" height="70" />}
-                                    <span className="cursor-pointer text-xl" onClick={() => displayEditDeleteModal()}>&#10247;</span>
+                                    <span className="cursor-pointer text-xl" onClick={displayEditDeleteModal}>&#10247;</span>
                                 </div>
                                 <div className="flex flex-col mt-5">
                                     <span className="text-black ">{account.username}</span>
@@ -304,11 +318,9 @@ function accounts () {
                     <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">3</span>
                 </div>
             </Wrapper>
-            <EditDeleteModal
-                visible={showModal}
-                cancel={dismissEditDeleteModal}
-                type='small'
-                size="reduced"
+            <EditDeletePopOver
+                onClose={dismissEditDeleteModal}
+                open={showModal}
             />
             <EditAccountModal
                 visible={showEditAccountModal}
@@ -323,13 +335,11 @@ function accounts () {
                 cancelIcon
                 type='main'
                 coinTypeOptions= {['BTC', 'ETH', 'KOBO', 'CENTS']}
-                size='default'
             />
             <WarningModal
                 cancel={dismissWarningModal}
                 visible={showWarningModal}
                 type= 'main'
-                size= 'reduced'
             />
         </>
   )

@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react'
 import styles from './modal.module.scss'
 
 const Modal = props => {
-  const { children, visible, cancel = () => {}, isConfirm, cancelIcon, className, type, size } = props
+  const { children, visible, cancel = () => {}, isConfirm, cancelIcon, className, type } = props
   const modalRef = useRef(null)
   const visibleRef = useRef(visible)
 
@@ -40,7 +40,6 @@ const Modal = props => {
         <div
             className={[
               styles[type || 'main'],
-              styles[size || 'default'],
               styles.backdrop,
               visible && styles.active,
               isConfirm && styles['confirm-backdrop'],

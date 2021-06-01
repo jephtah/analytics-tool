@@ -37,10 +37,7 @@
             transition: 0.2s ease-out;
             overflow-x: auto;
             max-height: 97vh;
-            &.default
-            {
-                max-width: 50vw;
-            }
+            min-width: 50vw;
             &.reduced
             {
                 max-width: 30vw;
