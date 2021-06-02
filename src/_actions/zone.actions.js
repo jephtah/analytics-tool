@@ -13,7 +13,6 @@ function getAll () {
 
     try {
       const zones = await zoneService.getAll()
-      console.log('Zones', zones)
       dispatch(success(zones))
     } catch (error) {
       dispatch(failure(error.toString()))

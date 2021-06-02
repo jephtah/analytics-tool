@@ -38,9 +38,7 @@ async function getAll () {
   }
 
   const response = await axios(`${config.testUrl}/admin/manage-users`, requestOptions)
-  console.log(response)
   const users = response.data.data
-  console.log(users)
 
   return users
 }
@@ -65,7 +63,6 @@ async function getSearch (searchStr) {
   const response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=&search_prev=`, requestOptions)
 
   const users = response.data.data
-  console.log(users)
 
   return users
 }

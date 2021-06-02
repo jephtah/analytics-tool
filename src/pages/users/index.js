@@ -28,7 +28,6 @@ function users () {
   let allUsers
   let totalUsers
   let cursors
-  console.log(users.users)
 
   if (users.users) {
     allUsers = users.users.users ? users.users.users : users.users.results
@@ -43,7 +42,6 @@ function users () {
     dispatch(userActions.getPaginated(cursors.before))
   }
 
-  console.log(cursors)
   let pagination
   if (cursors) {
     if (cursors.hasNext) {

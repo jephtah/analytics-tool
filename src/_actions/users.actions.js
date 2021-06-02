@@ -47,7 +47,6 @@ function getPaginated (hasNext, hasPrev) {
 }
 
 function getSearch (searchStr) {
-  console.log(searchStr)
   return async dispatch => {
     dispatch(request(searchStr))
 

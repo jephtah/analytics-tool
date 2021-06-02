@@ -25,7 +25,6 @@ function accounts () {
     return () => clearTimeout(timer)
   }, [searchStr])
 
-  // console.log("accounts", accounts.accounts)
   let allAccounts
   let cursors
   let totalSearch
@@ -43,7 +42,6 @@ function accounts () {
     dispatch(accountActions.getPaginated(cursors.before))
   }
 
-  console.log(cursors)
   let pagination
   if (cursors) {
     if (cursors.hasNext) {
@@ -56,8 +54,6 @@ function accounts () {
       pagination = <> <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/> <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/> </>
     }
   }
-
-  console.log([cursors, totalSearch])
 
   const displayWarningModal = () => {
     setShowWarningModal(true)
