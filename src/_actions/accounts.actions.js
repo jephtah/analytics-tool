@@ -4,7 +4,8 @@ import { accountService } from '../_services'
 
 export const accountActions = {
   getAllAccounts,
-  getSearch
+  getSearch,
+  getPaginated
 }
 
 function getAllAccounts () {
@@ -22,6 +23,21 @@ function getAllAccounts () {
   function request () { return { type: accountConstants.GETALL_REQUEST } }
   function success (accounts) { return { type: accountConstants.GETALL_SUCCESS, accounts } }
   function failure (error) { return { type: accountConstants.GETALL_FAILURE, error } }
+}
+function getPaginated (hasNext, hasPrev) {
+  return async dispatch => {
+    dispatch(request(hasNext, hasPrev))
+    try {
+      const accounts = await accountService.getPaginated(hasNext, hasPrev)
+      dispatch(success(accounts))
+    } catch (error) {
+      dispatch(failure(error.toString()))
+    }
+  }
+
+  function request (hasNext, hasPrev) { return { type: accountService.GETALL_REQUEST, hasNext, hasPrev } }
+  function success (accounts) { return { type: accountService.GETALL_SUCCESS, accounts } }
+  function failure (error) { return { type: accountService.GETALL_FAILURE, error } }
 }
 
 function getSearch (searchStr) {

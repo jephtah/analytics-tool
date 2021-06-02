@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { accountActions } from '../../_actions'
 import Modal from '../../components/modal'
 import Popover from '@material-ui/core/Popover'
+import Pagination from '../../components/pagination'
 
 function accounts () {
   const [showModal, setShowModal] = useState(false)
@@ -33,6 +34,27 @@ function accounts () {
     allAccounts = accounts.accounts.results ? accounts.accounts.results : accounts.accounts
     cursors = accounts.accounts.cursor ? accounts.accounts.cursor : null
     totalSearch = accounts.accounts.totalSearch ? accounts.accounts.totalSearch : null
+  }
+
+  const forwardClick = () => {
+    dispatch(accountActions.getPaginated(cursors.after))
+  }
+  const backClick = () => {
+    dispatch(accountActions.getPaginated(cursors.before))
+  }
+
+  console.log(cursors)
+  let pagination
+  if (cursors) {
+    if (cursors.hasNext) {
+      pagination = <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/>
+    }
+    if (cursors.hasPrevious) {
+      pagination = <Pagination hasNext={cursors.hasPrevious} backwardClick={() => backClick()}/>
+    }
+    if (cursors.hasNext && cursors.hasPrevious) {
+      pagination = <> <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/> <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/> </>
+    }
   }
 
   console.log([cursors, totalSearch])
@@ -313,9 +335,9 @@ function accounts () {
                 </div>
                 <div className="flex items-center py-6 lg:mt-16">
                     <span className="text-xs">Showing 4 of 256 entries</span>
-                    <span className="rounded-xl text-blue-500 ml-3 py-2 px-3 bg-blue-200">1</span>
-                    <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">2</span>
-                    <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">3</span>
+                    <div className="flex">
+                        {pagination}
+                    </div>
                 </div>
             </Wrapper>
             <EditDeletePopOver

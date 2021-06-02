@@ -4,7 +4,8 @@ import { authHeader } from '../_helpers'
 
 export const accountService = {
   getAll,
-  getSearch
+  getSearch,
+  getPaginated
 }
 
 async function getAll () {
@@ -18,6 +19,18 @@ async function getAll () {
   const accounts = response.data.data
   console.log(response.data)
   console.log(accounts)
+  return accounts
+}
+
+async function getPaginated (hasNext, hasPrev) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { ...authHeader(), 'Content-type': 'application/json' }
+  }
+
+  const response = hasNext ? await axios(`${config.testUrl}/admin/manage-docs-couns?post_next=${hasNext}`, requestOptions) : await axios(`${config.testUrl}/admin/manage-docs-couns?post_prev=${hasPrev}`, requestOptions)
+
+  const accounts = response.data.data
   return accounts
 }
 

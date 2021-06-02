@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Wrapper from '../../components/wrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { zoneActions } from '../../_actions/zone.actions'
+import Pagination from '../../components/pagination'
 
 const index = _props => {
   const [searchStr, setSearchStr] = useState('')
@@ -33,8 +34,25 @@ const index = _props => {
     totalPosts = zones.zones.totalPosts ? zones.zones.totalPosts : zones.zones.totalSearch
   }
 
-  // console.log([cursors, totalPosts])
-  // console.log(postData)
+  const forwardClick = () => {
+    dispatch(zoneActions.getPaginated(cursors.after))
+  }
+  const backClick = () => {
+    dispatch(zoneActions.getPaginated(cursors.before))
+  }
+
+  let pagination
+  if (cursors) {
+    if (cursors.hasNext) {
+      pagination = <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/>
+    }
+    if (cursors.hasPrevious) {
+      pagination = <Pagination hasNext={cursors.hasPrevious} backwardClick={() => backClick()}/>
+    }
+    if (cursors.hasNext && cursors.hasPrevious) {
+      pagination = <> <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/> <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/> </>
+    }
+  }
 
   return (
         <Wrapper>
@@ -149,11 +167,11 @@ const index = _props => {
                             <div className="rounded-xl bg-blue-500 px-12 py-4 text-white">
                                 Save Changes
                             </div>
-                            <div className="flex items-center">
-                                <span className="text-xs">Showing 4 of {totalPosts} entries</span>
-                                <span className="rounded-xl text-blue-500 ml-3 py-2 px-3 bg-blue-200">1</span>
-                                <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">2</span>
-                                <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">3</span>
+                        </div>
+                        <div className="flex flex-col mt-6">
+                            <span className="text-xs">Showing 4 of {totalPosts} entries</span>
+                            <div className="flex">
+                                {pagination}
                             </div>
                         </div>
                     </div>

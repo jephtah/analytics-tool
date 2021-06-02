@@ -3,7 +3,8 @@ import { zoneService } from '../_services'
 
 export const zoneActions = {
   getAll,
-  getSearch
+  getSearch,
+  getPaginated
 }
 
 function getAll () {
@@ -20,6 +21,22 @@ function getAll () {
   }
 
   function request () { return { type: zoneConstants.GETALL_REQUEST } }
+  function success (zones) { return { type: zoneConstants.GETALL_SUCCESS, zones } }
+  function failure (error) { return { type: zoneConstants.GETALL_FAILURE, error } }
+}
+
+function getPaginated (hasNext, hasPrev) {
+  return async dispatch => {
+    dispatch(request(hasNext, hasPrev))
+    try {
+      const zones = await zoneService.getPaginated(hasNext, hasPrev)
+      dispatch(success(zones))
+    } catch (error) {
+      dispatch(failure(error.toString()))
+    }
+  }
+
+  function request (hasNext, hasPrev) { return { type: zoneConstants.GETALL_REQUEST, hasNext, hasPrev } }
   function success (zones) { return { type: zoneConstants.GETALL_SUCCESS, zones } }
   function failure (error) { return { type: zoneConstants.GETALL_FAILURE, error } }
 }
