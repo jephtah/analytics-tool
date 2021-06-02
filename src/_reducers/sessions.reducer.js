@@ -14,6 +14,18 @@ export function sessions (state = {}, action) {
       return {
         error: action.error
       }
+    case sessionConstants.GETSEARCH_REQUEST:
+      return {
+        loading: true
+      }
+    case sessionConstants.GETSEARCH_SUCCESS:
+      return {
+        sessions: action.sessions
+      }
+    case sessionConstants.GETSEARCH_FAILURE:
+      return {
+        sessions: action.error
+      }
     default:
       return state
   }

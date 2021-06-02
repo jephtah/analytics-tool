@@ -3,6 +3,7 @@ import Wrapper from '../../components/wrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { sessionActions } from '../../_actions'
 import Switch from '@material-ui/core/Switch'
+import Pagination from '../../components/pagination'
 
 function sessions () {
   let sessions = useSelector(state => state.sessions)
@@ -12,21 +13,48 @@ function sessions () {
     checkedA: true,
     checkedB: false
   })
+  const [searchStr, setSearchStr] = useState('')
 
   useEffect(() => {
-    dispatch(sessionActions.getAllSessions())
-  }, [])
+    const timer = setTimeout(() => {
+      searchStr ? dispatch(sessionActions.getSearch(searchStr)) : dispatch(sessionActions.getAllSessions())
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [searchStr])
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked })
   }
-
   sessions = sessions.sessions
 
   let sessionItem
+  let cursors
+  let totalSessions
 
   if (sessions) {
-    sessionItem = sessions.users
+    sessionItem = sessions.users ? sessions.users : sessions.results
+    cursors = sessions.cursors
+    totalSessions = sessions.totalSessions ? sessions.totalSessions : sessions.totalSearch
+  }
+
+  const forwardClick = () => {
+    dispatch(sessionActions.getPaginated(cursors.after))
+  }
+  const backClick = () => {
+    dispatch(sessionActions.getPaginated(cursors.before))
+  }
+
+  let pagination
+  if (cursors) {
+    if (cursors.hasNext) {
+      pagination = <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/>
+    }
+    if (cursors.hasPrevious) {
+      pagination = <Pagination hasNext={cursors.hasPrevious} backwardClick={() => backClick()}/>
+    }
+    if (cursors.hasNext && cursors.hasPrevious) {
+      pagination = <> <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/> <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/> </>
+    }
   }
 
   return (
@@ -34,7 +62,7 @@ function sessions () {
 
             <div className="flex align-baseline items-center just px-5">
                 <span className="text-black text-xl"> Chat Sessions</span>
-                <input className="w-72 h-11 rounded-xl bg-gray-300 mx-52 px-6 text-xs" placeholder="Search sessions" />
+                <input value={searchStr} className="w-72 h-11 rounded-xl bg-gray-300 mx-52 px-6 text-xs" placeholder="Search sessions" onChange={(e) => setSearchStr(e.currentTarget.value)}/>
             </div>
             <div className="flex flex-wrap items-center ">
 
@@ -84,11 +112,11 @@ function sessions () {
                   )
                   : (<div className="flex items-center text-2xl mt-10"> Fetching User Sessions...</div>)}
             </div>
-            <div className="flex items-center py-6">
-                <span className="text-xs">Showing 4 of 256 entries</span>
-                <span className="rounded-xl text-blue-500 ml-3 py-2 px-3 bg-blue-200">1</span>
-                <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">2</span>
-                <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">3</span>
+            <div className="flex flex-col mt-6 py-6">
+              <span className="text-xs">Showing 4 of 256 entries</span>
+              <div className="flex">
+                {pagination}
+              </div>
             </div>
         </Wrapper>
   )
