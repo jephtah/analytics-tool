@@ -40,18 +40,18 @@ function getPaginated (hasNext, hasPrev) {
   function failure (error) { return { type: zoneConstants.GETALL_FAILURE, error } }
 }
 
-function getSearch (searchStr) {
+function getSearch (searchStr, hasNext, hasPrev) {
   return async dispatch => {
-    dispatch(request(searchStr))
+    dispatch(request(searchStr, hasPrev, hasNext))
     try {
-      const zones = await zoneService.getSearch(searchStr)
+      const zones = await zoneService.getSearch(searchStr, hasNext, hasPrev)
       dispatch(success(zones))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
-  function request (searchStr) { return { type: zoneConstants.GETSEARCH_REQUEST, searchStr } }
+  function request (searchStr, hasNext, hasPrev) { return { type: zoneConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrev } }
   function success (zones) { return { type: zoneConstants.GETSEARCH_SUCCESS, zones } }
   function failure (error) { return { type: zoneConstants.GETSEARCH_FAILURE, error } }
 }

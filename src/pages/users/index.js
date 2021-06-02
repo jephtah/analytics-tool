@@ -36,10 +36,10 @@ function users () {
   }
 
   const forwardClick = () => {
-    dispatch(userActions.getPaginated(cursors.after))
+    searchStr === '' ? dispatch(userActions.getPaginated(cursors.after)) : dispatch(userActions.getSearch(searchStr, cursors.after))
   }
   const backClick = () => {
-    dispatch(userActions.getPaginated(cursors.before))
+    searchStr === '' ? dispatch(userActions.getPaginated(cursors.before)) : dispatch(userActions.getSearch(searchStr, cursors.before))
   }
 
   let pagination
@@ -48,7 +48,7 @@ function users () {
       pagination = <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/>
     }
     if (cursors.hasPrevious) {
-      pagination = <Pagination hasNext={cursors.hasPrevious} backwardClick={() => backClick()}/>
+      pagination = <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/>
     }
     if (cursors.hasNext && cursors.hasPrevious) {
       pagination = <> <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/> <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/> </>
@@ -93,7 +93,7 @@ function users () {
                   : (<div> Loading... </div>)}
             </div>
             <div className="flex flex-col lg:mt-16 py-6">
-              <span className="text-xs">Showing 4 of 256 entries</span>
+              <span className="text-xs">Showing 4 of {totalUsers} entries</span>
               <div className="flex">
                 {pagination}
               </div>

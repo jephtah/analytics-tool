@@ -28,6 +28,7 @@ function accounts () {
   let allAccounts
   let cursors
   let totalSearch
+  console.log(accounts)
 
   if (accounts.accounts) {
     allAccounts = accounts.accounts.results ? accounts.accounts.results : accounts.accounts
@@ -36,10 +37,10 @@ function accounts () {
   }
 
   const forwardClick = () => {
-    dispatch(accountActions.getPaginated(cursors.after))
+    searchStr === '' ? dispatch(accountActions.getPaginated(cursors.after)) : dispatch(accountActions.getSearch(searchStr, cursors.after))
   }
   const backClick = () => {
-    dispatch(accountActions.getPaginated(cursors.before))
+    searchStr === '' ? dispatch(accountActions.getPaginated(cursors.before)) : dispatch(accountActions.getSearch(searchStr, cursors.before))
   }
 
   let pagination

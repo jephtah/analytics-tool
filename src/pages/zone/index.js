@@ -35,10 +35,10 @@ const index = _props => {
   }
 
   const forwardClick = () => {
-    dispatch(zoneActions.getPaginated(cursors.after))
+    searchStr === '' ? dispatch(zoneActions.getPaginated(cursors.after)) : dispatch(zoneActions.getSearch(searchStr, cursors.after))
   }
   const backClick = () => {
-    dispatch(zoneActions.getPaginated(cursors.before))
+    searchStr === '' ? dispatch(zoneActions.getPaginated(cursors.before)) : dispatch(zoneActions.getSearch(searchStr, cursors.after))
   }
 
   let pagination

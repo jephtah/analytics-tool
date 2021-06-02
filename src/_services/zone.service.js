@@ -33,13 +33,24 @@ async function getPaginated (hasNext, hasPrev) {
   return zones
 }
 
-async function getSearch (searchStr) {
+async function getSearch (searchStr, hasNext, hasPrev) {
   const requestOptions = {
     method: 'GET',
     headers: { ...authHeader(), 'Content-Type': 'application/json' }
   }
 
-  const response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=&search_prev=`, requestOptions)
+  let response
+  if (hasNext) {
+    response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=${hasNext}`, requestOptions)
+  }
+  if (hasPrev) {
+    response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_prev=${hasPrev}`)
+  }
+  if (hasNext && hasPrev) {
+    response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=${hasNext}&search_prev=${hasPrev}`, requestOptions)
+  }
+  response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=&search_prev=`, requestOptions)
+
   const zones = response.data.data
 
   return zones

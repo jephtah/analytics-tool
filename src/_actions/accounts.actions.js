@@ -40,19 +40,19 @@ function getPaginated (hasNext, hasPrev) {
   function failure (error) { return { type: accountService.GETALL_FAILURE, error } }
 }
 
-function getSearch (searchStr) {
+function getSearch (searchStr, hasNext, hasPrev) {
   return async dispatch => {
     dispatch(request(searchStr))
 
     try {
-      const accounts = await accountService.getSearch(searchStr)
+      const accounts = await accountService.getSearch(searchStr, hasNext, hasPrev)
       dispatch(success(accounts))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
-  function request (searchStr) { return { type: accountConstants.GETSEARCH_REQUEST, searchStr } };
+  function request (searchStr, hasNext, hasPrev) { return { type: accountConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrev } };
   function success (accounts) { return { type: accountConstants.GETSEARCH_SUCCESS, accounts } }
   function failure (error) { return { type: accountConstants.GETSEARCH_FAILURE, error } }
 }

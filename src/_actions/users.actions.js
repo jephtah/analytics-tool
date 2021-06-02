@@ -46,19 +46,19 @@ function getPaginated (hasNext, hasPrev) {
   function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-function getSearch (searchStr) {
+function getSearch (searchStr, hasNext, hasPrev) {
   return async dispatch => {
-    dispatch(request(searchStr))
+    dispatch(request(searchStr, hasNext, hasPrev))
 
     try {
-      const users = await userService.getSearch(searchStr)
+      const users = await userService.getSearch(searchStr, hasNext, hasPrev)
       dispatch(success(users))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
-  function request (searchStr) { return { type: userConstants.GETSEARCH_REQUEST, searchStr } }
+  function request (searchStr, hasPrev, hasNext) { return { type: userConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrev } }
   function success (users) { return { type: userConstants.GETSEARCH_SUCCESS, users } }
   function failure (error) { return { type: userConstants.GETSEARCH_FAILURE, error } }
 }
