@@ -166,10 +166,10 @@ const EditUserModal = props => {
   const { visible, cancel, cancelIcon, className, type, value, onChange, saveFunction } = props
   return (
             <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
-                <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Account</h1>
+                <h1 className="text-3xl mb-6 text-center text-gray-700">Edit User Membership</h1>
                 <div>
                     <div className="flex flex-col mb-8">
-                        <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Change username</label>
+                        <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Membership Type</label>
                         <input
                             type="text" value={value}
                             onChange={onChange}

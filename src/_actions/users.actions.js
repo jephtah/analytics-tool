@@ -10,7 +10,8 @@ export const userActions = {
   login,
   getAll,
   getSearch,
-  getPaginated
+  getPaginated,
+  updateUser
 }
 
 function getAll () {
@@ -60,6 +61,22 @@ function getSearch (searchStr, hasNext, hasPrev) {
 
   function request (searchStr, hasPrev, hasNext) { return { type: userConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrev } }
   function success (users) { return { type: userConstants.GETSEARCH_SUCCESS, users } }
+  function failure (error) { return { type: userConstants.GETSEARCH_FAILURE, error } }
+}
+
+function updateUser (userName, membershipType) {
+  return async dispatch => {
+    dispatch(request({ userName, membershipType }))
+    try {
+      const user = await userService.updateUser(userName, membershipType)
+      dispatch(success(user))
+      Router.push('/users')
+    } catch (error) {
+      dispatch(failure(error.toString()))
+    }
+  }
+  function request (userName, membershipType) { return { type: userConstants.UPDATEUSER_REQUEST, userName, membershipType } }
+  function success (user) { return { type: userConstants.UPDATEUSER_SUCCESS, user } }
   function failure (error) { return { type: userConstants.GETSEARCH_FAILURE, error } }
 }
 

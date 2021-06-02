@@ -6,7 +6,8 @@ export const userService = {
   login,
   getAll,
   getSearch,
-  getPaginated
+  getPaginated,
+  updateUser
 }
 
 async function login (username, password) {
@@ -28,6 +29,15 @@ async function login (username, password) {
   console.log('token', token)
   console.log('user', user)
 
+  return user
+}
+
+async function updateUser (userName, membershipType) {
+  const requestOptions = {
+    headers: { ...authHeader(), 'Content-Type': 'application/json' }
+  }
+  const response = await axios.put(`${config.testUrl}/admin/update-user/${userName}`, membershipType, { requestOptions })
+  const user = response.message
   return user
 }
 

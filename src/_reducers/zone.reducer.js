@@ -26,6 +26,30 @@ export function zones (state = {}, action) {
       return {
         error: action.error
       }
+    case zoneConstants.UPDATEZONE_REQUEST:
+      return {
+        loading: true
+      }
+    case zoneConstants.UPDATEZONE_SUCCESS:
+      return {
+        zones: action.zones
+      }
+    case zoneConstants.UPDATEZONE_FAILURE:
+      return {
+        error: action.error
+      }
+    case zoneConstants.DELETEZONE_REQUEST:
+      return {
+        loading: true
+      }
+    case zoneConstants.DELETEZONE_SUCCESS:
+      return {
+        zones: action.zones
+      }
+    case zoneConstants.DELETEZONE_FAILURE:
+      return {
+        error: action.error
+      }
     default:
       return state
   }

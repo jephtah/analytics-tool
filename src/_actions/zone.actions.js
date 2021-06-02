@@ -4,7 +4,9 @@ import { zoneService } from '../_services'
 export const zoneActions = {
   getAll,
   getSearch,
-  getPaginated
+  getPaginated,
+  updateZone,
+  deleteZone
 }
 
 function getAll () {
@@ -54,4 +56,38 @@ function getSearch (searchStr, hasNext, hasPrev) {
   function request (searchStr, hasNext, hasPrev) { return { type: zoneConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrev } }
   function success (zones) { return { type: zoneConstants.GETSEARCH_SUCCESS, zones } }
   function failure (error) { return { type: zoneConstants.GETSEARCH_FAILURE, error } }
+}
+
+function updateZone (slug, title, content) {
+  return async dispatch => {
+    dispatch(request(slug, title, content))
+
+    try {
+      const zones = await zoneService.updatePost(slug, title, content)
+      dispatch(success(zones))
+    } catch (error) {
+      dispatch(failure(error.toString()))
+    }
+  }
+
+  function request (slug, title, content) { return { type: zoneConstants.UPDATEZONE_REQUEST, slug, title, content } }
+  function success (zones) { return { type: zoneConstants.UPDATEZONE_SUCCESS, zones } }
+  function failure (error) { return { type: zoneConstants.UPDATEZONE_FAILURE, error } }
+}
+
+function deleteZone (slug) {
+  return async dispatch => {
+    dispatch(request(slug))
+
+    try {
+      const zones = await zoneService.deletePost(slug)
+      dispatch(success(zones))
+    } catch (error) {
+      dispatch(failure(error.toString()))
+    }
+  }
+
+  function request (slug) { return { type: zoneConstants.DELETEZONE_REQUEST, slug } }
+  function success (zones) { return { type: zoneConstants.DELETEZONE_SUCCESS, zones } }
+  function failure (error) { return { type: zoneConstants.DELETE_FAILURE, error } }
 }

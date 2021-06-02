@@ -5,7 +5,9 @@ import { authHeader } from '../_helpers'
 export const zoneService = {
   getAll,
   getSearch,
-  getPaginated
+  getPaginated,
+  deletePost,
+  updatePost
 }
 
 async function getAll () {
@@ -54,4 +56,24 @@ async function getSearch (searchStr, hasNext, hasPrev) {
   const zones = response.data.data
 
   return zones
+}
+
+async function deletePost (slug) {
+  const requestOptions = {
+    headers: { ...authHeader(), 'Content-type': 'application/json' }
+  }
+
+  const response = await axios.post(`${config.testUrl}/admin/delete-post/${slug}`, requestOptions)
+  const zones = response.message
+  return zones
+}
+
+async function updatePost (slug, title, content) {
+  const requestOptions = {
+    headers: { ...authHeader(), 'Content-type': 'application/json' }
+  }
+
+  const response = await axios.put(`${config.testUrl}/admin/edit-post/${slug}`, { title, content }, requestOptions)
+  const zone = response.message
+  return zone
 }
