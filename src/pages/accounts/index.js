@@ -28,7 +28,6 @@ function accounts () {
   let allAccounts
   let cursors
   let totalSearch
-  console.log(accounts)
 
   if (accounts.accounts) {
     allAccounts = accounts.accounts.results ? accounts.accounts.results : accounts.accounts
@@ -92,51 +91,9 @@ function accounts () {
   const dismissCouponsModal = () => {
     setShowCouponsModal(false)
   }
-
-  const EditDeletePopOver = props => {
-    const { open, onClose } = props
-    return (
-        <Popover
-        open={open}
-        onClose={onClose}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        >
-            <div className="flex flex-col">
-                <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayEditAccountModal()}>Edit</button>
-                <hr className="w-full border-gray-500"/>
-                <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => displayWarningModal()}>Delete</button>
-            </div>
-        </Popover>
-    )
-  }
-
-  const WarningModal = props => {
-    const { visible, cancel, type, size } = props
-
-    return (
-                <>
-                    <Modal visible={visible} className="w-1/2" type={type} size={size}>
-                        <div className="flex flex-col justify-center content-center">
-                            <h1 className="text-3xl mb-4 text-center font-bold">Warning!</h1>
-                            <p className="text-center text-2xl font-semibold">Are you sure you want to delete this coupon?</p>
-
-                            <div className="flex w-full justify-center mt-4">
-                                <button onClick={cancel} className="mr-6 p-4 w-48 bg-gray-50 text-blue-700 text-xl border-solid border-2 rounded-lg">Cancel</button>
-                                <button className="mr-4 p-4 w-48 bg-blue-600 text-white text-xl border-solid border-2 rounded-lg">Delete Coupon</button>
-                            </div>
-                        </div>
-                    </Modal>
-
-                </>
-    )
+  const handleDelete = () => {
+    console.log('handle delete function called')
+    setShowWarningModal(false)
   }
 
   const CouponsModal = props => {
@@ -340,6 +297,9 @@ function accounts () {
             <EditDeletePopOver
                 onClose={dismissEditDeleteModal}
                 open={showModal}
+                anchorEl={anchorEl}
+                editFunction= {displayEditAccountModal}
+                deleteFunction={displayWarningModal}
             />
             <EditAccountModal
                 visible={showEditAccountModal}
@@ -359,8 +319,55 @@ function accounts () {
                 cancel={dismissWarningModal}
                 visible={showWarningModal}
                 type= 'main'
+                handleDelete = {handleDelete}
             />
         </>
+  )
+}
+
+export const EditDeletePopOver = props => {
+  const { open, onClose, anchorEl, editFunction, deleteFunction } = props
+  return (
+      <Popover
+      open={open}
+      onClose={onClose}
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left'
+      }}
+      transformOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center'
+      }}
+      >
+          <div className="flex flex-col">
+              <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => editFunction()}>Edit</button>
+              <hr className="w-full border-gray-500"/>
+              <button className=" px-6 text-lg text-gray-700 outline-none" onClick={() => deleteFunction()}>Delete</button>
+          </div>
+      </Popover>
+  )
+}
+
+export const WarningModal = props => {
+  const { visible, cancel, type, size, handleDelete } = props
+
+  return (
+              <>
+                  <Modal visible={visible} className="w-1/2" type={type} size={size}>
+                      <div className="flex flex-col justify-center content-center">
+                          <h1 className="text-3xl mb-4 text-center font-bold">Warning!</h1>
+                          <p className="text-center text-2xl font-semibold">Are you sure you want to delete this coupon?</p>
+
+                          <div className="flex w-full justify-center mt-4">
+                              <button onClick={cancel} className="mr-6 p-4 w-48 bg-gray-50 text-blue-700 text-xl border-solid border-2 rounded-lg">Cancel</button>
+                              <button className="mr-4 p-4 w-48 bg-blue-600 text-white text-xl border-solid border-2 rounded-lg"onClick={handleDelete}>Delete Coupon</button>
+                          </div>
+                      </div>
+                  </Modal>
+
+              </>
   )
 }
 

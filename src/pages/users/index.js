@@ -1,13 +1,21 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Wrapper from '../../components/wrapper'
+import Modal from '../../components/modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { userActions } from '../../_actions'
+import { EditDeletePopOver, WarningModal } from '../accounts'
 import Pagination from '../../components/pagination'
 // import { MdSearch } from 'react-icons/md'
 
 function users () {
   const [searchStr, setSearchStr] = useState('')
+  const [showEditDeleteModal, setShowEditDeleteModal] = useState(false)
+  const [showWarningModal, setShowWarningModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
+
   const users = useSelector(state => state.users)
   const dispatch = useDispatch()
 
@@ -35,6 +43,37 @@ function users () {
     cursors = users.users.cursors
   }
 
+  const handleDelete = () => {
+    console.log('This is has been deleted')
+    setShowWarningModal(false)
+  }
+
+  const displayEditDeleteModal = event => {
+    setShowEditDeleteModal(true)
+    setAnchorEl(event.currentTarget)
+  }
+
+  const dismissEditDeleteModal = () => {
+    setShowEditDeleteModal(false)
+    setAnchorEl(null)
+  }
+
+  const displayWarningModal = () => {
+    setShowWarningModal(true)
+  }
+
+  const dismissWarningModal = () => {
+    setShowWarningModal(false)
+  }
+
+  const displayEditModal = () => {
+    setShowEditModal(true)
+  }
+
+  const dismissEditModal = () => {
+    setShowEditModal(false)
+  }
+
   const forwardClick = () => {
     searchStr === '' ? dispatch(userActions.getPaginated(cursors.after)) : dispatch(userActions.getSearch(searchStr, cursors.after))
   }
@@ -56,7 +95,8 @@ function users () {
   }
 
   return (
-        <Wrapper>
+    <>
+      <Wrapper>
             <div className="flex">
                 <input className="w-72 h-14 rounded-2xl bg-gray-300 px-6" value={searchStr} placeholder="Search here..." type="text" onChange={(e) => setSearchStr(e.currentTarget.value)} />
                 {/* <MdSearch className="absolute" /> */}
@@ -69,7 +109,7 @@ function users () {
                         <div>
                             <div className="flex justify-between">
                                 <Link href="/user-sessions"><img src="/placeholder.svg" className="cursor-pointer"/></Link>
-                                <span className="cursor-pointer text-xl">&#10247;</span>
+                                <span className="cursor-pointer text-xl"onClick={displayEditDeleteModal}>&#10247;</span>
                             </div>
                             <div className="flex flex-col mt-5">
                                 <span className="text-black ">{user.username}</span>
@@ -99,13 +139,54 @@ function users () {
               </div>
             </div>
         </Wrapper>
+        <EditDeletePopOver
+          onClose= {dismissEditDeleteModal}
+          open={showEditDeleteModal}
+          anchorEl={anchorEl}
+          editFunction = {displayEditModal}
+          deleteFunction = {displayWarningModal}
+        />
+        <WarningModal
+          cancel={dismissWarningModal}
+          visible={showWarningModal}
+          type='main'
+          handleDelete = {handleDelete}
+        />
+        <EditUserModal
+          visible={showEditModal}
+          cancel={dismissEditModal}
+          cancelIcon
+          type='main'
+        />
+    </>
   )
 }
 
-/* <div  >
-                <div className="flex mt-4 w-1/2" >
-                <button className="mr-6 w-40 flex gap-x-6 justify-center bg-blue-500 py-3 font-bold text-xl">Previous</button>
-                <button className="w-40 flex gap-x-6 justify-center bg-blue-500 py-3 font-bold text-xl">Next</button>
-              </div>
-*/
+const EditUserModal = props => {
+  const { visible, cancel, cancelIcon, className, type, value, onChange, saveFunction } = props
+  return (
+            <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
+                <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Account</h1>
+                <div>
+                    <div className="flex flex-col mb-8">
+                        <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Change username</label>
+                        <input
+                            type="text" value={value}
+                            onChange={onChange}
+                            className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"
+                        />
+                    </div>
+                    <div className=" flex justify-center mt-4">
+                        <button
+                            className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
+                            onClick={saveFunction}
+                        >
+                          Save
+                        </button>
+                    </div>
+                </div>
+
+            </Modal>
+  )
+}
 export default users

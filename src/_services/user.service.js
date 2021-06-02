@@ -70,7 +70,7 @@ async function getSearch (searchStr, hasNext, hasPrev) {
   if (hasNext && hasPrev) {
     response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=${hasNext}&search_prev=${hasPrev}`, requestOptions)
   }
-  
+
   response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=&search_prev=`, requestOptions)
   const users = response.data.data
 
