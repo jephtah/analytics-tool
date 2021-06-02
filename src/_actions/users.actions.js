@@ -9,7 +9,8 @@ import Router from 'next/router'
 export const userActions = {
   login,
   getAll,
-  getSearch
+  getSearch,
+  getPaginated
 }
 
 function getAll () {
@@ -25,6 +26,22 @@ function getAll () {
   }
 
   function request () { return { type: userConstants.GETALL_REQUEST } }
+  function success (users) { return { type: userConstants.GETALL_SUCCESS, users } }
+  function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
+function getPaginated (hasNext, hasPrev) {
+  return async dispatch => {
+    dispatch(request(hasNext, hasPrev))
+    try {
+      const users = await userService.getPaginated(hasNext, hasPrev)
+      dispatch(success(users))
+    } catch (error) {
+      dispatch(failure(error.toString()))
+    }
+  }
+
+  function request (hasNext, hasPrev) { return { type: userConstants.GETALL_REQUEST, hasNext, hasPrev } }
   function success (users) { return { type: userConstants.GETALL_SUCCESS, users } }
   function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
 }

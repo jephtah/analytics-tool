@@ -15,7 +15,7 @@ const Pagination = props => {
   }
 
   return (
-    <div className="flex mt-4 w-1/2">
+    <div className="flex mt-4">
       {content}
     </div>
   )

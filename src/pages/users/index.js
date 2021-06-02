@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Wrapper from '../../components/wrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { userActions } from '../../_actions'
+import Pagination from '../../components/pagination'
 // import { MdSearch } from 'react-icons/md'
 
 function users () {
@@ -35,7 +36,26 @@ function users () {
     cursors = users.users.cursors
   }
 
-  console.log([totalUsers, cursors])
+  const forwardClick = () => {
+    dispatch(userActions.getPaginated(cursors.after))
+  }
+  const backClick = () => {
+    dispatch(userActions.getPaginated(cursors.before))
+  }
+
+  console.log(cursors)
+  let pagination
+  if (cursors) {
+    if (cursors.hasNext) {
+      pagination = <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/>
+    }
+    if (cursors.hasPrevious) {
+      pagination = <Pagination hasNext={cursors.hasPrevious} backwardClick={() => backClick()}/>
+    }
+    if (cursors.hasNext && cursors.hasPrevious) {
+      pagination = <> <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/> <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/> </>
+    }
+  }
 
   return (
         <Wrapper>
@@ -74,14 +94,20 @@ function users () {
                   )
                   : (<div> Loading... </div>)}
             </div>
-                <div className="flex items-center lg:mt-16 py-6">
-                    <span className="text-xs">Showing 4 of 256 entries</span>
-                    <span className="rounded-xl text-blue-500 ml-3 py-2 px-3 bg-blue-200">1</span>
-                    <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">2</span>
-                    <span className="rounded-xl text-white ml-3 py-2 px-3 bg-blue-500">3</span>
+            <div className="flex flex-col lg:mt-16 py-6">
+              <span className="text-xs">Showing 4 of 256 entries</span>
+              <div className="flex">
+                {pagination}
+              </div>
             </div>
         </Wrapper>
   )
 }
 
+/* <div  >
+                <div className="flex mt-4 w-1/2" >
+                <button className="mr-6 w-40 flex gap-x-6 justify-center bg-blue-500 py-3 font-bold text-xl">Previous</button>
+                <button className="w-40 flex gap-x-6 justify-center bg-blue-500 py-3 font-bold text-xl">Next</button>
+              </div>
+*/
 export default users

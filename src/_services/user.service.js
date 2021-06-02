@@ -5,7 +5,8 @@ import axios from 'axios'
 export const userService = {
   login,
   getAll,
-  getSearch
+  getSearch,
+  getPaginated
 }
 
 async function login (username, password) {
@@ -41,6 +42,18 @@ async function getAll () {
   const users = response.data.data
   console.log(users)
 
+  return users
+}
+
+async function getPaginated (hasNext, hasPrev) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { ...authHeader(), 'Content-type': 'application/json' }
+  }
+
+  const response = hasNext ? await axios(`${config.testUrl}/admin/manage-users?post_next=${hasNext}`, requestOptions) : await axios(`${config.testUrl}/admin/manage-users?post_prev=${hasPrev}`, requestOptions)
+
+  const users = response.data.data
   return users
 }
 
