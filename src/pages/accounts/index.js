@@ -6,6 +6,7 @@ import { accountActions } from '../../_actions'
 import Modal from '../../components/modal'
 import Popover from '@material-ui/core/Popover'
 import Pagination from '../../components/pagination'
+import { users } from '../../_reducers/users.reducer'
 
 function accounts () {
   const [showModal, setShowModal] = useState(false)
@@ -197,6 +198,7 @@ function accounts () {
   const EditAccountModal = props => {
     const [username, setUserName] = useState('')
     const [accountType, setAccountType] = useState([])
+    console.log(username)
 
     const { visible, cancel, options, cancelIcon, className, type } = props
     return (
@@ -351,8 +353,7 @@ export const EditDeletePopOver = props => {
 }
 
 export const WarningModal = props => {
-  const { visible, cancel, type, size, handleDelete } = props
-
+  const { visible, cancel, type, size, handleDelete, user } = props
   return (
               <>
                   <Modal visible={visible} className="w-1/2" type={type} size={size}>

@@ -42,6 +42,10 @@ function users () {
     setShowWarningModal(false)
   }
 
+  const handleEdit = (username, memberType) => {
+    dispatch(userActions.updateUser(username, memberType))
+  }
+
   const displayEditDeleteModal = (event, user) => {
     setShowEditDeleteModal(true)
     setAnchorEl(event.currentTarget)
@@ -141,42 +145,48 @@ function users () {
           editFunction = {displayEditModal}
           deleteFunction = {displayWarningModal}
         />
-        <WarningModal
-          cancel={dismissWarningModal}
-          visible={showWarningModal}
-          type='main'
-          handleDelete = {handleDelete}
-        />
-        <EditUserModal
-          visible={showEditModal}
-          cancel={dismissEditModal}
-          cancelIcon
-          type='main'
-          user= {currentUser}
-        />
+        {currentUser !== null &&
+          <>
+            <EditUserModal
+              visible={showEditModal}
+              cancel={dismissEditModal}
+              cancelIcon
+              type='main'
+              saveFunction = {handleEdit}
+              user= {currentUser}
+            />
+            <WarningModal
+              cancel={dismissWarningModal}
+              visible={showWarningModal}
+              type='main'
+              handleDelete = {handleDelete}
+            />
+          </>
+        }
     </>
   )
 }
 
 const EditUserModal = props => {
-  const { visible, cancel, cancelIcon, className, type, value, onChange, saveFunction, user } = props
-  const memberTtype = user ? user.membership_type : ''
+  const { visible, cancel, cancelIcon, className, type, saveFunction, user } = props
+  const [memberType, setMemberType] = useState(user.membership_type)
+  const [newMember, setNewMember] = useState('')
+  const handleChange = (event) => {
+    setNewMember(event.currentTarget.value)
+  }
+  const username = user.username
   return (
             <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit User Membership</h1>
                 <div>
                     <div className="flex flex-col mb-8">
-                        <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Membership Type</label>
-                        <input
-                            type="text"
-                            onChange={onChange} value={memberTtype}
-                            className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"
-                        />
+                        <label htmlFor="membershipType" className="text-2xl mb-4 text-gray-500">Membership Type</label>
+                        <input type='text' value={newMember} onChange={handleChange} className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
                     </div>
                     <div className=" flex justify-center mt-4">
                         <button
                             className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
-                            onClick={saveFunction}
+                            onClick={() => saveFunction(username, newMember)}
                         >
                           Save
                         </button>
@@ -186,4 +196,5 @@ const EditUserModal = props => {
             </Modal>
   )
 }
+
 export default users

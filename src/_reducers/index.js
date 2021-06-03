@@ -3,6 +3,7 @@ import { users } from './users.reducer'
 import { accounts } from './accounts.reducer'
 import { sessions } from './sessions.reducer'
 import { zones } from './zone.reducer'
+import { coupons } from './coupons.reducer'
 
 import { dashboardData } from './dashboard.reducer'
 
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   accounts,
   sessions,
   zones,
-  dashboardData
+  dashboardData,
+  coupons
 })
 
 export default rootReducer
