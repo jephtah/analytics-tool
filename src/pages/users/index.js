@@ -15,16 +15,10 @@ function users () {
   const [showWarningModal, setShowWarningModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
 
   const users = useSelector(state => state.users)
   const dispatch = useDispatch()
-
-  /* useEffect(() => {
-    dispatch(userActions.getAll())
-    if (searchStr) {
-      dispatch(userActions.getSearch(searchStr))
-    }
-  }, [searchStr]) */
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,9 +42,10 @@ function users () {
     setShowWarningModal(false)
   }
 
-  const displayEditDeleteModal = event => {
+  const displayEditDeleteModal = (event, user) => {
     setShowEditDeleteModal(true)
     setAnchorEl(event.currentTarget)
+    setCurrentUser(user)
   }
 
   const dismissEditDeleteModal = () => {
@@ -109,7 +104,7 @@ function users () {
                         <div>
                             <div className="flex justify-between">
                                 <Link href="/user-sessions"><img src="/placeholder.svg" className="cursor-pointer"/></Link>
-                                <span className="cursor-pointer text-xl"onClick={displayEditDeleteModal}>&#10247;</span>
+                                <span className="cursor-pointer text-xl"onClick={(event) => displayEditDeleteModal(event, user)}>&#10247;</span>
                             </div>
                             <div className="flex flex-col mt-5">
                                 <span className="text-black ">{user.username}</span>
@@ -157,13 +152,15 @@ function users () {
           cancel={dismissEditModal}
           cancelIcon
           type='main'
+          user= {currentUser}
         />
     </>
   )
 }
 
 const EditUserModal = props => {
-  const { visible, cancel, cancelIcon, className, type, value, onChange, saveFunction } = props
+  const { visible, cancel, cancelIcon, className, type, value, onChange, saveFunction, user } = props
+  console.log(user.membership_type)
   return (
             <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit User Membership</h1>
@@ -171,8 +168,8 @@ const EditUserModal = props => {
                     <div className="flex flex-col mb-8">
                         <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Membership Type</label>
                         <input
-                            type="text" value={value}
-                            onChange={onChange}
+                            type="text"
+                            onChange={onChange} value = {user.membership_type}
                             className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"
                         />
                     </div>
