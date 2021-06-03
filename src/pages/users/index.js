@@ -160,7 +160,7 @@ function users () {
 
 const EditUserModal = props => {
   const { visible, cancel, cancelIcon, className, type, value, onChange, saveFunction, user } = props
-  console.log(user.membership_type)
+  const memberTtype = user ? user.membership_type : ''
   return (
             <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit User Membership</h1>
@@ -169,7 +169,7 @@ const EditUserModal = props => {
                         <label htmlFor="username" className="text-2xl mb-4 text-gray-500">Membership Type</label>
                         <input
                             type="text"
-                            onChange={onChange} value = {user.membership_type}
+                            onChange={onChange} value={memberTtype}
                             className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"
                         />
                     </div>
