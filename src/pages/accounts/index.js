@@ -37,10 +37,10 @@ function accounts () {
   }
 
   const forwardClick = () => {
-    searchStr === '' ? dispatch(accountActions.getPaginated(cursors.after)) : dispatch(accountActions.getSearch(searchStr, cursors.after))
+    searchStr === '' ? dispatch(accountActions.getPaginated({ hasNext: cursors.after })) : dispatch(accountActions.getSearch(searchStr))
   }
   const backClick = () => {
-    searchStr === '' ? dispatch(accountActions.getPaginated(cursors.before)) : dispatch(accountActions.getSearch(searchStr, cursors.before))
+    searchStr === '' ? dispatch(accountActions.getPaginated({ hasPrevious: cursors.before })) : dispatch(accountActions.getSearch(searchStr))
   }
 
   let pagination

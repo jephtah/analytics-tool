@@ -74,10 +74,10 @@ function users () {
   }
 
   const forwardClick = () => {
-    searchStr === '' ? dispatch(userActions.getPaginated(cursors.after)) : dispatch(userActions.getSearch(searchStr, cursors.after))
+    searchStr === '' ? dispatch(userActions.getPaginated({ hasNext: cursors.after })) : dispatch(userActions.getSearch(searchStr, cursors.after))
   }
   const backClick = () => {
-    searchStr === '' ? dispatch(userActions.getPaginated(cursors.before)) : dispatch(userActions.getSearch(searchStr, cursors.before))
+    searchStr === '' ? dispatch(userActions.getPaginated({ hasPrevious: cursors.before })) : dispatch(userActions.getSearch(searchStr, cursors.before))
   }
 
   let pagination

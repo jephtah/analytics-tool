@@ -31,35 +31,35 @@ function getAll () {
   function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-function getPaginated (hasNext, hasPrev) {
+function getPaginated ({ hasNext, hasPrevious }) {
   return async dispatch => {
-    dispatch(request(hasNext, hasPrev))
+    dispatch(request(hasNext, hasPrevious))
     try {
-      const users = await userService.getPaginated(hasNext, hasPrev)
+      const users = await userService.getPaginated(hasNext, hasPrevious)
       dispatch(success(users))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
-  function request (hasNext, hasPrev) { return { type: userConstants.GETALL_REQUEST, hasNext, hasPrev } }
+  function request (hasNext, hasPrevious) { return { type: userConstants.GETALL_REQUEST, hasNext, hasPrevious } }
   function success (users) { return { type: userConstants.GETALL_SUCCESS, users } }
   function failure (error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-function getSearch (searchStr, hasNext, hasPrev) {
+function getSearch (searchStr, hasNext, hasPrevious) {
   return async dispatch => {
-    dispatch(request(searchStr, hasNext, hasPrev))
+    dispatch(request(searchStr, hasNext, hasPrevious))
 
     try {
-      const users = await userService.getSearch(searchStr, hasNext, hasPrev)
+      const users = await userService.getSearch(searchStr, hasNext, hasPrevious)
       dispatch(success(users))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
-  function request (searchStr, hasPrev, hasNext) { return { type: userConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrev } }
+  function request (searchStr, hasPrevious, hasNext) { return { type: userConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrevious } }
   function success (users) { return { type: userConstants.GETSEARCH_SUCCESS, users } }
   function failure (error) { return { type: userConstants.GETSEARCH_FAILURE, error } }
 }

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { config } from '../_config'
 import { authHeader } from '../_helpers'
+import { alertActions } from '../_actions/alert.actions'
 
 export const zoneService = {
   getAll,
@@ -23,19 +24,19 @@ async function getAll () {
   return zones
 }
 
-async function getPaginated (hasNext, hasPrev) {
+async function getPaginated (hasNext, hasPrevious) {
   const requestOptions = {
     method: 'GET',
     headers: { ...authHeader(), 'Content-type': 'application/json' }
   }
 
-  const response = hasNext ? await axios(`${config.testUrl}/admin/manage-topics?post_next==${hasNext}`, requestOptions) : await axios(`${config.testUrl}/admin/manage-topics?post_prev=${hasPrev}`, requestOptions)
+  const response = hasNext ? await axios(`${config.testUrl}/admin/manage-topics?post_next=${hasNext}`, requestOptions) : await axios(`${config.testUrl}/admin/manage-topics?post_prev=${hasPrevious}`, requestOptions)
 
   const zones = response.data.data
   return zones
 }
 
-async function getSearch (searchStr, hasNext, hasPrev) {
+async function getSearch (searchStr, hasNext, hasPrevious) {
   const requestOptions = {
     method: 'GET',
     headers: { ...authHeader(), 'Content-Type': 'application/json' }
@@ -45,11 +46,11 @@ async function getSearch (searchStr, hasNext, hasPrev) {
   if (hasNext) {
     response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=${hasNext}`, requestOptions)
   }
-  if (hasPrev) {
-    response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_prev=${hasPrev}`)
+  if (hasPrevious) {
+    response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_prev=${hasPrevious}`)
   }
-  if (hasNext && hasPrev) {
-    response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=${hasNext}&search_prev=${hasPrev}`, requestOptions)
+  if (hasNext && hasPrevious) {
+    response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=${hasNext}&search_prev=${hasPrevious}`, requestOptions)
   }
   response = await axios(`${config.testUrl}/admin/search?f=users&q=${searchStr}&per_page=10&search_next=&search_prev=`, requestOptions)
 
@@ -63,9 +64,9 @@ async function deletePost (slug) {
     headers: { ...authHeader(), 'Content-type': 'application/json' }
   }
 
-  const response = await axios.post(`${config.testUrl}/admin/delete-post/${slug}`, requestOptions)
-  const zones = response.message
-  return zones
+  const response = await axios.delete(`${config.testUrl}/admin/delete-post/${slug}`, requestOptions)
+  const zones = response
+  return zones.data
 }
 
 async function updatePost (slug, title, content) {

@@ -3,25 +3,18 @@ import Wrapper from '../../components/wrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { zoneActions } from '../../_actions/zone.actions'
 import Pagination from '../../components/pagination'
+import { WarningModal } from '../accounts'
 import Checkbox from '@material-ui/core/Checkbox'
 
 const index = _props => {
   const [searchStr, setSearchStr] = useState('')
-  const [checked, setChecked] = useState(false)
 
   const zones = useSelector(state => state.zones)
   const dispatch = useDispatch()
 
-  /* useEffect(() => {
-    clearTimeout(timeRef)
-    timeRef = setTimeout(() => {
-      dispatch(zoneActions.getAll())
-      // dispatch(zoneActions.getSearch(searchStr))
-    }, 1000)
-  }, [searchStr]) */
   useEffect(() => {
     const timer = setTimeout(() => {
-      searchStr ? dispatch(zoneActions.getSearch(searchStr)) : dispatch(zoneActions.getAll())
+      searchStr ? dispatch(zoneActions.getSearch(searchStr, { hasNext: cursors.after, hasPrevious: cursors.before })) : dispatch(zoneActions.getAll())
     }, 1000)
     return () => clearTimeout(timer)
   }, [searchStr])
@@ -30,19 +23,43 @@ const index = _props => {
   let cursors
   let totalPosts
 
+  const [checkedItems, setCheckedItems] = useState([])
+  const [showWarningModal, setShowWarningModal] = useState(false)
+  console.log(zones)
+
   if (zones.zones) {
     // postData = zones.zones.posts
     postData = zones.zones.posts ? zones.zones.posts : zones.zones.results
     cursors = zones.zones.cursors
     totalPosts = zones.zones.totalPosts ? zones.zones.totalPosts : zones.zones.totalSearch
-    console.log(postData)
   }
 
-  const forwardClick = () => {
-    searchStr === '' ? dispatch(zoneActions.getPaginated(cursors.after)) : dispatch(zoneActions.getSearch(searchStr, cursors.after))
+  const forwardClick = () => { dispatch(zoneActions.getPaginated({ hasNext: cursors.after })) }
+  const backClick = () => { dispatch(zoneActions.getPaginated({ hasPrevious: cursors.before })) }
+
+  // const [checkedItems, setCheckedItems] = useState(new Array(postData.length).fill(false))
+  const [currentSlug, setCurrentSlug] = useState([])
+
+  const doWhat = slug => {
+    postData &&
+    postData.map((post) =>
+      post.slug === slug ? setCurrentSlug(slug) : null
+    )
   }
-  const backClick = () => {
-    searchStr === '' ? dispatch(zoneActions.getPaginated(cursors.before)) : dispatch(zoneActions.getSearch(searchStr, cursors.after))
+
+  const handleDelete = () => {
+    console.log(currentSlug)
+    dispatch(zoneActions.deleteZone(currentSlug))
+    setShowWarningModal(false)
+    // dispatch(zoneActions.getAll())
+  }
+
+  const displayWarningModal = () => {
+    setShowWarningModal(true)
+  }
+
+  const dismissWarningModal = () => {
+    setShowWarningModal(false)
   }
 
   let pagination
@@ -51,7 +68,7 @@ const index = _props => {
       pagination = <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/>
     }
     if (cursors.hasPrevious) {
-      pagination = <Pagination hasNext={cursors.hasPrevious} backwardClick={() => backClick()}/>
+      pagination = <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/>
     }
     if (cursors.hasNext && cursors.hasPrevious) {
       pagination = <> <Pagination hasNext={cursors.hasNext} forwardClick={() => forwardClick()}/> <Pagination hasPrevious={cursors.hasPrevious} backwardClick={() => backClick()}/> </>
@@ -59,6 +76,7 @@ const index = _props => {
   }
 
   return (
+      <>
         <Wrapper>
             <div className="flex mt-12 w-full">
                 <div>
@@ -82,7 +100,7 @@ const index = _props => {
                                     <img src="/pin-topic.svg" className="w-4"/>
                                     <span className="ml-3 ">Pin Topic</span>
                                 </li>
-                                <li className="flex px-8  rounded-xl mt-8 text-sm">
+                                <li className="flex px-8  rounded-xl mt-8 text-sm" onClick ={() => displayWarningModal()}>
                                     <img src="/delete.svg" className="w-4"/>
                                     <span className="ml-3 ">Delete Post</span>
                                 </li>
@@ -110,15 +128,13 @@ const index = _props => {
                         </div>
                         { postData
                           ? postData.map((post, key) => {
-                            const slug = post.slug
-                            console.log(slug)
                             return (
                                     <div key={key} className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4 mt-10">
                                         <div>
                                             <span className="text-xs ml-9 "> {post.created_at}</span>
                                         </div>
                                         <div className="flex align-center mt-1">
-                                            <Checkbox checked={checked} onChange= {() => setChecked(!checked)} color='primary'/>
+                                            <Checkbox color='primary' value={post.slug} checked={checkedItems[post.slug]} onChange={() => doWhat(post.slug)} />
                                             <span className="ml-3 text-center text-xl text-black">{post.title}</span>
                                         </div>
                                     </div>
@@ -136,43 +152,6 @@ const index = _props => {
 
                         }
 
-{/*
-                        <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
-                            <div>
-                                <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
-                            </div>
-                            <div className="flex mt-1">
-                                <img src="/090-uncheck-mark-1.svg"/>
-                                <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
-                            </div>
-                        </div>
-                        <div className="flex-1 bg-white rounded-2xl h-20  px-6 mt-4">
-                            <div>
-                                <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
-                            </div>
-                            <div className="flex mt-1">
-                                <img src="/090-check-mark-1.svg"/>
-                                <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
-                            </div>
-                        </div>
-                        <div className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4">
-                            <div>
-                                <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
-                            </div>
-                            <div className="flex mt-1">
-                                <img src="/090-uncheck-mark-1.svg"/>
-                                <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
-                            </div>
-                        </div>
-                        <div className="flex-1 bg-white rounded-2xl h-20  px-6 mt-4">
-                            <div>
-                                <span className="text-xs ml-9 "> January 24th, 2021 04:25 PM</span>
-                            </div>
-                            <div className="flex mt-1">
-                                <img src="/090-uncheck-mark-1.svg"/>
-                                <span className="ml-3 text-sm text-black">Illum omnis quo illum nisi. Nesciunt est accusamus. Blanditiis nisi quae eum nisi similique. Modi consequuntur totam</span>
-                            </div>
-                        </div> */}
                         <div className="flex justify-between mt-8 items-center">
                             <div className="rounded-xl bg-blue-500 px-12 py-4 text-white">
                                 Save Changes
@@ -187,8 +166,14 @@ const index = _props => {
                     </div>
 
                 </div>
-
         </Wrapper>
+        <WarningModal
+              cancel={dismissWarningModal}
+              visible={showWarningModal}
+              type='main'
+              handleDelete = {handleDelete}
+            />
+      </>
   )
 }
 

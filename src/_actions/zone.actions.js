@@ -1,5 +1,7 @@
+import Router from 'next/router'
 import { zoneConstants } from '../_constants'
 import { zoneService } from '../_services'
+import { alertActions } from './alert.actions'
 
 export const zoneActions = {
   getAll,
@@ -26,34 +28,34 @@ function getAll () {
   function failure (error) { return { type: zoneConstants.GETALL_FAILURE, error } }
 }
 
-function getPaginated (hasNext, hasPrev) {
+function getPaginated ({ hasNext, hasPrevious }) {
   return async dispatch => {
-    dispatch(request(hasNext, hasPrev))
+    dispatch(request(hasNext, hasPrevious))
     try {
-      const zones = await zoneService.getPaginated(hasNext, hasPrev)
+      const zones = await zoneService.getPaginated(hasNext, hasPrevious)
       dispatch(success(zones))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
-  function request (hasNext, hasPrev) { return { type: zoneConstants.GETALL_REQUEST, hasNext, hasPrev } }
+  function request (hasNext, hasPrevious) { return { type: zoneConstants.GETALL_REQUEST, hasNext, hasPrevious } }
   function success (zones) { return { type: zoneConstants.GETALL_SUCCESS, zones } }
   function failure (error) { return { type: zoneConstants.GETALL_FAILURE, error } }
 }
 
-function getSearch (searchStr, hasNext, hasPrev) {
+function getSearch (searchStr, hasNext, hasPrevious) {
   return async dispatch => {
-    dispatch(request(searchStr, hasPrev, hasNext))
+    dispatch(request(searchStr, hasNext, hasPrevious))
     try {
-      const zones = await zoneService.getSearch(searchStr, hasNext, hasPrev)
+      const zones = await zoneService.getSearch(searchStr, hasNext, hasPrevious)
       dispatch(success(zones))
     } catch (error) {
       dispatch(failure(error.toString()))
     }
   }
 
-  function request (searchStr, hasNext, hasPrev) { return { type: zoneConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrev } }
+  function request (searchStr, hasNext, hasPrevious) { return { type: zoneConstants.GETSEARCH_REQUEST, searchStr, hasNext, hasPrevious } }
   function success (zones) { return { type: zoneConstants.GETSEARCH_SUCCESS, zones } }
   function failure (error) { return { type: zoneConstants.GETSEARCH_FAILURE, error } }
 }
@@ -82,8 +84,13 @@ function deleteZone (slug) {
     try {
       const zones = await zoneService.deletePost(slug)
       dispatch(success(zones))
+      dispatch(alertActions.success(zones))
+      setTimeout(() => {
+        location.reload()
+      }, 3000)
     } catch (error) {
       dispatch(failure(error.toString()))
+      dispatch(alertActions.error(error.toString()))
     }
   }
 
