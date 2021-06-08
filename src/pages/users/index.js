@@ -170,9 +170,9 @@ function users () {
 const EditUserModal = props => {
   const { visible, cancel, cancelIcon, className, type, saveFunction, user } = props
   const [memberType, setMemberType] = useState(user.membership_type)
-  const [newMember, setNewMember] = useState('')
+  // const [newMember, setNewMember] = useState('')
   const handleChange = (event) => {
-    setNewMember(event.currentTarget.value)
+    setMemberType(event.target.value)
   }
   const username = user.username
   return (
@@ -180,13 +180,13 @@ const EditUserModal = props => {
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit User Membership</h1>
                 <div>
                     <div className="flex flex-col mb-8">
-                        <label htmlFor="membershipType" className="text-2xl mb-4 text-gray-500">Membership Type</label>
-                        <input type='text' value={newMember} onChange={handleChange} className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
+                        <label className="text-2xl mb-4 text-gray-500">Membership Type</label>
+                        <input type='text' value={memberType} onChange={handleChange} className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
                     </div>
                     <div className=" flex justify-center mt-4">
                         <button
                             className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
-                            onClick={() => saveFunction(username, newMember)}
+                            onClick={() => saveFunction(username, memberType)}
                         >
                           Save
                         </button>

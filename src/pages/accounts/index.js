@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react'
 import Wrapper from '../../components/wrapper'
 import { useDispatch, useSelector } from 'react-redux'
-import { accountActions } from '../../_actions'
+import { accountActions, userActions } from '../../_actions'
 import Modal from '../../components/modal'
 import Popover from '@material-ui/core/Popover'
 import Pagination from '../../components/pagination'
-import { users } from '../../_reducers/users.reducer'
 
 function accounts () {
   const [showModal, setShowModal] = useState(false)
   const [showEditAccountModal, setShowEditAccountModal] = useState(false)
   const [showCouponsModal, setShowCouponsModal] = useState(false)
   const [showWarningModal, setShowWarningModal] = useState(false)
+  const [currentAccount, setCurrentAccount] = useState('')
   const [searchStr, setSearchStr] = useState('')
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -74,9 +74,10 @@ function accounts () {
     setShowEditAccountModal(false)
   }
 
-  const displayEditDeleteModal = (event) => {
+  const displayEditDeleteModal = (event, account) => {
     setShowModal(true)
     setAnchorEl(event.currentTarget)
+    setCurrentAccount(account)
   }
 
   const dismissEditDeleteModal = () => {
@@ -95,6 +96,10 @@ function accounts () {
   const handleDelete = () => {
     console.log('handle delete function called')
     setShowWarningModal(false)
+  }
+
+  const handleEdit = (username, memberType) => {
+    dispatch(userActions.updateUser(username, memberType))
   }
 
   const CouponsModal = props => {
@@ -196,11 +201,12 @@ function accounts () {
   }
 
   const EditAccountModal = props => {
-    const [username, setUserName] = useState('')
+    const { visible, cancel, options, cancelIcon, className, type, account, saveFunction } = props
+    const [username, setUserName] = useState(account.username)
+    // const [newUsername, setnewUserName] = useState('')
     const [accountType, setAccountType] = useState([])
     console.log(username)
-
-    const { visible, cancel, options, cancelIcon, className, type } = props
+    console.log(account)
     return (
             <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Account</h1>
@@ -229,7 +235,7 @@ function accounts () {
                     <div className=" flex justify-center mt-4">
                         <button
                             className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
-                            onClick={cancel}
+                            onClick={() => saveFunction(username)}
                         >
                             Save
                         </button>
@@ -266,7 +272,7 @@ function accounts () {
                                 {account.profile.profile_picture_url !== null
                                   ? <img onClick={() => displayCouponsModal()} src={account.profile.profile_picture_url} width="70" height="50" className="rounded-3xl"/>
                                   : <img onClick={() => displayCouponsModal()} src="/placeholder.svg" width="70" height="70" />}
-                                    <span className="cursor-pointer text-xl" onClick={displayEditDeleteModal}>&#10247;</span>
+                                    <span className="cursor-pointer text-xl" onClick={(event) => displayEditDeleteModal(event, account)}>&#10247;</span>
                                 </div>
                                 <div className="flex flex-col mt-5">
                                     <span className="text-black ">{account.username}</span>
@@ -309,6 +315,8 @@ function accounts () {
                 options ={['option1', 'option2', 'option3']}
                 cancelIcon
                 type='main'
+                account = {currentAccount}
+                saveFunction = {handleEdit}
             />
             <CouponsModal
                 visible={showCouponsModal}
