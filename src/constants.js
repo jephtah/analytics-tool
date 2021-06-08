@@ -30,6 +30,37 @@ export const barData = [
 
 ]
 
+export const distributionData = [
+  {
+    date: 'ta',
+    value: 10
+  },
+  {
+    date: 'tc',
+    value: 30
+  },
+  {
+    date: 'td',
+    value: 80
+  },
+  {
+    date: 'te',
+    value: 25
+  },
+  {
+    date: 'tf',
+    value: 21
+  },
+  {
+    date: 'tg',
+    value: 20
+  },
+  {
+    date: 'ti',
+    value: 25
+  }
+]
+
 export const lineData = [
   {
     id: 'japan',

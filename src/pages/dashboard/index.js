@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { dashboardActions } from '../../_actions'
 import Wrapper from '../../components/wrapper'
 import styles from './home.module.css'
-import { XAxis, Tooltip, BarChart, Bar } from 'recharts'
-import { barData, lineData } from '../../constants'
+import { XAxis, Tooltip, BarChart, Bar, ResponsiveContainer } from 'recharts'
+import { barData, lineData, distributionData } from '../../constants'
 import { ResponsiveLine } from '@nivo/line'
 // import { Chart } from 'chart.js'
 
@@ -20,14 +20,30 @@ const index = () => {
 
   const BarGraph = () => {
     return (
-			// eslint-disable-next-line no-tabs
-			<BarChart width={ 600 } height={ 250 } data={ barData }>
-				<XAxis dataKey="date" />
-				<Tooltip />
-				<Bar dataKey="value" fill="#2563eb"/>
-			</BarChart>
+    // eslint-disable-next-line no-tabs
+            <ResponsiveContainer>
+                <BarChart data={ barData } margin={{ top: 0, right: 30, left: 20, bottom: 5 }}>
+                    <XAxis dataKey="date" />
+                    <Tooltip />
+                    <Bar dataKey="value" fill="#2563eb"/>
+                </BarChart>
+            </ResponsiveContainer>
     )
   }
+
+  const DistributionGraph = () => {
+    return (
+    // eslint-disable-next-line no-tabs
+                <ResponsiveContainer>
+                    <BarChart data={ distributionData }>
+                        <XAxis dataKey="date" />
+                        <Tooltip />
+                        <Bar dataKey="value" fill="#2563eb"/>
+                    </BarChart>
+                </ResponsiveContainer>
+    )
+  }
+
   const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
@@ -112,9 +128,9 @@ const index = () => {
                                 </div>
                             </div>
                             <div className="w-72 h-40 px-10 py-6 text-lg rounded-lg bg-white-300-mobicure text-gray-900 ml-6">
-                                <div className="text-base">{data.topics.total_topics}</div>
+                                <div className="text-base">Total Topics</div>
                                 <div className="flex justify-between items-center pt-2">
-                                    <span className="text-3xl ">15,943</span>
+                                    <span className="text-3xl ">{data.topics.total_topics}</span>
                                     <img src="/zone-topics.svg" className="w-12 h-11" alt="total-users"/>
                                 </div>
                                 <div className="flex py-4 text-xs justify-start items-center">
@@ -168,10 +184,10 @@ const index = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="text-blue-600 pt-2 font-semibold text-3xl">
+                            <div className="text-blue-600  font-semibold text-3xl">
                                     98,425K
                             </div>
-                            <div className=" text-blue-800 text-2xl pt-2 w-82 h-full">
+                            <div className=" text-blue-800 text-2xl w-82 h-full">
                                 <BarGraph/>
 
                             </div>
@@ -184,13 +200,15 @@ const index = () => {
                                 </div>
                                 <div className="flex text-xs items-center">
                                     <span className="text-gray-400">Select City</span>
-                                    <div className="flex">
+                                    <div className="flex flex">
                                         <span className="text-red-500 ml-5">Lagos</span>
                                         <img src="/arrow-down-red.svg" className="ml-2" />
                                     </div>
                                 </div>
                             </div>
-
+                            <div className='text-blue-800 text-2xl w-full h-full'>
+                                <DistributionGraph/>
+                            </div>
                         </div>
                         <div className="bg-white-300-mobicure rounded-2xl h-44 mt-3 p-6">
                             <div className="flex justify-between">
@@ -204,7 +222,9 @@ const index = () => {
                                     </div>
                                 </div>
                             </div>
-
+                            <div className='text-blue-800 text-2xl w-full h-full'>
+                                <DistributionGraph/>
+                            </div>
                         </div>
 
                     </div>
