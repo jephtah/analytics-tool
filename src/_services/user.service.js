@@ -36,9 +36,10 @@ async function updateUser (userName, membershipType) {
   const requestOptions = {
     headers: { ...authHeader(), 'Content-Type': 'application/json' }
   }
-  const response = await axios.put(`${config.testUrl}/admin/update-user/${userName}`, membershipType, { requestOptions })
-  const user = response.message
-  return user
+  const response = await axios.put(`${config.testUrl}/admin/update-user/${userName}`, membershipType, requestOptions)
+  console.log(response)
+  const users = response.data
+  return users
 }
 
 async function getAll () {

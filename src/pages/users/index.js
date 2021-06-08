@@ -59,6 +59,7 @@ function users () {
 
   const displayWarningModal = () => {
     setShowWarningModal(true)
+    setShowEditDeleteModal(false)
   }
 
   const dismissWarningModal = () => {
@@ -67,6 +68,7 @@ function users () {
 
   const displayEditModal = () => {
     setShowEditModal(true)
+    setShowEditDeleteModal(false)
   }
 
   const dismissEditModal = () => {

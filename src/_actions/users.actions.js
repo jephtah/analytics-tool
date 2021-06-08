@@ -66,18 +66,24 @@ function getSearch (searchStr, hasNext, hasPrevious) {
 
 function updateUser (userName, membershipType) {
   return async dispatch => {
-    dispatch(request({ userName, membershipType }))
+    dispatch(request(userName, membershipType))
     try {
       const user = await userService.updateUser(userName, membershipType)
+      console.log(user)
       dispatch(success(user))
-      Router.push('/users')
+      setTimeout(() => {
+        location.reload()
+      }, 2000)
     } catch (error) {
       dispatch(failure(error.toString()))
+      setTimeout(() => {
+        location.reload()
+      }, 2000)
     }
   }
   function request (userName, membershipType) { return { type: userConstants.UPDATEUSER_REQUEST, userName, membershipType } }
   function success (user) { return { type: userConstants.UPDATEUSER_SUCCESS, user } }
-  function failure (error) { return { type: userConstants.GETSEARCH_FAILURE, error } }
+  function failure (error) { return { type: userConstants.UPDATEUSER_FAILURE, error } }
 }
 
 function login (username, password, history) {
