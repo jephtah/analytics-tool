@@ -22,7 +22,7 @@ const index = () => {
     return (
     // eslint-disable-next-line no-tabs
             <ResponsiveContainer>
-                <BarChart data={ barData } margin={{ top: 0, right: 30, left: 20, bottom: 5 }}>
+                <BarChart data={ barData }>
                     <XAxis dataKey="date" />
                     <Tooltip />
                     <Bar dataKey="value" fill="#2563eb"/>
@@ -171,65 +171,65 @@ const index = () => {
 
                         </div>
                         <div className="mt-12 w-full h-96 rounded-lg text-gray-900 flex justify-between">
-                        <div className="bg-white-300-mobicure rounded-2xl w-2/4 h-full p-6">
-                            <div className="flex justify-between">
-                                <div className="text-lg">
-                                    Shop Orders
-                                </div>
-                                <div className="flex text-xs items-center">
-                                    <span className="text-gray-400">Sort By</span>
-                                    <div className="flex">
-                                        <span className="text-green-500 ml-5">Week</span>
-                                        <img src="/arrow-down.svg" className="ml-2" />
+                            <div className="bg-white-300-mobicure rounded-2xl w-full h-full p-6 ">
+                                <div className="flex justify-between -mb-4">
+                                    <div className="text-lg">
+                                        Shop Orders
+                                    </div>
+                                    <div className="flex text-xs items-center">
+                                        <span className="text-gray-400">Sort By</span>
+                                        <div className="flex">
+                                            <span className="text-green-500 ml-5">Week</span>
+                                            <img src="/arrow-down.svg" className="ml-2" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="text-blue-600  font-semibold text-3xl">
-                                    98,425K
-                            </div>
-                            <div className=" text-blue-800 text-2xl w-82 h-full">
-                                <BarGraph/>
-
-                            </div>
-                        </div>
-                    <div className="w-2/4 h-full ml-8">
-                        <div className="bg-white-300-mobicure rounded-2xl h-48 p-6">
-                            <div className="flex justify-between">
-                                <div className="text-lg font-medium">
-                                    User Distribution
+                                <div className="text-blue-600 pt-2 font-semibold text-3xl">
+                                        98,425K
                                 </div>
-                                <div className="flex text-xs items-center">
-                                    <span className="text-gray-400">Select City</span>
-                                    <div className="flex flex">
-                                        <span className="text-red-500 ml-5">Lagos</span>
-                                        <img src="/arrow-down-red.svg" className="ml-2" />
+                                <div className=" text-blue-800 text-2xl w-full h-full">
+                                    <BarGraph/>
+
+                                </div>
+                            </div>
+                            <div className="w-2/4 h-full ml-8">
+                                <div className="bg-white-300-mobicure rounded-2xl h-48 p-6">
+                                    <div className="flex justify-between">
+                                        <div className="text-lg font-medium">
+                                            User Distribution
+                                        </div>
+                                        <div className="flex text-xs items-center">
+                                            <span className="text-gray-400">Select City</span>
+                                            <div className="flex flex">
+                                                <span className="text-red-500 ml-5">Lagos</span>
+                                                <img src="/arrow-down-red.svg" className="ml-2" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='text-blue-800 text-2xl w-full h-full'>
+                                        <DistributionGraph/>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='text-blue-800 text-2xl w-full h-full'>
-                                <DistributionGraph/>
-                            </div>
-                        </div>
-                        <div className="bg-white-300-mobicure rounded-2xl h-44 mt-3 p-6">
-                            <div className="flex justify-between">
-                                <div className="text-lg font-medium">
-                                    User Online
-                                </div>
-                                <div className="flex text-xs items-center">
-                                    <span className="text-gray-400">421 </span>
-                                    <div className="flex">
-                                        <span className="text-green-500 ml-5">of 81,589</span>
+                                <div className="bg-white-300-mobicure rounded-2xl h-44 mt-3 p-6">
+                                    <div className="flex justify-between">
+                                        <div className="text-lg font-medium">
+                                            User Online
+                                        </div>
+                                        <div className="flex text-xs items-center">
+                                            <span className="text-gray-400">421 </span>
+                                            <div className="flex">
+                                                <span className="text-green-500 ml-5">of 81,589</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='text-blue-800 text-2xl w-full h-full'>
+                                        <DistributionGraph/>
                                     </div>
                                 </div>
+
                             </div>
-                            <div className='text-blue-800 text-2xl w-full h-full'>
-                                <DistributionGraph/>
-                            </div>
+
                         </div>
-
-                    </div>
-
-                </div>
                     <div className="mt-12 w-full h-full px-12 py-8 rounded-2xl bg-white-300-mobicure text-gray-900 ">
                         <div className="flex justify-between max-w-full">
                             <div className="text-lg font-semibold text-gray-700">Shop order history</div>
