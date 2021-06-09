@@ -1,4 +1,3 @@
-import Router from 'next/router'
 import { zoneConstants } from '../_constants'
 import { zoneService } from '../_services'
 import { alertActions } from './alert.actions'

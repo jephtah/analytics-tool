@@ -33,7 +33,7 @@ export function users (state = {}, action) {
       }
     case userConstants.UPDATEUSER_SUCCESS:
       return {
-        user: action.user
+        users: action.user
       }
     case userConstants.UPDATEUSER_FAILURE:
       return {

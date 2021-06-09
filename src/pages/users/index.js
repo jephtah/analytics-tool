@@ -44,6 +44,10 @@ function users () {
 
   const handleEdit = (username, memberType) => {
     dispatch(userActions.updateUser(username, memberType))
+    setShowEditModal(false)
+    setTimeout(() => {
+      dispatch(userActions.getAll())
+    }, 4000)
   }
 
   const displayEditDeleteModal = (event, user) => {

@@ -1,13 +1,19 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import Wrapper from '../../components/wrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { zoneActions } from '../../_actions/zone.actions'
 import Pagination from '../../components/pagination'
 import { WarningModal } from '../accounts'
+import Modal from '../../components/modal'
 import Checkbox from '@material-ui/core/Checkbox'
 
 const index = _props => {
   const [searchStr, setSearchStr] = useState('')
+  const [currentPost, setCurrentPost] = useState('')
+  const [showWarningModal, setShowWarningModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  // const [checkedItems, setCheckedItems] = useState(postData ? new Array(postData.length).fill(false) : [])
 
   const zones = useSelector(state => state.zones)
   const dispatch = useDispatch()
@@ -23,10 +29,6 @@ const index = _props => {
   let cursors
   let totalPosts
 
-  const [checkedItems, setCheckedItems] = useState([])
-  const [showWarningModal, setShowWarningModal] = useState(false)
-  console.log(zones)
-
   if (zones.zones) {
     // postData = zones.zones.posts
     postData = zones.zones.posts ? zones.zones.posts : zones.zones.results
@@ -34,24 +36,40 @@ const index = _props => {
     totalPosts = zones.zones.totalPosts ? zones.zones.totalPosts : zones.zones.totalSearch
   }
 
+  /* if (currentPost) {
+    setCurrentSlug(currentPost.slug)
+  } else {
+    setCurrentSlug(null)
+  } */
+
+  const currentSlug = currentPost?.slug
+
   const forwardClick = () => { dispatch(zoneActions.getPaginated({ hasNext: cursors.after })) }
   const backClick = () => { dispatch(zoneActions.getPaginated({ hasPrevious: cursors.before })) }
 
-  // const [checkedItems, setCheckedItems] = useState(new Array(postData.length).fill(false))
-  const [currentSlug, setCurrentSlug] = useState([])
+  const displayEditModal = (_event, _post) => {
+    setShowEditModal(true)
+  }
 
-  const doWhat = slug => {
-    postData &&
-    postData.map((post) =>
-      post.slug === slug ? setCurrentSlug(slug) : null
-    )
+  const dismissEditModal = () => {
+    setShowEditModal(false)
+    setCurrentPost(null)
+  }
+
+  const handleSave = (slug, title, content) => {
+    dispatch(zoneActions.updateZone(slug, title, content))
+    setShowEditModal(false)
+    setTimeout(() => {
+      dispatch(zoneActions.getAll())
+    }, 2000)
   }
 
   const handleDelete = () => {
-    console.log(currentSlug)
     dispatch(zoneActions.deleteZone(currentSlug))
     setShowWarningModal(false)
-    // dispatch(zoneActions.getAll())
+    setTimeout(() => {
+      dispatch(zoneActions.getAll())
+    }, 4000)
   }
 
   const displayWarningModal = () => {
@@ -106,7 +124,7 @@ const index = _props => {
                                 </li>
                                 <li className="flex px-8 rounded-xl mt-8 text-sm">
                                     <img src="/dots.svg" className="w-4"/>
-                                    <span className="ml-3 ">Edit Post</span>
+                                    <span className="ml-3" onClick={displayEditModal}>Edit Post</span>
                                 </li>
 
                             </ul>
@@ -134,7 +152,7 @@ const index = _props => {
                                             <span className="text-xs ml-9 "> {post.created_at}</span>
                                         </div>
                                         <div className="flex align-center mt-1">
-                                            <Checkbox color='primary' value={post.slug} checked={checkedItems[post.slug]} onChange={() => doWhat(post.slug)} />
+                                            <Checkbox checked={post.slug === currentPost?.slug} onChange={() => setCurrentPost(p => p === post ? null : post)} />
                                             <span className="ml-3 text-center text-xl text-black">{post.title}</span>
                                         </div>
                                     </div>
@@ -167,13 +185,64 @@ const index = _props => {
 
                 </div>
         </Wrapper>
-        <WarningModal
+        {
+          currentSlug && currentPost &&
+          <>
+            <WarningModal
               cancel={dismissWarningModal}
               visible={showWarningModal}
               type='main'
               handleDelete = {handleDelete}
             />
+            <EditPostModal
+            visible={showEditModal}
+            cancel={dismissEditModal}
+            cancelIcon
+            type='main'
+            post={currentPost}
+            slug={currentSlug}
+            saveFunction={ handleSave}
+          />
+          </>
+
+        }
+
       </>
+  )
+}
+
+const EditPostModal = props => {
+  const { visible, cancel, cancelIcon, className, type, saveFunction, post, slug } = props
+  const [currentValue, setCurrentValue] = useState({
+    title: '' || post.title,
+    content: '' || post.content
+  })
+  const handleChange = (event) => {
+    setCurrentValue({ ...currentValue, [event.target.name]: event.target.value })
+  }
+  return (
+            <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
+                <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Post</h1>
+                <div>
+                    <div className="flex flex-col mb-8">
+                        <label className="text-2xl mb-4 text-gray-500">Title</label>
+                        <input type='text' value={currentValue.title} name='title' onChange={(event) => handleChange(event)} className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
+                    </div>
+                    <div className="flex flex-col mb-8">
+                        <label className="text-2xl mb-4 text-gray-500">Content</label>
+                        <input type='text' value={currentValue.content} name='content' onChange={(event) => handleChange(event)} className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
+                    </div>
+                    <div className=" flex justify-center mt-4">
+                        <button
+                            className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
+                            onClick={() => saveFunction(slug, currentValue.title, currentValue.content)}
+                        >
+                          Save
+                        </button>
+                    </div>
+                </div>
+
+            </Modal>
   )
 }
 

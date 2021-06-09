@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { config } from '../_config'
 import { authHeader } from '../_helpers'
-import { alertActions } from '../_actions/alert.actions'
 
 export const zoneService = {
   getAll,
@@ -75,6 +74,6 @@ async function updatePost (slug, title, content) {
   }
 
   const response = await axios.put(`${config.testUrl}/admin/edit-post/${slug}`, { title, content }, requestOptions)
-  const zone = response.message
-  return zone
+  const zones = response.data
+  return zones
 }
