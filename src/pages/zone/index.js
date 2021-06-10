@@ -41,8 +41,8 @@ const index = _props => {
   } else {
     setCurrentSlug(null)
   } */
-
-  const currentSlug = currentPost?.slug
+  let currentSlug = null
+  currentSlug = currentPost?.slug
 
   const forwardClick = () => { dispatch(zoneActions.getPaginated({ hasNext: cursors.after })) }
   const backClick = () => { dispatch(zoneActions.getPaginated({ hasPrevious: cursors.before })) }
@@ -147,13 +147,13 @@ const index = _props => {
                         { postData
                           ? postData.map((post, key) => {
                             return (
-                                    <div key={key} className="flex-1 bg-white rounded-2xl h-20 px-6 mt-4 mt-10">
+                                    <div key={key} className="flex-1 bg-white rounded-2xl  px-6 mt-4 mt-10">
                                         <div>
-                                            <span className="text-xs ml-9 "> {post.created_at}</span>
+                                            <span className="text-xs ml-9 "> {new Date(post.created_at).toLocaleString()}</span>
                                         </div>
-                                        <div className="flex align-center mt-1">
+                                        <div className="flex align-center h-full w-full pb-1 mt-1">
                                             <Checkbox checked={post.slug === currentPost?.slug} onChange={() => setCurrentPost(p => p === post ? null : post)} />
-                                            <span className="ml-3 text-center text-xl text-black">{post.title}</span>
+                                            <span className="ml-3 text-center text-xl text-black">{post.content}</span>
                                         </div>
                                     </div>
                             )
@@ -213,29 +213,22 @@ const index = _props => {
 
 const EditPostModal = props => {
   const { visible, cancel, cancelIcon, className, type, saveFunction, post, slug } = props
-  const [currentValue, setCurrentValue] = useState({
-    title: '' || post.title,
-    content: '' || post.content
-  })
+  const [content, setContent] = useState(post.content)
   const handleChange = (event) => {
-    setCurrentValue({ ...currentValue, [event.target.name]: event.target.value })
+    setContent(event.currentTarget.value)
   }
   return (
             <Modal visible={visible} cancel={cancel} cancelIcon={cancelIcon} className={className} type={type}>
                 <h1 className="text-3xl mb-6 text-center text-gray-700">Edit Post</h1>
                 <div>
                     <div className="flex flex-col mb-8">
-                        <label className="text-2xl mb-4 text-gray-500">Title</label>
-                        <input type='text' value={currentValue.title} name='title' onChange={(event) => handleChange(event)} className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
-                    </div>
-                    <div className="flex flex-col mb-8">
                         <label className="text-2xl mb-4 text-gray-500">Content</label>
-                        <input type='text' value={currentValue.content} name='content' onChange={(event) => handleChange(event)} className="text-3xl h-16 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
+                        <textarea type='text' value={content} name='content' onChange={(event) => handleChange(event)} className="text-2xl max-h-44 border-solid border-2 rounded-lg border-gray-400 pl-4 outline-none"/>
                     </div>
                     <div className=" flex justify-center mt-4">
                         <button
                             className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4"
-                            onClick={() => saveFunction(slug, currentValue.title, currentValue.content)}
+                            onClick={() => saveFunction(slug, post.title, content)}
                         >
                           Save
                         </button>
