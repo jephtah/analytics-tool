@@ -166,7 +166,7 @@ const index = () => {
                                 </div>
                             </div>
                             <div className=" text-blue-800 text-2xl pt-2 w-82 h-full">
-								<MyResponsiveLine data={lineData}/>
+															<MyResponsiveLine data={lineData}/>
                             </div>
 
                         </div>
@@ -206,8 +206,15 @@ const index = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='text-blue-800 text-2xl w-full h-full'>
-                                        <DistributionGraph/>
+                                    <div className='flex flex-row w-full h-full items-center'>
+																		<div className='transition duration-500 ease-in-out hover:bg-purple-200 mr-4 w-16 h-16 rounded-xl flex justify-center items-center'><img className="w-8 h-8" src='/info.svg'/></div>
+																			<div className='w-full h-full flex flex-col justify-center'>
+																				<h1 className="pb-2 text-3xl font-extrabold text-black">32,888</h1>
+																				<div className="w-96">
+																					<ProgressBar bgcolor="#6a1b9a" completed={ (32888 / 81598) * 100} />
+																				</div>
+																				<span className="text-sm pt-4 text-gray-400"> <span className="font-bold text-black"> 32,888</span> from 81,598</span>
+																			</div>
                                     </div>
                                 </div>
                                 <div className="bg-white-300-mobicure rounded-2xl h-44 mt-3 p-6">
@@ -216,14 +223,20 @@ const index = () => {
                                             User Online
                                         </div>
                                         <div className="flex text-xs items-center">
-                                            <span className="text-gray-400">421 </span>
+                                            <span className="text-gray-400">1200 </span>
                                             <div className="flex">
                                                 <span className="text-green-500 ml-5">of 81,589</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='text-blue-800 text-2xl w-full h-full'>
-                                        <DistributionGraph/>
+                                    <div className='flex flex-row w-full h-full items-center'>
+																			<div className='transition duration-500 ease-in-out hover:bg-blue-200 mr-4 w-16 h-16 rounded-xl flex justify-center items-center'><img className="w-8 h-8" src='/info-blue.svg'/></div>
+																			<div className='w-full h-full flex flex-col justify-center'>
+																				<h1 className="pb-2 text-3xl font-extrabold text-black">1200</h1>
+																				<div className="w-96">
+																					<ProgressBar bgcolor="#0000ff" completed={ (1200 / 81598) * 100} />
+																				</div>
+																			</div>
                                     </div>
                                 </div>
 
@@ -309,5 +322,53 @@ const index = () => {
         </Wrapper>
   )
 }
+const ProgressBar = (props) => {
+  const { bgcolor, completed } = props
+
+  const containerStyles = {
+    height: 20,
+    width: '100%',
+    backgroundColor: '#e0e0de',
+    borderRadius: 50
+    // margin: 50
+  }
+
+  const fillerStyles = {
+    height: '100%',
+    width: `${completed}%`,
+    backgroundColor: bgcolor,
+    borderRadius: 'inherit',
+    textAlign: 'right'
+  }
+
+  return (
+    <div style={containerStyles}> <div style={fillerStyles}></div> </div>
+  )
+}
+
+/* const ProgressBar = props => {
+  const { bgcolor, start, end } = props
+  const completed = (start / end) * 100
+  const containerStyles = {
+    height: 15,
+    width: '12rem',
+    backgroudColor: '#9ca3af',
+    borderRadius: 50
+  }
+
+  const fillerStyles = {
+    height: '100%',
+    width: `${completed}%`,
+    backgroundColor: bgcolor,
+    borderRadius: 'inherit',
+    textAlign: 'right'
+  }
+
+  return (
+    <div style={containerStyles}>
+      <div style={fillerStyles}></div>
+    </div>
+  )
+} */
 
 export default index
