@@ -31,19 +31,6 @@ const index = () => {
     )
   }
 
-  const DistributionGraph = () => {
-    return (
-    // eslint-disable-next-line no-tabs
-                <ResponsiveContainer>
-                    <BarChart data={ distributionData }>
-                        <XAxis dataKey="date" />
-                        <Tooltip />
-                        <Bar dataKey="value" fill="#2563eb"/>
-                    </BarChart>
-                </ResponsiveContainer>
-    )
-  }
-
   const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}

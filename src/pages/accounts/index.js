@@ -85,14 +85,6 @@ function accounts () {
     setAnchorEl(null)
   }
 
-  const displayCouponsModal = () => {
-    setShowCouponsModal(true)
-    setShowModal(false)
-  }
-
-  const dismissCouponsModal = () => {
-    setShowCouponsModal(false)
-  }
   const handleDelete = () => {
     console.log('handle delete function called')
     setShowWarningModal(false)
@@ -100,104 +92,6 @@ function accounts () {
 
   const handleEdit = (username, memberType) => {
     dispatch(userActions.updateUser(username, memberType))
-  }
-
-  const CouponsModal = props => {
-    const { visible, cancel, coinTypeOptions, type, size } = props
-
-    return (
-            <Modal visible={visible} cancel={cancel} cancelIcon type={type} size={size} className="w-96">
-                <div className="w-full">
-                    <div className="mx-8">
-                        <div className="mb-8">
-                            <h1 className="text-4xl text-gray-700">Coupons</h1>
-                        </div>
-                        <div className="my-6 w-full bg-gray-100 rounded-lg">
-
-                            <div className="p-4">
-                                <table className="table-auto w-full border-collapse">
-                                    <thead className="">
-                                        <tr className="border-b-2 border-solid border-gray-400">
-                                            <th className="text-left text-2xl font-light">coupon name</th>
-                                            <th className="text-left text-2xl font-light">no. of coupon</th>
-                                            <th className="text-left text-2xl font-light">no of coupon used</th>
-                                            <th className=""> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="mt-4">
-                                        <tr className="">
-                                            <td>MYPADDICARES</td>
-                                            <td>200</td>
-                                            <td>167</td>
-                                            <td className="text-red-700 font-bold cursor-pointer" onClick={() => displayWarningModal()}>Delete Coupon</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alex MyPaddi</td>
-                                            <td>50</td>
-                                            <td>67</td>
-                                            <td className="text-red-700 font-bold cursor-pointer" onClick={() => displayWarningModal()}>Delete Coupon</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h1 className="text-4xl text-gray-700"> Create Coupon</h1>
-
-                        <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl text-gray-700"> Coin Type</label>
-                            <select name="coin type" className="h-16 text-3xl border-solid border-2 rounded-lg border-blue-400 outline-none" >
-                                <option value="select" className="text-2xl text-gray-700 bl-4">Select</option>
-                                {
-                                    coinTypeOptions
-                                      ? coinTypeOptions.map((coinType, key) => {
-                                        return <option key={key} value={coinType} className="text2xl text-gray-700 pl-4">{coinType}</option>
-                                      })
-                                      : null
-                                }
-                            </select>
-                        </div>
-
-                        <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl text-gray-700">Coin Type</label>
-                            <select name="coin type" className="h-16 border-solid border-2 text-3xl rounded-lg border-blue-400 outline-none">
-                                <option value="select"className="text-2xl text-gray-700 pl-4">Select</option>
-                                {
-                                    coinTypeOptions
-                                      ? coinTypeOptions.map((coinTypes, key) => {
-                                        return <option key={key} value={coinTypes} className="text-3xl text-gray-700 pl-4 ">{coinTypes}</option>
-                                      })
-                                      : null
-                                }
-                            </select>
-                        </div>
-
-                        <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl text-gray-700">Coupon code (min length 7 - max length 10)</label>
-                            <input type="text" maxLength="10" minLength="7" className="h-16 text-3xl border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none"/>
-                        </div>
-
-                        <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl text-gray-700">Expires in (days)</label>
-                            <input type="number" className="h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none text-3xl"/>
-                        </div>
-
-                        <div className="my-6 flex flex-col">
-                            <label className="mb-5 text-2xl text-gray-700">How many coupons to generate</label>
-                            <input type="number" className="text-3xl h-16 border-solid border-2 rounded-lg border-blue-400 pl-4 outline-none"/>
-                        </div>
-                    </div>
-
-                    <div className=" flex justify-center mt-4">
-                        <button className="p-4 w-48 bg-blue-400 text-white text-xl border-solid border-2 rounded-lg border-blue-400 pl-4">Save Coupon</button>
-                    </div>
-
-                </div>
-            </Modal>
-    )
   }
 
   const EditAccountModal = props => {
@@ -270,8 +164,8 @@ function accounts () {
                             <div>
                                 <div className="flex justify-between">
                                 {account.profile.profile_picture_url !== null
-                                  ? <img onClick={() => displayCouponsModal()} src={account.profile.profile_picture_url} width="70" height="50" className="rounded-3xl"/>
-                                  : <img onClick={() => displayCouponsModal()} src="/placeholder.svg" width="70" height="70" />}
+                                  ? <img src={account.profile.profile_picture_url} width="70" height="50" className="rounded-3xl"/>
+                                  : <img src="/placeholder.svg" width="70" height="70" />}
                                     <span className="cursor-pointer text-xl" onClick={(event) => displayEditDeleteModal(event, account)}>&#10247;</span>
                                 </div>
                                 <div className="flex flex-col mt-5">
@@ -317,13 +211,6 @@ function accounts () {
                 type='main'
                 account = {currentAccount}
                 saveFunction = {handleEdit}
-            />
-            <CouponsModal
-                visible={showCouponsModal}
-                cancel={dismissCouponsModal}
-                cancelIcon
-                type='main'
-                coinTypeOptions= {['BTC', 'ETH', 'KOBO', 'CENTS']}
             />
             <WarningModal
                 cancel={dismissWarningModal}
