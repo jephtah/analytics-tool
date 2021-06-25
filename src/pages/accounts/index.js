@@ -10,7 +10,6 @@ import Pagination from '../../components/pagination'
 function accounts () {
   const [showModal, setShowModal] = useState(false)
   const [showEditAccountModal, setShowEditAccountModal] = useState(false)
-  const [showCouponsModal, setShowCouponsModal] = useState(false)
   const [showWarningModal, setShowWarningModal] = useState(false)
   const [currentAccount, setCurrentAccount] = useState('')
   const [searchStr, setSearchStr] = useState('')

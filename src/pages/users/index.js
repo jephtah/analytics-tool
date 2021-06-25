@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Wrapper from '../../components/wrapper'
@@ -114,7 +113,7 @@ function users () {
                     <div key={key} className="bg-white w-48 h-80 rounded-2xl mt-10 p-6 mr-4 flex flex-col justify-between">
                         <div>
                             <div className="flex justify-between">
-                                <img src="/placeholder.svg" className="cursor-pointer"/>
+                                <Link href={{ pathname: '/user-sessions', query: { username: user.username } }} as={'/user-sessions'}><img src="/placeholder.svg" className="cursor-pointer"/></Link>
                                 <span className="cursor-pointer text-xl"onClick={(event) => displayEditDeleteModal(event, user)}>&#10247;</span>
                             </div>
                             <div className="flex flex-col mt-5">

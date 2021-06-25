@@ -4,6 +4,7 @@ import { accounts } from './accounts.reducer'
 import { sessions } from './sessions.reducer'
 import { zones } from './zone.reducer'
 import { coupons } from './coupons.reducer'
+import { singleSession } from './single-session.reducer'
 
 import { dashboardData } from './dashboard.reducer'
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   sessions,
   zones,
   dashboardData,
+  singleSession,
   coupons
 })
 

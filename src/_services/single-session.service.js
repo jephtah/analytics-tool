@@ -1,22 +1,19 @@
-/* import axios from 'axios'
-import { config } from "../_config"
-import { authHeader } from "../_helpers"
+import axios from 'axios'
+import { config } from '../_config'
+import { authHeader } from '../_helpers'
 
 export const singleSessionService =
 {
-    getSingleSession
+  getSingleSession
 }
 
-async function getSingleSession (userId) {
+async function getSingleSession (username) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { ...authHeader(), 'Content-Type': 'application/json' }
+  }
 
-    const requestOptions = {
-        method: "GET",
-        header: { ...authHeader(), 'Content-Type': 'application/json' },
-    }
-
-    const response = await axios(`${config.testUrl}${userId}`, requestOptions)
-
-    const singleSession = response.data.data
-
-    return singleSession
-} */
+  const response = await axios(`${config.testUrl}/admin/user-sessions/${username}`, requestOptions)
+  const singleSession = response.data.data
+  return singleSession
+}

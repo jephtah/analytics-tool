@@ -1,11 +1,26 @@
-import React from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { sessionActions } from '../../_actions'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { singleSessionActions } from '../../_actions'
 import { useRouter } from 'next/router'
+
 import Wrapper from '../../components/wrapper'
 
-const userSession = () => {
+const userSession = (context) => {
   const router = useRouter()
+
+  const singleSession = useSelector(state => state.singleSession)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const { query: { username } } = router
+    dispatch(singleSessionActions.getSingleSession('vicsoft'))
+  }, [])
+  let session
+  if (singleSession.singleSession) {
+    session = singleSession.singleSession
+  }
+  console.log(session)
 
   return (
         <Wrapper>
@@ -18,61 +33,65 @@ const userSession = () => {
                     <img src="/less-than.svg" alt="left arrow"/>
                     <p className="text-sm pl-2">Back</p>
                 </div>
-                <div className="flex mt-10">
-                    <div className="w-56 h-32 bg-white-300-mobicure rounded-md p-4">
-                        <p className="text-blue-600">Sessions</p>
-                        <p className="mt-3 text-xs"><span className="text-black">Active Sessions:</span> 0</p>
-                        <p className="mt-3 text-xs"><span className="text-black">Chat Sessions:</span> 0</p>
-                    </div>
-                    <div className="w-72 h-32 bg-white-300-mobicure rounded-md ml-12 p-4">
-                        <p className="text-blue-600">Subscription</p>
-                        <p className="mt-3 text-xs"><span className="text-black">Subscription Status: </span> inactive</p>
-                        <p className="mt-3 text-xs"><span className="text-black">Coin Balance:</span> 0</p>
-                    </div>
-                </div>
+                {session
+                  ? <>
+                        <div className="flex mt-10">
+                            <div className="w-56 h-32 bg-white-300-mobicure rounded-md p-4">
+                                <p className="text-blue-600">Sessions</p>
+                                <p className="mt-3 text-xs"><span className="text-black">Active Sessions:</span> 0</p>
+                                <p className="mt-3 text-xs"><span className="text-black">Chat Sessions:</span> 0</p>
+                            </div>
+                            <div className="w-72 h-32 bg-white-300-mobicure rounded-md ml-12 p-4">
+                                <p className="text-blue-600">Subscription</p>
+                                <p className="mt-3 text-xs"><span className="text-black">Subscription Status: </span> inactive</p>
+                                <p className="mt-3 text-xs"><span className="text-black">Coin Balance:</span> 0</p>
+                            </div>
+                        </div>
+                        <div className="mt-16 w-11/12">
+                            <p className="text-black text-sm"> Sessions History</p>
+                            <div className="h-auto bg-white-300-mobicure mt-4 rounded-md p-4 flex justify-between">
+                                <div>
+                                    <span className="text-blue-600 text-sm">Username</span>
+                                </div>
+                                <div>
+                                    <span className="text-blue-600 text-sm">Active Session</span>
+                                </div>
+                                <div>
+                                    <span className="text-blue-600 text-sm">Doctor/Counsellor</span>
+                                </div>
+                                <div>
+                                    <span className="text-blue-600 text-sm">Date Created</span>
+                                </div>
+                                <div>
+                                    <span className="text-blue-600 text-sm">End Session</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-16 w-11/12">
+                            <div className="flex justify-between">
+                                <p className="text-black text-sm"> Subscriptions History</p>
+                                <p className="text-green-600 text-sm"> <span className="text-gray-400">Sort By</span> Week </p>
+                            </div>
+                            <div className="h-auto bg-white-300-mobicure mt-4 rounded-md p-4 flex justify-between">
+                                <div>
+                                    <span className="text-blue-600 text-sm">Subscription Type</span>
+                                </div>
+                                <div>
+                                    <span className="text-blue-600 text-sm">Subscription Amount</span>
+                                </div>
+                                <div>
+                                    <span className="text-blue-600 text-sm">Subscription Left</span>
+                                </div>
+                                <div>
+                                    <span className="text-blue-600 text-sm">Purchase Date</span>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                  : <div>Loading...</div>
 
-                <div className="mt-16 w-11/12">
-                    <p className="text-black text-sm"> Sessions History</p>
-                    <div className="h-auto bg-white-300-mobicure mt-4 rounded-md p-4 flex justify-between">
-                        <div>
-                            <span className="text-blue-600 text-sm">Username</span>
-                        </div>
-                        <div>
-                            <span className="text-blue-600 text-sm">Active Session</span>
-                        </div>
-                        <div>
-                            <span className="text-blue-600 text-sm">Doctor/Counsellor</span>
-                        </div>
-                        <div>
-                            <span className="text-blue-600 text-sm">Date Created</span>
-                        </div>
-                        <div>
-                            <span className="text-blue-600 text-sm">End Session</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="mt-16 w-11/12">
-                    <div className="flex justify-between">
-                        <p className="text-black text-sm"> Subscriptions History</p>
-                        <p className="text-green-600 text-sm"> <span className="text-gray-400">Sort By</span> Week </p>
-                    </div>
-                    <div className="h-auto bg-white-300-mobicure mt-4 rounded-md p-4 flex justify-between">
-                        <div>
-                            <span className="text-blue-600 text-sm">Subscription Type</span>
-                        </div>
-                        <div>
-                            <span className="text-blue-600 text-sm">Subscription Amount</span>
-                        </div>
-                        <div>
-                            <span className="text-blue-600 text-sm">Subscription Left</span>
-                        </div>
-                        <div>
-                            <span className="text-blue-600 text-sm">Purchase Date</span>
-                        </div>
+                }
 
-                    </div>
-
-                </div>
             </div>
         </Wrapper>
   )
