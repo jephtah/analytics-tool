@@ -4,7 +4,8 @@ import { authHeader } from '../_helpers'
 
 export const singleSessionService =
 {
-  getSingleSession
+  getSingleSession,
+  endSession
 }
 
 async function getSingleSession (username) {
@@ -15,5 +16,16 @@ async function getSingleSession (username) {
 
   const response = await axios(`${config.testUrl}/admin/user-sessions/${username}`, requestOptions)
   const singleSession = response.data.data
+  return singleSession
+}
+
+async function endSession (with_user, id) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { ...authHeader(), 'Content-Type': 'application/json' }
+  }
+
+  const response = await axios(`${config.testUrl}/end-session/${with_user}/${id}`, requestOptions)
+  const singleSession = response.data
   return singleSession
 }
