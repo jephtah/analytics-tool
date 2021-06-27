@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable no-tabs */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { singleSessionActions } from '../../_actions'
 import { useRouter } from 'next/router'
@@ -12,11 +12,15 @@ const userSession = () => {
 
   const singleSession = useSelector(state => state.singleSession)
 
-  const dispatch = useDispatch()
+  const { query: { username } } = router
 
+  if (username !== undefined) {
+    localStorage.setItem('username', JSON.stringify(username))
+  }
+
+  const dispatch = useDispatch()
   useEffect(() => {
-    const { query: { username } } = router
-    dispatch(singleSessionActions.getSingleSession(username))
+    dispatch(singleSessionActions.getSingleSession(JSON.parse(localStorage.getItem('username'))))
   }, [])
 
   let session
@@ -33,8 +37,9 @@ const userSession = () => {
   const sessionsColumns = ['Username', 'Active Session', 'Doctor/Counsellor', 'Date Created', 'End Session']
   const SubscriptionColumns = ['Subscription Type', 'Subscription Amount', 'Subscription Left', 'Purchase Date']
 
-  const handleChange = (with_user, id) => {
-    dispatch(singleSessionActions.endSession(with_user, id))
+  const handleChange = (row) => {
+    dispatch(singleSessionActions.endSession(row.with_user, row.with_user.id))
+    dispatch(singleSessionActions.getSingleSession(row.with_user.username))
   }
 
   return (
@@ -53,8 +58,8 @@ const userSession = () => {
                         <div className="flex mt-10">
                             <div className="w-56 h-32 bg-white-300-mobicure rounded-md p-4">
                                 <p className="text-blue-600">Sessions</p>
-                                <p className="mt-3 text-xs"><span className="text-black">Active Sessions:</span>{activeSessions || 'unavailable' }</p>
-                                <p className="mt-3 text-xs"><span className="text-black">Chat Sessions:</span> {chatSessions || 'unavailable' }</p>
+                                <p className="mt-3 text-xs"><span className="text-black pl-2">Active Sessions:</span>{activeSessions || 'unavailable' }</p>
+                                <p className="mt-3 text-xs"><span className="text-black pl-2">Chat Sessions:</span> {chatSessions || 'unavailable' }</p>
                             </div>
                             <div className="w-72 h-32 bg-white-300-mobicure rounded-md ml-12 p-4">
                                 <p className="text-blue-600">Subscription</p>
@@ -92,7 +97,7 @@ const userSession = () => {
 												<td className='px-0 py-4 align-middle text-center transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{row.with_user.membership_type}</td>
 												<td className='px-0 py-4 align-middle text-center transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{new Date(row.with_user.created_at).toLocaleDateString('en-US')}</td>
 												{row.session_state !== 'inactive'
-												  ? (<td className='px-0 py-4 align-middle text-center pr-4 transition ease-out delay-300 border-t-2 border-solid border-gray-300'> <Switch onChange = {() => handleChange(row.with_user, row.with_user.id)} /> </td>)
+												  ? (<td className='px-0 py-4 align-middle text-center pr-4 transition ease-out delay-300 border-t-2 border-solid border-gray-300'> <Switch onChange = {() => handleChange(row)} /> </td>)
 												  : (<td className='px-0 py-4 align-middle text-center pr-4 transition ease-out delay-300 border-t-2 border-solid border-gray-300'><Switch disabled checked/></td>)
 												}
 											</tr>
