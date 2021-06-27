@@ -149,7 +149,7 @@ const index = _props => {
                             return (
                                     <div key={key} className="flex-1 bg-white rounded-2xl  px-6 mt-4 mt-10">
                                         <div>
-                                            <span className="text-xs ml-9 "> {new Date(post.created_at).toLocaleString()}</span>
+                                            <span className="text-xs ml-9 "> {new Date(post.created_at).toDateString()}</span>
                                         </div>
                                         <div className="flex align-center h-full w-full pb-1 mt-1">
                                             <Checkbox checked={post.slug === currentPost?.slug} onChange={() => setCurrentPost(p => p === post ? null : post)} />

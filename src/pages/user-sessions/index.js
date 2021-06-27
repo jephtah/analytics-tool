@@ -137,7 +137,7 @@ const userSession = () => {
 												<td className='px-0 py-4 align-middle text-center transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{row.subscriptiontype}</td>
 												<td className='px-0 py-4 align-middle text-center transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{row.subscriptionAmount}</td>
 												<td className='px-0 py-4 align-middle text-center transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{row.subscriptionLeft}</td>
-												<td className='px-0 py-4 align-middle text-center transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{new Date(row.with_user.created_at).toLocaleDateString('en-US')}</td>
+												<td className='px-0 py-4 align-middle text-center transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{new Date(row.with_user.created_at).toDateString('en-US')}</td>
 												<td className='px-0 py-4 align-middle text-center pr-4 transition ease-out delay-300 border-t-2 border-solid border-gray-300'>{row.purchaseDate}</td>
 											</tr>
 										))

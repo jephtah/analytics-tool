@@ -118,7 +118,7 @@ function users () {
                             </div>
                             <div className="flex flex-col mt-5">
                                 <span className="text-black ">{user.username}</span>
-                                <span className="text-xs mt-2 text-gray-400">Joined: {new Date(user.created_at).toLocaleString()}</span>
+                                <span className="text-xs mt-2 text-gray-400">Joined: {new Date(user.created_at).toDateString()}</span>
                             </div>
                         </div>
                         <div className="text-xs flex mt-5">

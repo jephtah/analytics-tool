@@ -169,7 +169,7 @@ function accounts () {
                                 </div>
                                 <div className="flex flex-col mt-5">
                                     <span className="text-black ">{account.username}</span>
-                                    <span className="text-xs mt-2 text-gray-700">Joined: {account.created_at.split('T')[0]}</span>
+                                    <span className="text-xs mt-2 text-gray-700">Joined: {new Date(account.created_at).toDateString()}</span>
                                 </div>
                             </div>
                             <div className="text-xs flex mt-5">
